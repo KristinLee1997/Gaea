@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aries.user.gaea.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.aries.user.gaea.model.User" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="biz_type" property="bizType" jdbcType="INTEGER" />
+    <result column="bizid" property="bizid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, account, phone_number, email, password, salt, wechat, qq, biz_type, bizid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aries.user.gaea.model.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aries.user.gaea.model.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aries.user.gaea.model.User" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user (account, phone_number, email, 
+      password, salt, wechat, 
+      qq, biz_type, bizid)
+    values (#{account,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{bizType,jdbcType=INTEGER}, #{bizid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aries.user.gaea.model.User" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="phoneNumber != null" >
+        phone_number,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="bizType != null" >
+        biz_type,
+      </if>
+      <if test="bizid != null" >
+        bizid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="bizType != null" >
+        #{bizType,jdbcType=INTEGER},
+      </if>
+      <if test="bizid != null" >
+        #{bizid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aries.user.gaea.model.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.account != null" >
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneNumber != null" >
+        phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechat != null" >
+        wechat = #{record.wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bizType != null" >
+        biz_type = #{record.bizType,jdbcType=INTEGER},
+      </if>
+      <if test="record.bizid != null" >
+        bizid = #{record.bizid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set id = #{record.id,jdbcType=BIGINT},
+      account = #{record.account,jdbcType=VARCHAR},
+      phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      wechat = #{record.wechat,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      biz_type = #{record.bizType,jdbcType=INTEGER},
+      bizid = #{record.bizid,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aries.user.gaea.model.User" >
+    update user
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="bizType != null" >
+        biz_type = #{bizType,jdbcType=INTEGER},
+      </if>
+      <if test="bizid != null" >
+        bizid = #{bizid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aries.user.gaea.model.User" >
+    update user
+    set account = #{account,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      biz_type = #{bizType,jdbcType=INTEGER},
+      bizid = #{bizid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

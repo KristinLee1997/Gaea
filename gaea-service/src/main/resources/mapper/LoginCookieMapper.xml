@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aries.user.gaea.mapper.LoginCookieMapper" >
+  <resultMap id="BaseResultMap" type="com.aries.user.gaea.model.LoginCookie" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="loginid" property="loginid" jdbcType="VARCHAR" />
+    <result column="cookie" property="cookie" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, loginid, cookie, add_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aries.user.gaea.model.LoginCookieExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from login_cookie
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from login_cookie
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from login_cookie
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aries.user.gaea.model.LoginCookieExample" >
+    delete from login_cookie
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aries.user.gaea.model.LoginCookie" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into login_cookie (loginid, cookie, add_time
+      )
+    values (#{loginid,jdbcType=VARCHAR}, #{cookie,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aries.user.gaea.model.LoginCookie" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into login_cookie
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loginid != null" >
+        loginid,
+      </if>
+      <if test="cookie != null" >
+        cookie,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loginid != null" >
+        #{loginid,jdbcType=VARCHAR},
+      </if>
+      <if test="cookie != null" >
+        #{cookie,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aries.user.gaea.model.LoginCookieExample" resultType="java.lang.Integer" >
+    select count(*) from login_cookie
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update login_cookie
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.loginid != null" >
+        loginid = #{record.loginid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cookie != null" >
+        cookie = #{record.cookie,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update login_cookie
+    set id = #{record.id,jdbcType=BIGINT},
+      loginid = #{record.loginid,jdbcType=VARCHAR},
+      cookie = #{record.cookie,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aries.user.gaea.model.LoginCookie" >
+    update login_cookie
+    <set >
+      <if test="loginid != null" >
+        loginid = #{loginid,jdbcType=VARCHAR},
+      </if>
+      <if test="cookie != null" >
+        cookie = #{cookie,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aries.user.gaea.model.LoginCookie" >
+    update login_cookie
+    set loginid = #{loginid,jdbcType=VARCHAR},
+      cookie = #{cookie,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

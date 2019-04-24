@@ -14,8 +14,8 @@
         </commentGenerator>
 
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="${spring.datasource.driver-class-name}" connectionURL="${spring.datasource.url}"
-                        userId="${spring.datasource.username}" password="${spring.datasource.password}">
+        <jdbcConnection driverClass="${datasource.driver-class-name}" connectionURL="${datasource.orion.url}"
+                        userId="${datasource.username}" password="${datasource.password}">
             <property name="nullCatalogMeansCurrent" value="true"/>
             <!--添加nullCatalogMeansCurrent代表只生成当前数据库中的表，不会生成其他数据库中的同名表-->
         </jdbcConnection>
@@ -41,7 +41,7 @@
         </javaClientGenerator>
 
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="hello" domainObjectName="Hello" enableCountByExample="true" enableUpdateByExample="true"
+        <table tableName="login_cookie" domainObjectName="LoginCookie" enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
