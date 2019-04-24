@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <properties resource="conf.properties"/>
     <typeAliases>
         <typeAlias alias="Integer" type="java.lang.Integer"/>
         <typeAlias alias="Long" type="java.lang.Long"/>
@@ -8,28 +9,24 @@
         <typeAlias alias="LinkedHashMap" type="java.util.LinkedHashMap"/>
         <typeAlias alias="ArrayList" type="java.util.ArrayList"/>
         <typeAlias alias="LinkedList" type="java.util.LinkedList"/>
-        <typeAlias alias="Hello" type="com.aries.user.gaea.model.Hello" />
-        <typeAlias alias="HelloExample" type="com.aries.user.gaea.model.HelloExample" />
+        <typeAlias alias="Hello" type="com.aries.user.gaea.model.Hello"/>
+        <typeAlias alias="HelloExample" type="com.aries.user.gaea.model.HelloExample"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
             <!-- 配置数据库连接信息 -->
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://114.115.132.189:5505/usercenter"/>
-                <property name="username" value="root"/>
-                <property name="password" value="1qaz2wsx"/>
+                <property name="driver" value="${datasource.driver-class-name}"/>
+                <property name="url" value="${datasource.url}"/>
+                <property name="username" value="${datasource.username}"/>
+                <property name="password" value="${datasource.password}"/>
             </dataSource>
         </environment>
     </environments>
 
     <mappers>
-        <!-- 注册userMapper.xml文件，
-        userMapper.xml位于me.gacl.mapping这个包下，所以resource写成me/gacl/mapping/userMapper.xml-->
-        <mapper resource="mapper/HelloMapper.xml"/>
-        <!-- 注册UserMapper映射接口-->
-<!--        <mapper class="com.aries.user.gaea.mapper.HelloMapper"/>-->
+        <package name="com.aries.user.gaea.mapper"/>
     </mappers>
 
 </configuration>
