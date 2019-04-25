@@ -714,63 +714,63 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andBizidIsNull() {
-            addCriterion("bizid is null");
+        public Criteria andBizIdIsNull() {
+            addCriterion("biz_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andBizidIsNotNull() {
-            addCriterion("bizid is not null");
+        public Criteria andBizIdIsNotNull() {
+            addCriterion("biz_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBizidEqualTo(Long value) {
-            addCriterion("bizid =", value, "bizid");
+        public Criteria andBizIdEqualTo(Long value) {
+            addCriterion("biz_id =", value, "bizId");
             return (Criteria) this;
         }
 
-        public Criteria andBizidNotEqualTo(Long value) {
-            addCriterion("bizid <>", value, "bizid");
+        public Criteria andBizIdNotEqualTo(Long value) {
+            addCriterion("biz_id <>", value, "bizId");
             return (Criteria) this;
         }
 
-        public Criteria andBizidGreaterThan(Long value) {
-            addCriterion("bizid >", value, "bizid");
+        public Criteria andBizIdGreaterThan(Long value) {
+            addCriterion("biz_id >", value, "bizId");
             return (Criteria) this;
         }
 
-        public Criteria andBizidGreaterThanOrEqualTo(Long value) {
-            addCriterion("bizid >=", value, "bizid");
+        public Criteria andBizIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("biz_id >=", value, "bizId");
             return (Criteria) this;
         }
 
-        public Criteria andBizidLessThan(Long value) {
-            addCriterion("bizid <", value, "bizid");
+        public Criteria andBizIdLessThan(Long value) {
+            addCriterion("biz_id <", value, "bizId");
             return (Criteria) this;
         }
 
-        public Criteria andBizidLessThanOrEqualTo(Long value) {
-            addCriterion("bizid <=", value, "bizid");
+        public Criteria andBizIdLessThanOrEqualTo(Long value) {
+            addCriterion("biz_id <=", value, "bizId");
             return (Criteria) this;
         }
 
-        public Criteria andBizidIn(List<Long> values) {
-            addCriterion("bizid in", values, "bizid");
+        public Criteria andBizIdIn(List<Long> values) {
+            addCriterion("biz_id in", values, "bizId");
             return (Criteria) this;
         }
 
-        public Criteria andBizidNotIn(List<Long> values) {
-            addCriterion("bizid not in", values, "bizid");
+        public Criteria andBizIdNotIn(List<Long> values) {
+            addCriterion("biz_id not in", values, "bizId");
             return (Criteria) this;
         }
 
-        public Criteria andBizidBetween(Long value1, Long value2) {
-            addCriterion("bizid between", value1, value2, "bizid");
+        public Criteria andBizIdBetween(Long value1, Long value2) {
+            addCriterion("biz_id between", value1, value2, "bizId");
             return (Criteria) this;
         }
 
-        public Criteria andBizidNotBetween(Long value1, Long value2) {
-            addCriterion("bizid not between", value1, value2, "bizid");
+        public Criteria andBizIdNotBetween(Long value1, Long value2) {
+            addCriterion("biz_id not between", value1, value2, "bizId");
             return (Criteria) this;
         }
     }

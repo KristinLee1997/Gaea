@@ -30,12 +30,21 @@ public class CompanyServiceImpl implements CompanyService {
                 setRegisterno(new String(Base64.encodeBase64((companyName + password).getBytes(), true)));
                 setAddTime(new Date());
             }};
+            mapper.insert(insertCompany);
             return insertCompany.getRegisterno();
         }
     }
 
     @Override
     public String getRegisterNo(String companyName, String password) {
+        try (SqlSession sqlSession = usercenterSqlSession.openSession(true)) {
+            CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
+
+            Company existCompany = mapper.selectByName(companyName);
+            if (existCompany != null && existCompany.getRegisterno() != null) {
+                return existCompany.getRegisterno();
+            }
+        }
         return null;
     }
 }

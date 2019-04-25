@@ -1,11 +1,14 @@
-package com.aries.user;
+package com.aries.user.service;
 
 import com.aries.user.gaea.service.impl.CompanyServiceImpl;
+import com.aries.user.gaea.utils.UUIDUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 
+import java.util.UUID;
 
-public class CompanyTest {
+
+public class CompanyServiceTest {
     @Test
     public void registerTest() {
         final String registerno = new CompanyServiceImpl().register("aries", "123123");
@@ -19,5 +22,10 @@ public class CompanyTest {
         System.out.println("加密：" + before);
         String after = new String(Base64.decodeBase64(before));
         System.out.println("解密：" + after);
+    }
+
+    @Test
+    public void test() {
+        System.out.println(UUIDUtils.getUUID());
     }
 }

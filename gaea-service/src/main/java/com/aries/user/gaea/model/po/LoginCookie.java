@@ -5,11 +5,13 @@ import java.util.Date;
 public class LoginCookie {
     private Long id;
 
-    private String loginid;
+    private String loginId;
 
     private String cookie;
 
     private Date addTime;
+
+    private Integer loginType;
 
     public Long getId() {
         return id;
@@ -19,12 +21,12 @@ public class LoginCookie {
         this.id = id;
     }
 
-    public String getLoginid() {
-        return loginid;
+    public String getLoginId() {
+        return loginId;
     }
 
-    public void setLoginid(String loginid) {
-        this.loginid = loginid == null ? null : loginid.trim();
+    public void setLoginId(String loginId) {
+        this.loginId = loginId == null ? null : loginId.trim();
     }
 
     public String getCookie() {
@@ -41,5 +43,13 @@ public class LoginCookie {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
+    }
+
+    public Integer getLoginType() {
+        return loginType;
+    }
+
+    public void setLoginType(Integer loginType) {
+        this.loginType = loginType;
     }
 }

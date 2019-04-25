@@ -19,7 +19,7 @@ public class User {
 
     private Integer bizType;
 
-    private Long bizid;
+    private Long bizId;
 
     public Long getId() {
         return id;
@@ -93,11 +93,11 @@ public class User {
         this.bizType = bizType;
     }
 
-    public Long getBizid() {
-        return bizid;
+    public Long getBizId() {
+        return bizId;
     }
 
-    public void setBizid(Long bizid) {
-        this.bizid = bizid;
+    public void setBizId(Long bizId) {
+        this.bizId = bizId;
     }
 }

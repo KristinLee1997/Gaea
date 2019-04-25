@@ -1,6 +1,5 @@
 package com.aries.user;
 
-import com.aries.user.gaea.constants.SysConstants;
 import com.aries.user.gaea.factory.MySqlSessionFactory;
 import com.aries.user.gaea.mapper.CompanyMapper;
 import com.aries.user.gaea.mapper.UserMapper;

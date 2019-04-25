@@ -165,73 +165,73 @@ public class LoginCookieExample {
             return (Criteria) this;
         }
 
-        public Criteria andLoginidIsNull() {
-            addCriterion("loginid is null");
+        public Criteria andLoginIdIsNull() {
+            addCriterion("login_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidIsNotNull() {
-            addCriterion("loginid is not null");
+        public Criteria andLoginIdIsNotNull() {
+            addCriterion("login_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidEqualTo(String value) {
-            addCriterion("loginid =", value, "loginid");
+        public Criteria andLoginIdEqualTo(String value) {
+            addCriterion("login_id =", value, "loginId");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidNotEqualTo(String value) {
-            addCriterion("loginid <>", value, "loginid");
+        public Criteria andLoginIdNotEqualTo(String value) {
+            addCriterion("login_id <>", value, "loginId");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidGreaterThan(String value) {
-            addCriterion("loginid >", value, "loginid");
+        public Criteria andLoginIdGreaterThan(String value) {
+            addCriterion("login_id >", value, "loginId");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidGreaterThanOrEqualTo(String value) {
-            addCriterion("loginid >=", value, "loginid");
+        public Criteria andLoginIdGreaterThanOrEqualTo(String value) {
+            addCriterion("login_id >=", value, "loginId");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidLessThan(String value) {
-            addCriterion("loginid <", value, "loginid");
+        public Criteria andLoginIdLessThan(String value) {
+            addCriterion("login_id <", value, "loginId");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidLessThanOrEqualTo(String value) {
-            addCriterion("loginid <=", value, "loginid");
+        public Criteria andLoginIdLessThanOrEqualTo(String value) {
+            addCriterion("login_id <=", value, "loginId");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidLike(String value) {
-            addCriterion("loginid like", value, "loginid");
+        public Criteria andLoginIdLike(String value) {
+            addCriterion("login_id like", value, "loginId");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidNotLike(String value) {
-            addCriterion("loginid not like", value, "loginid");
+        public Criteria andLoginIdNotLike(String value) {
+            addCriterion("login_id not like", value, "loginId");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidIn(List<String> values) {
-            addCriterion("loginid in", values, "loginid");
+        public Criteria andLoginIdIn(List<String> values) {
+            addCriterion("login_id in", values, "loginId");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidNotIn(List<String> values) {
-            addCriterion("loginid not in", values, "loginid");
+        public Criteria andLoginIdNotIn(List<String> values) {
+            addCriterion("login_id not in", values, "loginId");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidBetween(String value1, String value2) {
-            addCriterion("loginid between", value1, value2, "loginid");
+        public Criteria andLoginIdBetween(String value1, String value2) {
+            addCriterion("login_id between", value1, value2, "loginId");
             return (Criteria) this;
         }
 
-        public Criteria andLoginidNotBetween(String value1, String value2) {
-            addCriterion("loginid not between", value1, value2, "loginid");
+        public Criteria andLoginIdNotBetween(String value1, String value2) {
+            addCriterion("login_id not between", value1, value2, "loginId");
             return (Criteria) this;
         }
 
@@ -362,6 +362,66 @@ public class LoginCookieExample {
 
         public Criteria andAddTimeNotBetween(Date value1, Date value2) {
             addCriterion("add_time not between", value1, value2, "addTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeIsNull() {
+            addCriterion("login_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeIsNotNull() {
+            addCriterion("login_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeEqualTo(Integer value) {
+            addCriterion("login_type =", value, "loginType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeNotEqualTo(Integer value) {
+            addCriterion("login_type <>", value, "loginType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeGreaterThan(Integer value) {
+            addCriterion("login_type >", value, "loginType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("login_type >=", value, "loginType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeLessThan(Integer value) {
+            addCriterion("login_type <", value, "loginType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("login_type <=", value, "loginType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeIn(List<Integer> values) {
+            addCriterion("login_type in", values, "loginType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeNotIn(List<Integer> values) {
+            addCriterion("login_type not in", values, "loginType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeBetween(Integer value1, Integer value2) {
+            addCriterion("login_type between", value1, value2, "loginType");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("login_type not between", value1, value2, "loginType");
             return (Criteria) this;
         }
     }

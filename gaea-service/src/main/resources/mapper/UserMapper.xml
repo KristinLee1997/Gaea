@@ -11,7 +11,7 @@
     <result column="wechat" property="wechat" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
     <result column="biz_type" property="bizType" jdbcType="INTEGER" />
-    <result column="bizid" property="bizid" jdbcType="BIGINT" />
+    <result column="biz_id" property="bizId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, account, phone_number, email, password, salt, wechat, qq, biz_type, bizid
+    id, account, phone_number, email, password, salt, wechat, qq, biz_type, biz_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aries.user.gaea.model.po.UserExample" >
     select
@@ -111,10 +111,10 @@
     </selectKey>
     insert into user (account, phone_number, email, 
       password, salt, wechat, 
-      qq, biz_type, bizid)
+      qq, biz_type, biz_id)
     values (#{account,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
-      #{qq,jdbcType=VARCHAR}, #{bizType,jdbcType=INTEGER}, #{bizid,jdbcType=BIGINT})
+      #{qq,jdbcType=VARCHAR}, #{bizType,jdbcType=INTEGER}, #{bizId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.aries.user.gaea.model.po.User" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -146,8 +146,8 @@
       <if test="bizType != null" >
         biz_type,
       </if>
-      <if test="bizid != null" >
-        bizid,
+      <if test="bizId != null" >
+        biz_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -175,8 +175,8 @@
       <if test="bizType != null" >
         #{bizType,jdbcType=INTEGER},
       </if>
-      <if test="bizid != null" >
-        #{bizid,jdbcType=BIGINT},
+      <if test="bizId != null" >
+        #{bizId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -216,8 +216,8 @@
       <if test="record.bizType != null" >
         biz_type = #{record.bizType,jdbcType=INTEGER},
       </if>
-      <if test="record.bizid != null" >
-        bizid = #{record.bizid,jdbcType=BIGINT},
+      <if test="record.bizId != null" >
+        biz_id = #{record.bizId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -235,7 +235,7 @@
       wechat = #{record.wechat,jdbcType=VARCHAR},
       qq = #{record.qq,jdbcType=VARCHAR},
       biz_type = #{record.bizType,jdbcType=INTEGER},
-      bizid = #{record.bizid,jdbcType=BIGINT}
+      biz_id = #{record.bizId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -267,8 +267,8 @@
       <if test="bizType != null" >
         biz_type = #{bizType,jdbcType=INTEGER},
       </if>
-      <if test="bizid != null" >
-        bizid = #{bizid,jdbcType=BIGINT},
+      <if test="bizId != null" >
+        biz_id = #{bizId,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -283,7 +283,7 @@
       wechat = #{wechat,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
       biz_type = #{bizType,jdbcType=INTEGER},
-      bizid = #{bizid,jdbcType=BIGINT}
+      biz_id = #{bizId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
