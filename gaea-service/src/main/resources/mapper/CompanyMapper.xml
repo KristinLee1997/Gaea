@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.aries.user.gaea.mapper.CompanyMapper" >
-  <resultMap id="BaseResultMap" type="com.aries.user.gaea.model.Company" >
+  <resultMap id="BaseResultMap" type="com.aries.user.gaea.model.po.Company" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="registerno" property="registerno" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,9 +67,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, add_time
+    id, name, add_time, password, registerno
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aries.user.gaea.model.CompanyExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aries.user.gaea.model.po.CompanyExample" >
     select
     <if test="distinct" >
       distinct
@@ -82,6 +84,12 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from company
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
@@ -92,20 +100,22 @@
     delete from company
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.aries.user.gaea.model.CompanyExample" >
+  <delete id="deleteByExample" parameterType="com.aries.user.gaea.model.po.CompanyExample" >
     delete from company
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.aries.user.gaea.model.Company" >
+  <insert id="insert" parameterType="com.aries.user.gaea.model.po.Company" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into company (name, add_time)
-    values (#{name,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP})
+    insert into company (name, add_time, password, 
+      registerno)
+    values (#{name,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR}, 
+      #{registerno,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.aries.user.gaea.model.Company" >
+  <insert id="insertSelective" parameterType="com.aries.user.gaea.model.po.Company" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -117,6 +127,12 @@
       <if test="addTime != null" >
         add_time,
       </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="registerno != null" >
+        registerno,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="name != null" >
@@ -125,9 +141,15 @@
       <if test="addTime != null" >
         #{addTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="registerno != null" >
+        #{registerno,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.aries.user.gaea.model.CompanyExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.aries.user.gaea.model.po.CompanyExample" resultType="java.lang.Integer" >
     select count(*) from company
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -145,6 +167,12 @@
       <if test="record.addTime != null" >
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerno != null" >
+        registerno = #{record.registerno,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -154,12 +182,14 @@
     update company
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      password = #{record.password,jdbcType=VARCHAR},
+      registerno = #{record.registerno,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aries.user.gaea.model.Company" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.aries.user.gaea.model.po.Company" >
     update company
     <set >
       <if test="name != null" >
@@ -168,13 +198,21 @@
       <if test="addTime != null" >
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="registerno != null" >
+        registerno = #{registerno,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.aries.user.gaea.model.Company" >
+  <update id="updateByPrimaryKey" parameterType="com.aries.user.gaea.model.po.Company" >
     update company
     set name = #{name,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=TIMESTAMP}
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      password = #{password,jdbcType=VARCHAR},
+      registerno = #{registerno,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

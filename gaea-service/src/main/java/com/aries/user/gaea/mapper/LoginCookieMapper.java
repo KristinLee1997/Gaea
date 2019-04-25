@@ -1,7 +1,7 @@
 package com.aries.user.gaea.mapper;
 
-import com.aries.user.gaea.model.LoginCookie;
-import com.aries.user.gaea.model.LoginCookieExample;
+import com.aries.user.gaea.model.po.LoginCookie;
+import com.aries.user.gaea.model.po.LoginCookieExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

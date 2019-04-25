@@ -1,5 +1,6 @@
 package com.aries.user;
 
+import com.aries.user.gaea.constants.SysConstants;
 import com.aries.user.gaea.factory.MySqlSessionFactory;
 import com.aries.user.gaea.mapper.CompanyMapper;
 import com.aries.user.gaea.mapper.UserMapper;
@@ -16,13 +17,13 @@ public class AppTest {
 
         try (SqlSession sqlSession = newSqlSessionFactory.openSession(true)) {
             CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
-            System.out.println(mapper.selectByPrimaryKey(5L).getName());
+            System.out.println(mapper.selectByPrimaryKey(1L).getName());
         }
     }
 
     @Test
     public void OrionTest() throws IOException {
-        SqlSessionFactory newSqlSessionFactory = MySqlSessionFactory.getSQLSessionFactory("orion");
+        SqlSessionFactory newSqlSessionFactory = MySqlSessionFactory.getSQLSessionFactory("aries");
 
         try (SqlSession sqlSession = newSqlSessionFactory.openSession(true)) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);

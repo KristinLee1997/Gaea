@@ -1,17 +1,17 @@
-package com.aries.user.gaea.model;
+package com.aries.user.gaea.model.po;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CompanyExample {
+public class LoginCookieExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public CompanyExample() {
+    public LoginCookieExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,73 +165,143 @@ public class CompanyExample {
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNull() {
-            addCriterion("name is null");
+        public Criteria andLoginidIsNull() {
+            addCriterion("loginid is null");
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNotNull() {
-            addCriterion("name is not null");
+        public Criteria andLoginidIsNotNull() {
+            addCriterion("loginid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNameEqualTo(String value) {
-            addCriterion("name =", value, "name");
+        public Criteria andLoginidEqualTo(String value) {
+            addCriterion("loginid =", value, "loginid");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotEqualTo(String value) {
-            addCriterion("name <>", value, "name");
+        public Criteria andLoginidNotEqualTo(String value) {
+            addCriterion("loginid <>", value, "loginid");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThan(String value) {
-            addCriterion("name >", value, "name");
+        public Criteria andLoginidGreaterThan(String value) {
+            addCriterion("loginid >", value, "loginid");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("name >=", value, "name");
+        public Criteria andLoginidGreaterThanOrEqualTo(String value) {
+            addCriterion("loginid >=", value, "loginid");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThan(String value) {
-            addCriterion("name <", value, "name");
+        public Criteria andLoginidLessThan(String value) {
+            addCriterion("loginid <", value, "loginid");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("name <=", value, "name");
+        public Criteria andLoginidLessThanOrEqualTo(String value) {
+            addCriterion("loginid <=", value, "loginid");
             return (Criteria) this;
         }
 
-        public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+        public Criteria andLoginidLike(String value) {
+            addCriterion("loginid like", value, "loginid");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+        public Criteria andLoginidNotLike(String value) {
+            addCriterion("loginid not like", value, "loginid");
             return (Criteria) this;
         }
 
-        public Criteria andNameIn(List<String> values) {
-            addCriterion("name in", values, "name");
+        public Criteria andLoginidIn(List<String> values) {
+            addCriterion("loginid in", values, "loginid");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotIn(List<String> values) {
-            addCriterion("name not in", values, "name");
+        public Criteria andLoginidNotIn(List<String> values) {
+            addCriterion("loginid not in", values, "loginid");
             return (Criteria) this;
         }
 
-        public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("name between", value1, value2, "name");
+        public Criteria andLoginidBetween(String value1, String value2) {
+            addCriterion("loginid between", value1, value2, "loginid");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("name not between", value1, value2, "name");
+        public Criteria andLoginidNotBetween(String value1, String value2) {
+            addCriterion("loginid not between", value1, value2, "loginid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieIsNull() {
+            addCriterion("cookie is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieIsNotNull() {
+            addCriterion("cookie is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieEqualTo(String value) {
+            addCriterion("cookie =", value, "cookie");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieNotEqualTo(String value) {
+            addCriterion("cookie <>", value, "cookie");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieGreaterThan(String value) {
+            addCriterion("cookie >", value, "cookie");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieGreaterThanOrEqualTo(String value) {
+            addCriterion("cookie >=", value, "cookie");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieLessThan(String value) {
+            addCriterion("cookie <", value, "cookie");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieLessThanOrEqualTo(String value) {
+            addCriterion("cookie <=", value, "cookie");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieLike(String value) {
+            addCriterion("cookie like", value, "cookie");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieNotLike(String value) {
+            addCriterion("cookie not like", value, "cookie");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieIn(List<String> values) {
+            addCriterion("cookie in", values, "cookie");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieNotIn(List<String> values) {
+            addCriterion("cookie not in", values, "cookie");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieBetween(String value1, String value2) {
+            addCriterion("cookie between", value1, value2, "cookie");
+            return (Criteria) this;
+        }
+
+        public Criteria andCookieNotBetween(String value1, String value2) {
+            addCriterion("cookie not between", value1, value2, "cookie");
             return (Criteria) this;
         }
 

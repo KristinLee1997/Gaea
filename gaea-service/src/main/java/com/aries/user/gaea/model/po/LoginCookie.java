@@ -1,4 +1,4 @@
-package com.aries.user.gaea.model;
+package com.aries.user.gaea.model.po;
 
 import java.util.Date;
 

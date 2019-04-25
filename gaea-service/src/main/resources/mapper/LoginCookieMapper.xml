@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.aries.user.gaea.mapper.LoginCookieMapper" >
-  <resultMap id="BaseResultMap" type="com.aries.user.gaea.model.LoginCookie" >
+  <resultMap id="BaseResultMap" type="com.aries.user.gaea.model.po.LoginCookie" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="loginid" property="loginid" jdbcType="VARCHAR" />
     <result column="cookie" property="cookie" jdbcType="VARCHAR" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List" >
     id, loginid, cookie, add_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aries.user.gaea.model.LoginCookieExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aries.user.gaea.model.po.LoginCookieExample" >
     select
     <if test="distinct" >
       distinct
@@ -93,13 +93,13 @@
     delete from login_cookie
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.aries.user.gaea.model.LoginCookieExample" >
+  <delete id="deleteByExample" parameterType="com.aries.user.gaea.model.po.LoginCookieExample" >
     delete from login_cookie
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.aries.user.gaea.model.LoginCookie" >
+  <insert id="insert" parameterType="com.aries.user.gaea.model.po.LoginCookie" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -108,7 +108,7 @@
     values (#{loginid,jdbcType=VARCHAR}, #{cookie,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.aries.user.gaea.model.LoginCookie" >
+  <insert id="insertSelective" parameterType="com.aries.user.gaea.model.po.LoginCookie" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -136,7 +136,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.aries.user.gaea.model.LoginCookieExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.aries.user.gaea.model.po.LoginCookieExample" resultType="java.lang.Integer" >
     select count(*) from login_cookie
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -172,7 +172,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.aries.user.gaea.model.LoginCookie" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.aries.user.gaea.model.po.LoginCookie" >
     update login_cookie
     <set >
       <if test="loginid != null" >
@@ -187,7 +187,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.aries.user.gaea.model.LoginCookie" >
+  <update id="updateByPrimaryKey" parameterType="com.aries.user.gaea.model.po.LoginCookie" >
     update login_cookie
     set loginid = #{loginid,jdbcType=VARCHAR},
       cookie = #{cookie,jdbcType=VARCHAR},

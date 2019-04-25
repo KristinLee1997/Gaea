@@ -1,4 +1,4 @@
-package com.aries.user.gaea.model;
+package com.aries.user.gaea.model.po;
 
 import java.util.Date;
 
@@ -8,6 +8,10 @@ public class Company {
     private String name;
 
     private Date addTime;
+
+    private String password;
+
+    private String registerno;
 
     public Long getId() {
         return id;
@@ -31,5 +35,21 @@ public class Company {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
+
+    public String getRegisterno() {
+        return registerno;
+    }
+
+    public void setRegisterno(String registerno) {
+        this.registerno = registerno == null ? null : registerno.trim();
     }
 }

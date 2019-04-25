@@ -1,7 +1,7 @@
 package com.aries.user.gaea.mapper;
 
-import com.aries.user.gaea.model.User;
-import com.aries.user.gaea.model.UserExample;
+import com.aries.user.gaea.model.po.User;
+import com.aries.user.gaea.model.po.UserExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

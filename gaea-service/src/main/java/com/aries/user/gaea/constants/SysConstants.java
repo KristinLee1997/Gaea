@@ -6,6 +6,4 @@ public class SysConstants {
 
     // 数据库名称
     public static final String DATABASE_USERCENTER = "usercenter";
-
-
 }
