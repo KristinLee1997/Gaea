@@ -51,19 +51,4 @@ public class CompanyBaseServiceTest {
             e.printStackTrace();
         }
     }
-
-    @Test
-    public void test() {
-        SqlSessionFactory usercenter = MySqlSessionFactory.getSQLSessionFactory("usercenter");
-        try (SqlSession sqlSession = usercenter.openSession(true)) {
-            CompanyMapper mapper = sqlSession.getMapper(CompanyMapper.class);
-
-            Company company = mapper.selectByPrimaryKey(1L);
-            if (company != null) {
-                System.out.println(company.getName());
-                System.out.println(company.getRegisterno());
-            }
-            System.out.println();
-        }
-    }
 }

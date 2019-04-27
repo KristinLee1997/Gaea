@@ -19,4 +19,8 @@ public class SysConstants {
     public static final int EMAIL_LOGIN_TYPE = 3;
     public static final int WECHAT_LOGIN_TYPE = 4;
     public static final int QQ_LOGIN_TYPE = 5;
+
+    // 登录名前缀
+    public static final String WEIXIN_PREFIX = "weixin_";
+    public static final String QQ_PREFIX = "qq_";
 }

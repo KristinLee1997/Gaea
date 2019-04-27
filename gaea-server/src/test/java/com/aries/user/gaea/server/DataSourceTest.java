@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class AfasfTest {
+public class DataSourceTest {
     @Test
     public void UserCenterTest() throws IOException {
         SqlSessionFactory newSqlSessionFactory = MySqlSessionFactory.getSQLSessionFactory("usercenter");

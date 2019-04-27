@@ -71,7 +71,7 @@ public class UserBaseServiceTest {
     public void userLoginTest() throws TException {
         UserLoginDTO userLoginDTO = new UserLoginDTO();
         userLoginDTO.setCompanyName("aries");
-        userLoginDTO.setLoginId("weixin_glod");
+        userLoginDTO.setLoginId("glod");
         userLoginDTO.setLoginType(SysConstants.WECHAT_LOGIN_TYPE);
         UserResponse response = new UserBaseServiceImpl().userLogin(userLoginDTO);
         System.out.println(response.getCode());
@@ -84,7 +84,7 @@ public class UserBaseServiceTest {
      */
     @Test
     public void logout() throws TException {
-        UserResponse response = new UserBaseServiceImpl().userLogout("aries", "weixinkristinlee");
+        UserResponse response = new UserBaseServiceImpl().userLogout("aries", "kristinlee");
         System.out.println(response);
         if (response != null) {
             System.out.println(response.getCode());
@@ -93,12 +93,12 @@ public class UserBaseServiceTest {
 
     /**
      * 通过登录号获取用户登录方式
-     * 必填参数：
-     * 选填参数：
+     * 必填参数：companyName,loginId
+     * 选填参数：password
      */
     @Test
     public void getLoginType() throws TException {
-        int type = new UserBaseServiceImpl().checkLoginType("aries", "weixin_glod2");
+        int type = new UserBaseServiceImpl().checkLoginType("aries", "baibai");
         System.out.println(type);
     }
 }

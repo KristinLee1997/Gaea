@@ -1,11 +1,11 @@
 package com.aries.user.gaea.server.thrift;
 
+import com.aries.user.gaea.contact.service.UserBaseService;
 import com.aries.user.gaea.server.service.UserService;
 import com.aries.user.gaea.server.service.impl.UserServiceImpl;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
 import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import com.aries.user.gaea.contact.model.UserResponse;
-import com.aries.user.gaea.contact.service.UserBaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
 
@@ -67,9 +67,13 @@ public class UserBaseServiceImpl implements UserBaseService.Iface {
         UserResponse response = new UserResponse();
         if (companyName == null || loginId == null) {
             response.setCode(400);
-            response.setMessage("公司名和");
+            response.setMessage("公司名和登录号是必填项，请检查信息后重新退出登录");
         }
-        userService.logout(companyName, loginId);
+        int res = userService.logout(companyName, loginId);
+        if (res == 0) {
+            response.setCode(500);
+            response.setMessage("退出登录失败");
+        }
         response.setCode(200);
         response.setMessage(String.format("登录号:%s,用户成功退出登录！", loginId));
         return response;

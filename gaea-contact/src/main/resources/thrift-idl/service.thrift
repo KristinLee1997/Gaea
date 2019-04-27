@@ -4,7 +4,7 @@ include "model.thrift"
 service UserBaseService{
     model.UserResponse userRegister(1:model.UserRegisterDTO userRegisterDTO);
     model.UserResponse userLogin(1:model.UserLoginDTO userLoginDTO);
-    model.UserResponse userLogout(1:string companyName, 2:string account);
+    model.UserResponse userLogout(1:string companyName, 2:string loginId);
     i32 checkLoginType(1:string companyName, 2:string loginId);
     i32 checkOnline(1:string companyName, 2:string loginId);
 }

@@ -1,10 +1,10 @@
 package com.aries.user.gaea.server.thrift;
 
+import com.aries.user.gaea.contact.service.CompanyBaseService;
 import com.aries.user.gaea.server.service.CompanyService;
 import com.aries.user.gaea.server.service.impl.CompanyServiceImpl;
 import com.aries.user.gaea.contact.model.CompanyRegisterDTO;
 import com.aries.user.gaea.contact.model.CompanyResponse;
-import com.aries.user.gaea.contact.service.CompanyBaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
 

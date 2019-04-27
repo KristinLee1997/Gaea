@@ -1,8 +1,6 @@
 package com.aries.user.gaea.server;
 
-import com.aries.user.gaea.contact.service.CompanyBaseService;
 import com.aries.user.gaea.contact.service.UserBaseService;
-import com.aries.user.gaea.server.thrift.CompanyBaseServiceImpl;
 import com.aries.user.gaea.server.thrift.UserBaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.server.TServer;

@@ -40,10 +40,10 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userRegisterDTO.getPassword());
         user.setEmail(userRegisterDTO.getEmail());
         if (userRegisterDTO.getWechat() != null) {
-            user.setWechat("weixin_" + userRegisterDTO.getWechat());
+            user.setWechat(userRegisterDTO.getWechat());
         }
         if (userRegisterDTO.getQq() != null) {
-            user.setQq("qq_" + userRegisterDTO.getQq());
+            user.setQq(userRegisterDTO.getQq());
         }
         user.setBizType(userRegisterDTO.getBizType());
         user.setBizId(userRegisterDTO.getBizId());
@@ -76,8 +76,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void logout(String companyName, String loginId) {
-        LoginCookieDao.deleteCookie(companyName, loginId);
+    public int logout(String companyName, String loginId) {
+        return LoginCookieDao.deleteCookie(companyName, loginId);
     }
 
     @Override

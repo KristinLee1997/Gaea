@@ -1,5 +1,6 @@
 package com.aries.user.gaea.server.dao;
 
+import com.aries.user.gaea.server.constants.SysConstants;
 import com.aries.user.gaea.server.factory.MySqlSessionFactory;
 import com.aries.user.gaea.server.mapper.LoginCookieMapper;
 import com.aries.user.gaea.server.model.po.LoginCookie;
@@ -30,7 +31,19 @@ public class LoginCookieDao {
         try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
             LoginCookieMapper loginCookieMapper = sqlSession.getMapper(LoginCookieMapper.class);
             LoginCookieExample example = new LoginCookieExample();
-            example.createCriteria().andLoginIdEqualTo(loginId);
+            LoginCookieExample.Criteria criteria1 = example.createCriteria();
+            criteria1.andLoginIdEqualTo(SysConstants.WEIXIN_PREFIX + loginId);
+            LoginCookieExample.Criteria criteria2 = example.createCriteria();
+            criteria2.andLoginIdEqualTo(SysConstants.QQ_PREFIX + loginId);
+            LoginCookieExample.Criteria criteria3 = example.createCriteria();
+            criteria3.andLoginIdEqualTo(loginId);
+            example.or(criteria1);
+            example.or(criteria2);
+            example.or(criteria3);
+            List<LoginCookie> loginCookies = loginCookieMapper.selectByExample(example);
+            if (loginCookies == null || loginCookies.size() == 0) {
+                return 0;
+            }
             return loginCookieMapper.deleteByExample(example);
         }
     }

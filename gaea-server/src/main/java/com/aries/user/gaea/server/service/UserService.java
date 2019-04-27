@@ -7,7 +7,7 @@ public interface UserService {
 
     int login(String companyName, String loginId, String password, int loginType);
 
-    void logout(String companyName, String loginId);
+    int logout(String companyName, String loginId);
 
     int getTypeByLoginId(String companyName, String loginId);
 
