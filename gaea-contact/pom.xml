@@ -48,7 +48,7 @@
                 <configuration>
                     <!--<thriftExecutable>/usr/local/bin/thrift-idl</thriftExecutable>-->
                     <thriftSourceRoot>${basedir}/src/main/resources/thrift-idl</thriftSourceRoot>
-                    <outputDirectory>${basedir}/target</outputDirectory>
+                    <outputDirectory>${basedir}/src/main/java</outputDirectory>
                     <generator>java</generator>
                 </configuration>
                 <executions>
