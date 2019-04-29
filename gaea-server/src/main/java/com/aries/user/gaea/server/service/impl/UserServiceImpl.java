@@ -8,12 +8,18 @@ import com.aries.user.gaea.server.model.po.User;
 import com.aries.user.gaea.server.model.po.UserExample;
 import com.aries.user.gaea.server.service.UserService;
 import com.aries.user.gaea.contact.model.UserRegisterDTO;
+import com.aries.user.gaea.server.utils.UUIDUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+@Slf4j
 public class UserServiceImpl implements UserService {
     @Override
     public Long register(String database, UserRegisterDTO userRegisterDTO) {
@@ -46,32 +52,34 @@ public class UserServiceImpl implements UserService {
             user.setQq(userRegisterDTO.getQq());
         }
         user.setBizType(userRegisterDTO.getBizType());
-        user.setBizId(userRegisterDTO.getBizId());
+        user.setNickname(userRegisterDTO.getNickname() == null ? "用户_" + UUIDUtils.getUUID() : userRegisterDTO.getNickname());
+        user.setImage(userRegisterDTO.getImage() == null ? getDefaultImage() : userRegisterDTO.getImage());
         return UserDao.register(database, user);
     }
 
     @Override
-    public int login(String database, String loginId, String password, int loginType) {
-        boolean loginResult = false;
+    public User login(String database, String loginId, String password, int loginType) {
+        User user = null;
         switch (loginType) {
             case SysConstants.WECHAT_LOGIN_TYPE: {
-                loginResult = UserDao.wechatLogin(database, loginId);
+                user = UserDao.wechatLogin(database, loginId);
                 break;
             }
             case SysConstants.QQ_LOGIN_TYPE: {
-                loginResult = UserDao.qqLogin(database, loginId);
+                user = UserDao.qqLogin(database, loginId);
                 break;
             }
             case SysConstants.LOGINID_LOGIN_TYPE: {
-                loginResult = UserDao.loginIdLogin(database, loginId, password,
+                user = UserDao.loginIdLogin(database, loginId, password,
                         getTypeByLoginId(database, loginId, loginType));
                 break;
             }
         }
-        if (!loginResult) {
-            return 0;
+        if (user == null) {
+            return null;
         }
-        return LoginCookieDao.insertCookie(database, loginId, getTypeByLoginId(database, loginId, loginType));
+        LoginCookieDao.insertCookie(database, loginId, getTypeByLoginId(database, loginId, loginType));
+        return user;
     }
 
 
@@ -120,5 +128,32 @@ public class UserServiceImpl implements UserService {
             return SysConstants.EMAIL_LOGIN_TYPE;
         }
         return 0;
+    }
+
+    public byte[] getDefaultImage() {
+        StringBuilder sb = new StringBuilder();
+        InputStream is = null;
+        try {
+            String path = System.getProperty("user.dir") + "/src/main/resources/images/default_image.jpeg";
+            is = new FileInputStream(path);
+            byte[] buffer = new byte[1024];
+            while (is.read(buffer, 0, 1024) != -1) {//-1表示读取结束
+                sb.append(new String(buffer));
+            }
+        } catch (Exception e) {
+            log.error("读取头像图片失败");
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        String str = sb.toString();
+        if (StringUtils.isBlank(sb)) {
+            return null;
+        } else {
+            return str.getBytes();
+        }
     }
 }

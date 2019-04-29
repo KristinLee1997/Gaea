@@ -1,11 +1,12 @@
 package com.aries.user.gaea.server.service;
 
 import com.aries.user.gaea.contact.model.UserRegisterDTO;
+import com.aries.user.gaea.server.model.po.User;
 
 public interface UserService {
     Long register(String database, UserRegisterDTO userRegisterDTO);
 
-    int login(String database, String loginId, String password, int loginType);
+    User login(String database, String loginId, String password, int loginType);
 
     int logout(String database, String loginId);
 

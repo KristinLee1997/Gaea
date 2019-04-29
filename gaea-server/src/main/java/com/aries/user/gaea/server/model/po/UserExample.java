@@ -164,6 +164,76 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andNicknameIsNull() {
+            addCriterion("nickname is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameIsNotNull() {
+            addCriterion("nickname is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameEqualTo(String value) {
+            addCriterion("nickname =", value, "nickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameNotEqualTo(String value) {
+            addCriterion("nickname <>", value, "nickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameGreaterThan(String value) {
+            addCriterion("nickname >", value, "nickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameGreaterThanOrEqualTo(String value) {
+            addCriterion("nickname >=", value, "nickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameLessThan(String value) {
+            addCriterion("nickname <", value, "nickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameLessThanOrEqualTo(String value) {
+            addCriterion("nickname <=", value, "nickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameLike(String value) {
+            addCriterion("nickname like", value, "nickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameNotLike(String value) {
+            addCriterion("nickname not like", value, "nickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameIn(List<String> values) {
+            addCriterion("nickname in", values, "nickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameNotIn(List<String> values) {
+            addCriterion("nickname not in", values, "nickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameBetween(String value1, String value2) {
+            addCriterion("nickname between", value1, value2, "nickname");
+            return (Criteria) this;
+        }
+
+        public Criteria andNicknameNotBetween(String value1, String value2) {
+            addCriterion("nickname not between", value1, value2, "nickname");
+            return (Criteria) this;
+        }
+
         public Criteria andAccountIsNull() {
             addCriterion("account is null");
             return (Criteria) this;
@@ -711,66 +781,6 @@ public class UserExample {
 
         public Criteria andBizTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("biz_type not between", value1, value2, "bizType");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdIsNull() {
-            addCriterion("biz_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdIsNotNull() {
-            addCriterion("biz_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdEqualTo(Long value) {
-            addCriterion("biz_id =", value, "bizId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdNotEqualTo(Long value) {
-            addCriterion("biz_id <>", value, "bizId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdGreaterThan(Long value) {
-            addCriterion("biz_id >", value, "bizId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("biz_id >=", value, "bizId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdLessThan(Long value) {
-            addCriterion("biz_id <", value, "bizId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdLessThanOrEqualTo(Long value) {
-            addCriterion("biz_id <=", value, "bizId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdIn(List<Long> values) {
-            addCriterion("biz_id in", values, "bizId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdNotIn(List<Long> values) {
-            addCriterion("biz_id not in", values, "bizId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdBetween(Long value1, Long value2) {
-            addCriterion("biz_id between", value1, value2, "bizId");
-            return (Criteria) this;
-        }
-
-        public Criteria andBizIdNotBetween(Long value1, Long value2) {
-            addCriterion("biz_id not between", value1, value2, "bizId");
             return (Criteria) this;
         }
     }

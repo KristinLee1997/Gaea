@@ -3,6 +3,7 @@
 <mapper namespace="com.aries.user.gaea.server.mapper.UserMapper" >
   <resultMap id="BaseResultMap" type="com.aries.user.gaea.server.model.po.User" >
     <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
     <result column="account" property="account" jdbcType="VARCHAR" />
     <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
@@ -11,7 +12,9 @@
     <result column="wechat" property="wechat" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
     <result column="biz_type" property="bizType" jdbcType="INTEGER" />
-    <result column="biz_id" property="bizId" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.aries.user.gaea.server.model.po.User" extends="BaseResultMap" >
+    <result column="image" property="image" jdbcType="LONGVARBINARY" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,8 +75,28 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, account, phone_number, email, password, salt, wechat, qq, biz_type, biz_id
+    id, nickname, account, phone_number, email, password, salt, wechat, qq, biz_type
   </sql>
+  <sql id="Blob_Column_List" >
+    image
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.aries.user.gaea.server.model.po.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aries.user.gaea.server.model.po.UserExample" >
     select
     <if test="distinct" >
@@ -89,9 +112,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from user
     where id = #{id,jdbcType=BIGINT}
   </select>
@@ -109,12 +134,14 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user (account, phone_number, email, 
-      password, salt, wechat, 
-      qq, biz_type, biz_id)
-    values (#{account,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
-      #{qq,jdbcType=VARCHAR}, #{bizType,jdbcType=INTEGER}, #{bizId,jdbcType=BIGINT})
+    insert into user (nickname, account, phone_number, 
+      email, password, salt, 
+      wechat, qq, biz_type, 
+      image)
+    values (#{nickname,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{wechat,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{bizType,jdbcType=INTEGER}, 
+      #{image,jdbcType=LONGVARBINARY})
   </insert>
   <insert id="insertSelective" parameterType="com.aries.user.gaea.server.model.po.User" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -122,6 +149,9 @@
     </selectKey>
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nickname != null" >
+        nickname,
+      </if>
       <if test="account != null" >
         account,
       </if>
@@ -146,11 +176,14 @@
       <if test="bizType != null" >
         biz_type,
       </if>
-      <if test="bizId != null" >
-        biz_id,
+      <if test="image != null" >
+        image,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
       <if test="account != null" >
         #{account,jdbcType=VARCHAR},
       </if>
@@ -175,8 +208,8 @@
       <if test="bizType != null" >
         #{bizType,jdbcType=INTEGER},
       </if>
-      <if test="bizId != null" >
-        #{bizId,jdbcType=BIGINT},
+      <if test="image != null" >
+        #{image,jdbcType=LONGVARBINARY},
       </if>
     </trim>
   </insert>
@@ -191,6 +224,9 @@
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.nickname != null" >
+        nickname = #{record.nickname,jdbcType=VARCHAR},
       </if>
       <if test="record.account != null" >
         account = #{record.account,jdbcType=VARCHAR},
@@ -216,17 +252,18 @@
       <if test="record.bizType != null" >
         biz_type = #{record.bizType,jdbcType=INTEGER},
       </if>
-      <if test="record.bizId != null" >
-        biz_id = #{record.bizId,jdbcType=BIGINT},
+      <if test="record.image != null" >
+        image = #{record.image,jdbcType=LONGVARBINARY},
       </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
     update user
     set id = #{record.id,jdbcType=BIGINT},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
       account = #{record.account,jdbcType=VARCHAR},
       phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
@@ -235,7 +272,23 @@
       wechat = #{record.wechat,jdbcType=VARCHAR},
       qq = #{record.qq,jdbcType=VARCHAR},
       biz_type = #{record.bizType,jdbcType=INTEGER},
-      biz_id = #{record.bizId,jdbcType=BIGINT}
+      image = #{record.image,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set id = #{record.id,jdbcType=BIGINT},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      account = #{record.account,jdbcType=VARCHAR},
+      phone_number = #{record.phoneNumber,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      wechat = #{record.wechat,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      biz_type = #{record.bizType,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -243,6 +296,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.aries.user.gaea.server.model.po.User" >
     update user
     <set >
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
       <if test="account != null" >
         account = #{account,jdbcType=VARCHAR},
       </if>
@@ -267,15 +323,16 @@
       <if test="bizType != null" >
         biz_type = #{bizType,jdbcType=INTEGER},
       </if>
-      <if test="bizId != null" >
-        biz_id = #{bizId,jdbcType=BIGINT},
+      <if test="image != null" >
+        image = #{image,jdbcType=LONGVARBINARY},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.aries.user.gaea.server.model.po.User" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.aries.user.gaea.server.model.po.User" >
     update user
-    set account = #{account,jdbcType=VARCHAR},
+    set nickname = #{nickname,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
       phone_number = #{phoneNumber,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
@@ -283,7 +340,20 @@
       wechat = #{wechat,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
       biz_type = #{bizType,jdbcType=INTEGER},
-      biz_id = #{bizId,jdbcType=BIGINT}
+      image = #{image,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aries.user.gaea.server.model.po.User" >
+    update user
+    set nickname = #{nickname,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      biz_type = #{bizType,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

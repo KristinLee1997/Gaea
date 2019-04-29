@@ -1,7 +1,9 @@
 package com.aries.user.gaea.client.utils;
 
+import com.alibaba.fastjson.JSON;
 import com.aries.user.gaea.client.factory.GaeaClientFactory;
 import com.aries.user.gaea.client.model.GaeaResponse;
+import com.aries.user.gaea.client.model.User;
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.ThriftResponse;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
@@ -26,6 +28,7 @@ public class UserUtils {
         GaeaResponse response = new GaeaResponse();
         response.setCode(userResponse.getCode());
         response.setMessage(userResponse.getMessage());
+        response.setData(JSON.parseObject(userResponse.getData(), User.class));
         return response;
     }
 

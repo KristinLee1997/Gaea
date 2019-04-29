@@ -19,7 +19,8 @@ struct UserRegisterDTO{
     5:optional string wechat,
     6:optional string qq,
     7:required i32 bizType,
-    8:required i64 bizId
+    8:optional binary image,
+    9:optional string nickname,
 }
 
 struct UserLoginDTO{

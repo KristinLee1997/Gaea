@@ -18,7 +18,8 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
   private static final org.apache.thrift.protocol.TField WECHAT_FIELD_DESC = new org.apache.thrift.protocol.TField("wechat", org.apache.thrift.protocol.TType.STRING, (short)5);
   private static final org.apache.thrift.protocol.TField QQ_FIELD_DESC = new org.apache.thrift.protocol.TField("qq", org.apache.thrift.protocol.TType.STRING, (short)6);
   private static final org.apache.thrift.protocol.TField BIZ_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("bizType", org.apache.thrift.protocol.TType.I32, (short)7);
-  private static final org.apache.thrift.protocol.TField BIZ_ID_FIELD_DESC = new org.apache.thrift.protocol.TField("bizId", org.apache.thrift.protocol.TType.I64, (short)8);
+  private static final org.apache.thrift.protocol.TField IMAGE_FIELD_DESC = new org.apache.thrift.protocol.TField("image", org.apache.thrift.protocol.TType.STRING, (short)8);
+  private static final org.apache.thrift.protocol.TField NICKNAME_FIELD_DESC = new org.apache.thrift.protocol.TField("nickname", org.apache.thrift.protocol.TType.STRING, (short)9);
 
   private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new UserRegisterDTOStandardSchemeFactory();
   private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new UserRegisterDTOTupleSchemeFactory();
@@ -30,7 +31,8 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
   public @org.apache.thrift.annotation.Nullable java.lang.String wechat; // optional
   public @org.apache.thrift.annotation.Nullable java.lang.String qq; // optional
   public int bizType; // required
-  public long bizId; // required
+  public @org.apache.thrift.annotation.Nullable java.nio.ByteBuffer image; // optional
+  public @org.apache.thrift.annotation.Nullable java.lang.String nickname; // optional
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
@@ -41,7 +43,8 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
     WECHAT((short)5, "wechat"),
     QQ((short)6, "qq"),
     BIZ_TYPE((short)7, "bizType"),
-    BIZ_ID((short)8, "bizId");
+    IMAGE((short)8, "image"),
+    NICKNAME((short)9, "nickname");
 
     private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
 
@@ -71,8 +74,10 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
           return QQ;
         case 7: // BIZ_TYPE
           return BIZ_TYPE;
-        case 8: // BIZ_ID
-          return BIZ_ID;
+        case 8: // IMAGE
+          return IMAGE;
+        case 9: // NICKNAME
+          return NICKNAME;
         default:
           return null;
       }
@@ -115,9 +120,8 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
 
   // isset id assignments
   private static final int __BIZTYPE_ISSET_ID = 0;
-  private static final int __BIZID_ISSET_ID = 1;
   private byte __isset_bitfield = 0;
-  private static final _Fields optionals[] = {_Fields.ACCOUNT,_Fields.PHONE_NUMBER,_Fields.EMAIL,_Fields.PASSWORD,_Fields.WECHAT,_Fields.QQ};
+  private static final _Fields optionals[] = {_Fields.ACCOUNT,_Fields.PHONE_NUMBER,_Fields.EMAIL,_Fields.PASSWORD,_Fields.WECHAT,_Fields.QQ,_Fields.IMAGE,_Fields.NICKNAME};
   public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -135,8 +139,10 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.BIZ_TYPE, new org.apache.thrift.meta_data.FieldMetaData("bizType", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
-    tmpMap.put(_Fields.BIZ_ID, new org.apache.thrift.meta_data.FieldMetaData("bizId", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
+    tmpMap.put(_Fields.IMAGE, new org.apache.thrift.meta_data.FieldMetaData("image", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING        , true)));
+    tmpMap.put(_Fields.NICKNAME, new org.apache.thrift.meta_data.FieldMetaData("nickname", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(UserRegisterDTO.class, metaDataMap);
   }
@@ -145,14 +151,11 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
   }
 
   public UserRegisterDTO(
-    int bizType,
-    long bizId)
+    int bizType)
   {
     this();
     this.bizType = bizType;
     setBizTypeIsSet(true);
-    this.bizId = bizId;
-    setBizIdIsSet(true);
   }
 
   /**
@@ -179,7 +182,12 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
       this.qq = other.qq;
     }
     this.bizType = other.bizType;
-    this.bizId = other.bizId;
+    if (other.isSetImage()) {
+      this.image = org.apache.thrift.TBaseHelper.copyBinary(other.image);
+    }
+    if (other.isSetNickname()) {
+      this.nickname = other.nickname;
+    }
   }
 
   public UserRegisterDTO deepCopy() {
@@ -196,8 +204,8 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
     this.qq = null;
     setBizTypeIsSet(false);
     this.bizType = 0;
-    setBizIdIsSet(false);
-    this.bizId = 0;
+    this.image = null;
+    this.nickname = null;
   }
 
   @org.apache.thrift.annotation.Nullable
@@ -373,27 +381,63 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
     __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __BIZTYPE_ISSET_ID, value);
   }
 
-  public long getBizId() {
-    return this.bizId;
+  public byte[] getImage() {
+    setImage(org.apache.thrift.TBaseHelper.rightSize(image));
+    return image == null ? null : image.array();
   }
 
-  public UserRegisterDTO setBizId(long bizId) {
-    this.bizId = bizId;
-    setBizIdIsSet(true);
+  public java.nio.ByteBuffer bufferForImage() {
+    return org.apache.thrift.TBaseHelper.copyBinary(image);
+  }
+
+  public UserRegisterDTO setImage(byte[] image) {
+    this.image = image == null ? (java.nio.ByteBuffer)null   : java.nio.ByteBuffer.wrap(image.clone());
     return this;
   }
 
-  public void unsetBizId() {
-    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __BIZID_ISSET_ID);
+  public UserRegisterDTO setImage(@org.apache.thrift.annotation.Nullable java.nio.ByteBuffer image) {
+    this.image = org.apache.thrift.TBaseHelper.copyBinary(image);
+    return this;
   }
 
-  /** Returns true if field bizId is set (has been assigned a value) and false otherwise */
-  public boolean isSetBizId() {
-    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __BIZID_ISSET_ID);
+  public void unsetImage() {
+    this.image = null;
   }
 
-  public void setBizIdIsSet(boolean value) {
-    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __BIZID_ISSET_ID, value);
+  /** Returns true if field image is set (has been assigned a value) and false otherwise */
+  public boolean isSetImage() {
+    return this.image != null;
+  }
+
+  public void setImageIsSet(boolean value) {
+    if (!value) {
+      this.image = null;
+    }
+  }
+
+  @org.apache.thrift.annotation.Nullable
+  public java.lang.String getNickname() {
+    return this.nickname;
+  }
+
+  public UserRegisterDTO setNickname(@org.apache.thrift.annotation.Nullable java.lang.String nickname) {
+    this.nickname = nickname;
+    return this;
+  }
+
+  public void unsetNickname() {
+    this.nickname = null;
+  }
+
+  /** Returns true if field nickname is set (has been assigned a value) and false otherwise */
+  public boolean isSetNickname() {
+    return this.nickname != null;
+  }
+
+  public void setNicknameIsSet(boolean value) {
+    if (!value) {
+      this.nickname = null;
+    }
   }
 
   public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
@@ -454,11 +498,23 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
       }
       break;
 
-    case BIZ_ID:
+    case IMAGE:
       if (value == null) {
-        unsetBizId();
+        unsetImage();
       } else {
-        setBizId((java.lang.Long)value);
+        if (value instanceof byte[]) {
+          setImage((byte[])value);
+        } else {
+          setImage((java.nio.ByteBuffer)value);
+        }
+      }
+      break;
+
+    case NICKNAME:
+      if (value == null) {
+        unsetNickname();
+      } else {
+        setNickname((java.lang.String)value);
       }
       break;
 
@@ -489,8 +545,11 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
     case BIZ_TYPE:
       return getBizType();
 
-    case BIZ_ID:
-      return getBizId();
+    case IMAGE:
+      return getImage();
+
+    case NICKNAME:
+      return getNickname();
 
     }
     throw new java.lang.IllegalStateException();
@@ -517,8 +576,10 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
       return isSetQq();
     case BIZ_TYPE:
       return isSetBizType();
-    case BIZ_ID:
-      return isSetBizId();
+    case IMAGE:
+      return isSetImage();
+    case NICKNAME:
+      return isSetNickname();
     }
     throw new java.lang.IllegalStateException();
   }
@@ -601,12 +662,21 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
         return false;
     }
 
-    boolean this_present_bizId = true;
-    boolean that_present_bizId = true;
-    if (this_present_bizId || that_present_bizId) {
-      if (!(this_present_bizId && that_present_bizId))
+    boolean this_present_image = true && this.isSetImage();
+    boolean that_present_image = true && that.isSetImage();
+    if (this_present_image || that_present_image) {
+      if (!(this_present_image && that_present_image))
         return false;
-      if (this.bizId != that.bizId)
+      if (!this.image.equals(that.image))
+        return false;
+    }
+
+    boolean this_present_nickname = true && this.isSetNickname();
+    boolean that_present_nickname = true && that.isSetNickname();
+    if (this_present_nickname || that_present_nickname) {
+      if (!(this_present_nickname && that_present_nickname))
+        return false;
+      if (!this.nickname.equals(that.nickname))
         return false;
     }
 
@@ -643,7 +713,13 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
 
     hashCode = hashCode * 8191 + bizType;
 
-    hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(bizId);
+    hashCode = hashCode * 8191 + ((isSetImage()) ? 131071 : 524287);
+    if (isSetImage())
+      hashCode = hashCode * 8191 + image.hashCode();
+
+    hashCode = hashCode * 8191 + ((isSetNickname()) ? 131071 : 524287);
+    if (isSetNickname())
+      hashCode = hashCode * 8191 + nickname.hashCode();
 
     return hashCode;
   }
@@ -726,12 +802,22 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
         return lastComparison;
       }
     }
-    lastComparison = java.lang.Boolean.valueOf(isSetBizId()).compareTo(other.isSetBizId());
+    lastComparison = java.lang.Boolean.valueOf(isSetImage()).compareTo(other.isSetImage());
     if (lastComparison != 0) {
       return lastComparison;
     }
-    if (isSetBizId()) {
-      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.bizId, other.bizId);
+    if (isSetImage()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.image, other.image);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.valueOf(isSetNickname()).compareTo(other.isSetNickname());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetNickname()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.nickname, other.nickname);
       if (lastComparison != 0) {
         return lastComparison;
       }
@@ -820,10 +906,26 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
     sb.append("bizType:");
     sb.append(this.bizType);
     first = false;
-    if (!first) sb.append(", ");
-    sb.append("bizId:");
-    sb.append(this.bizId);
-    first = false;
+    if (isSetImage()) {
+      if (!first) sb.append(", ");
+      sb.append("image:");
+      if (this.image == null) {
+        sb.append("null");
+      } else {
+        org.apache.thrift.TBaseHelper.toString(this.image, sb);
+      }
+      first = false;
+    }
+    if (isSetNickname()) {
+      if (!first) sb.append(", ");
+      sb.append("nickname:");
+      if (this.nickname == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.nickname);
+      }
+      first = false;
+    }
     sb.append(")");
     return sb.toString();
   }
@@ -831,7 +933,6 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
   public void validate() throws org.apache.thrift.TException {
     // check for required fields
     // alas, we cannot check 'bizType' because it's a primitive and you chose the non-beans generator.
-    // alas, we cannot check 'bizId' because it's a primitive and you chose the non-beans generator.
     // check for sub-struct validity
   }
 
@@ -927,10 +1028,18 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
-          case 8: // BIZ_ID
-            if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
-              struct.bizId = iprot.readI64();
-              struct.setBizIdIsSet(true);
+          case 8: // IMAGE
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.image = iprot.readBinary();
+              struct.setImageIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 9: // NICKNAME
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.nickname = iprot.readString();
+              struct.setNicknameIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
@@ -945,9 +1054,6 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
       // check for required fields of primitive type, which can't be checked in the validate method
       if (!struct.isSetBizType()) {
         throw new org.apache.thrift.protocol.TProtocolException("Required field 'bizType' was not found in serialized data! Struct: " + toString());
-      }
-      if (!struct.isSetBizId()) {
-        throw new org.apache.thrift.protocol.TProtocolException("Required field 'bizId' was not found in serialized data! Struct: " + toString());
       }
       struct.validate();
     }
@@ -1001,9 +1107,20 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
       oprot.writeFieldBegin(BIZ_TYPE_FIELD_DESC);
       oprot.writeI32(struct.bizType);
       oprot.writeFieldEnd();
-      oprot.writeFieldBegin(BIZ_ID_FIELD_DESC);
-      oprot.writeI64(struct.bizId);
-      oprot.writeFieldEnd();
+      if (struct.image != null) {
+        if (struct.isSetImage()) {
+          oprot.writeFieldBegin(IMAGE_FIELD_DESC);
+          oprot.writeBinary(struct.image);
+          oprot.writeFieldEnd();
+        }
+      }
+      if (struct.nickname != null) {
+        if (struct.isSetNickname()) {
+          oprot.writeFieldBegin(NICKNAME_FIELD_DESC);
+          oprot.writeString(struct.nickname);
+          oprot.writeFieldEnd();
+        }
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -1022,7 +1139,6 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
     public void write(org.apache.thrift.protocol.TProtocol prot, UserRegisterDTO struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
       oprot.writeI32(struct.bizType);
-      oprot.writeI64(struct.bizId);
       java.util.BitSet optionals = new java.util.BitSet();
       if (struct.isSetAccount()) {
         optionals.set(0);
@@ -1042,7 +1158,13 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
       if (struct.isSetQq()) {
         optionals.set(5);
       }
-      oprot.writeBitSet(optionals, 6);
+      if (struct.isSetImage()) {
+        optionals.set(6);
+      }
+      if (struct.isSetNickname()) {
+        optionals.set(7);
+      }
+      oprot.writeBitSet(optionals, 8);
       if (struct.isSetAccount()) {
         oprot.writeString(struct.account);
       }
@@ -1061,6 +1183,12 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
       if (struct.isSetQq()) {
         oprot.writeString(struct.qq);
       }
+      if (struct.isSetImage()) {
+        oprot.writeBinary(struct.image);
+      }
+      if (struct.isSetNickname()) {
+        oprot.writeString(struct.nickname);
+      }
     }
 
     @Override
@@ -1068,9 +1196,7 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
       org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
       struct.bizType = iprot.readI32();
       struct.setBizTypeIsSet(true);
-      struct.bizId = iprot.readI64();
-      struct.setBizIdIsSet(true);
-      java.util.BitSet incoming = iprot.readBitSet(6);
+      java.util.BitSet incoming = iprot.readBitSet(8);
       if (incoming.get(0)) {
         struct.account = iprot.readString();
         struct.setAccountIsSet(true);
@@ -1094,6 +1220,14 @@ public class UserRegisterDTO implements org.apache.thrift.TBase<UserRegisterDTO,
       if (incoming.get(5)) {
         struct.qq = iprot.readString();
         struct.setQqIsSet(true);
+      }
+      if (incoming.get(6)) {
+        struct.image = iprot.readBinary();
+        struct.setImageIsSet(true);
+      }
+      if (incoming.get(7)) {
+        struct.nickname = iprot.readString();
+        struct.setNicknameIsSet(true);
       }
     }
   }

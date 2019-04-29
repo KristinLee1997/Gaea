@@ -3,6 +3,8 @@ package com.aries.user.gaea.server.model.po;
 public class User {
     private Long id;
 
+    private String nickname;
+
     private String account;
 
     private String phoneNumber;
@@ -19,7 +21,7 @@ public class User {
 
     private Integer bizType;
 
-    private Long bizId;
+    private byte[] image;
 
     public Long getId() {
         return id;
@@ -27,6 +29,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname == null ? null : nickname.trim();
     }
 
     public String getAccount() {
@@ -93,11 +103,11 @@ public class User {
         this.bizType = bizType;
     }
 
-    public Long getBizId() {
-        return bizId;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setBizId(Long bizId) {
-        this.bizId = bizId;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

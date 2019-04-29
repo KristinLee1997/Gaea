@@ -16,8 +16,8 @@ public class CompanyUtilsTest {
     @Test
     public void registerTest() throws TException {
         CompanyDTO companyDTO = new CompanyDTO();
-        companyDTO.setName("orion");
-        companyDTO.setPassword("abcabc");
+        companyDTO.setName("aries");
+        companyDTO.setPassword("123123");
         GaeaResponse response = CompanyUtils.register(companyDTO);
         if (response != null) {
             System.out.println(response.getCode());

@@ -1,8 +1,10 @@
 package com.aries.user.gaea.server.thrift;
 
+import com.alibaba.fastjson.JSON;
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.ThriftResponse;
 import com.aries.user.gaea.contact.service.UserBaseService;
+import com.aries.user.gaea.server.model.po.User;
 import com.aries.user.gaea.server.service.UserService;
 import com.aries.user.gaea.server.service.impl.UserServiceImpl;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
@@ -30,7 +32,6 @@ public class UserBaseServiceImpl implements UserBaseService.Iface {
             return PARAM_ILLEGAL.of();
         }
         Long id = userService.register(companyHelper.getDatabaseName(), userRegisterDTO);
-        String format = "account:%s,phone-number:$s,wechat:%s,qq:%s注册失败！";
         if (id == null) {
             return DATABASE_ERROR.of();
         }
@@ -39,16 +40,20 @@ public class UserBaseServiceImpl implements UserBaseService.Iface {
 
     @Override
     public ThriftResponse userLogin(CompanyDTO companyDTO, UserLoginDTO userLoginDTO) throws TException {
+        ThriftResponse response = new ThriftResponse();
         CompanyHelper companyHelper = new CompanyHelper(companyDTO).check();
         if (companyHelper.isError()) {
             companyHelper.getResponse();
         }
-        int res = userService.login(companyHelper.getDatabaseName(), userLoginDTO.getLoginId(),
+        User user = userService.login(companyHelper.getDatabaseName(), userLoginDTO.getLoginId(),
                 userLoginDTO.getPassword(), userLoginDTO.getLoginType());
-        if (res <= 0) {
+        if (user == null) {
             return DATABASE_ERROR.of();
         }
-        return SUCCESS.of();
+        response.setCode(SUCCESS.of().getCode());
+        response.setMessage(SUCCESS.of().getMessage());
+        response.setData(JSON.toJSONString(user));
+        return response;
     }
 
     @Override

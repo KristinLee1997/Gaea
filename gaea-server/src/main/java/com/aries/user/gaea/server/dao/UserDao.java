@@ -6,11 +6,9 @@ import com.aries.user.gaea.server.mapper.UserMapper;
 import com.aries.user.gaea.server.model.po.User;
 import com.aries.user.gaea.server.model.po.UserExample;
 import com.aries.user.gaea.server.utils.UUIDUtils;
-import com.mysql.cj.jdbc.MysqlDataSourceFactory;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.List;
 
@@ -26,27 +24,35 @@ public class UserDao {
         }
     }
 
-    public static boolean wechatLogin(String database, String loginId) {
+    public static User wechatLogin(String database, String loginId) {
         try (SqlSession sqlSession = MySqlSessionFactory.openSession(database)) {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             UserExample userExample = new UserExample();
             userExample.createCriteria().andWechatEqualTo(loginId);
             List<User> userList = userMapper.selectByExample(userExample);
-            return !CollectionUtils.isEmpty(userList);
+            if (!CollectionUtils.isEmpty(userList)) {
+                return userList.get(0);
+            } else {
+                return null;
+            }
         }
     }
 
-    public static boolean qqLogin(String database, String loginId) {
+    public static User qqLogin(String database, String loginId) {
         try (SqlSession sqlSession = MySqlSessionFactory.openSession(database)) {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             UserExample userExample = new UserExample();
             userExample.createCriteria().andQqEqualTo(loginId);
             List<User> userList = userMapper.selectByExample(userExample);
-            return !CollectionUtils.isEmpty(userList);
+            if (!CollectionUtils.isEmpty(userList)) {
+                return userList.get(0);
+            } else {
+                return null;
+            }
         }
     }
 
-    public static boolean loginIdLogin(String database, String loginId, String password, int loginType) {
+    public static User loginIdLogin(String database, String loginId, String password, int loginType) {
         try (SqlSession sqlSession = MySqlSessionFactory.openSession(database)) {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             UserExample userExample = new UserExample();
@@ -61,14 +67,14 @@ public class UserDao {
                 criteria.andEmailEqualTo(loginId);
             }
             List<User> userList = userMapper.selectByExample(userExample);
-            if(CollectionUtils.isEmpty(userList)){
-                return false;
-            }else{
+            if (CollectionUtils.isEmpty(userList)) {
+                return null;
+            } else {
                 User user = userList.get(0);
                 if (DigestUtils.md5Hex(password + user.getSalt()).equals(user.getPassword())) {
-                    return true;
+                    return user;
                 } else {
-                    return false;
+                    return null;
                 }
             }
         }

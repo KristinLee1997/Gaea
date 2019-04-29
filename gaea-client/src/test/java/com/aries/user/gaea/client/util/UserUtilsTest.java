@@ -8,6 +8,9 @@ import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import org.apache.thrift.TException;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class UserUtilsTest {
     /**
      * 用户注册
@@ -21,11 +24,38 @@ public class UserUtilsTest {
             setPassword("123123");
         }};
         UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
-        userRegisterDTO.setWechat("weixin-kris");
+        userRegisterDTO.setAccount("kris");
+        userRegisterDTO.setPassword("123123");
+        userRegisterDTO.setImage(getDefaultImage());
         userRegisterDTO.setBizType(1);
-        userRegisterDTO.setBizId(107);
         GaeaResponse response = UserUtils.register(companyDTO, userRegisterDTO);
         System.out.println(response);
+    }
+
+    public byte[] getDefaultImage() {
+        StringBuilder sb = new StringBuilder();
+        InputStream is = null;
+        try {
+            is = this.getClass().getResourceAsStream("/images/default_image.jpeg");
+            byte[] buffer = new byte[1024];
+            while (is.read(buffer, 0, 1024) != -1) {//-1表示读取结束
+                sb.append(new String(buffer));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        String str = sb.toString();
+        if (sb.equals("")) {
+            return null;
+        } else {
+            return str.getBytes();
+        }
     }
 
     /**

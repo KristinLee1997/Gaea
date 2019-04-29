@@ -5,10 +5,13 @@ import com.aries.user.gaea.contact.model.ThriftResponse;
 import com.aries.user.gaea.server.constants.SysConstants;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
 import com.aries.user.gaea.contact.model.UserRegisterDTO;
+import com.aries.user.gaea.server.service.impl.UserServiceImpl;
 import org.apache.thrift.TException;
 import org.junit.Test;
 
 public class UserBaseServiceTest {
+    private static UserServiceImpl userService = new UserServiceImpl();
+
     /**
      * 用户注册
      * 必填参数：companyName,公司password
@@ -23,7 +26,6 @@ public class UserBaseServiceTest {
         UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
         userRegisterDTO.setWechat("glod");
         userRegisterDTO.setBizType(1);
-        userRegisterDTO.setBizId(107);
         try {
             ThriftResponse response = new UserBaseServiceImpl().userRegister(companyDTO, userRegisterDTO);
             System.out.println(response.getCode());
@@ -39,12 +41,12 @@ public class UserBaseServiceTest {
             setPassword("123123");
         }};
         UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
-        userRegisterDTO.setAccount("peiqi");
-        userRegisterDTO.setPassword("12341234");
-        userRegisterDTO.setPhoneNumber("18212341234");
-        userRegisterDTO.setEmail("18212341234@163.com");
+        userRegisterDTO.setAccount("kris");
+        userRegisterDTO.setPassword("111111");
+        userRegisterDTO.setPhoneNumber("1821010101");
+        userRegisterDTO.setEmail("18212342334@163.com");
+        userRegisterDTO.setImage(userService.getDefaultImage());
         userRegisterDTO.setBizType(1);
-        userRegisterDTO.setBizId(107);
         try {
             ThriftResponse response = new UserBaseServiceImpl().userRegister(companyDTO, userRegisterDTO);
             System.out.println(response.getCode());
@@ -62,7 +64,6 @@ public class UserBaseServiceTest {
         UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
         userRegisterDTO.setQq("krisqq");
         userRegisterDTO.setBizType(1);
-        userRegisterDTO.setBizId(107);
         try {
             ThriftResponse response = new UserBaseServiceImpl().userRegister(companyDTO, userRegisterDTO);
             System.out.println(response.getCode());
