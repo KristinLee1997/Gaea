@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 public class UserServiceImpl implements UserService {
     @Override
-    public Long register(UserRegisterDTO userRegisterDTO) {
+    public Long register(String database, UserRegisterDTO userRegisterDTO) {
         if (userRegisterDTO.getAccount() != null || userRegisterDTO.getPhoneNumber() != null
                 || userRegisterDTO.getEmail() != null) {
             UserExample example = new UserExample();
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
             example.or(criteria1);
             example.or(criteria2);
             example.or(criteria3);
-            List<User> userList = UserDao.getUserListByExample(userRegisterDTO.getCompanyName(), example);
+            List<User> userList = UserDao.getUserListByExample(database, example);
             if (userList != null && userList.size() > 0) {
                 return null;
             }
@@ -47,53 +47,53 @@ public class UserServiceImpl implements UserService {
         }
         user.setBizType(userRegisterDTO.getBizType());
         user.setBizId(userRegisterDTO.getBizId());
-        return UserDao.register(userRegisterDTO.getCompanyName(), user);
+        return UserDao.register(database, user);
     }
 
     @Override
-    public int login(String companyName, String loginId, String password, int loginType) {
+    public int login(String database, String loginId, String password, int loginType) {
         boolean loginResult = false;
         switch (loginType) {
             case SysConstants.WECHAT_LOGIN_TYPE: {
-                loginResult = UserDao.wechatLogin(companyName, loginId);
+                loginResult = UserDao.wechatLogin(database, loginId);
                 break;
             }
             case SysConstants.QQ_LOGIN_TYPE: {
-                loginResult = UserDao.qqLogin(companyName, loginId);
+                loginResult = UserDao.qqLogin(database, loginId);
                 break;
             }
             case SysConstants.LOGINID_LOGIN_TYPE: {
-                loginResult = UserDao.loginIdLogin(companyName, loginId, password,
-                        getTypeByLoginId(companyName, loginId));
+                loginResult = UserDao.loginIdLogin(database, loginId, password,
+                        getTypeByLoginId(database, loginId, loginType));
                 break;
             }
         }
         if (!loginResult) {
             return 0;
         }
-        return LoginCookieDao.insertCookie(companyName, loginId, getTypeByLoginId(companyName, loginId));
+        return LoginCookieDao.insertCookie(database, loginId, getTypeByLoginId(database, loginId, loginType));
     }
 
 
     @Override
-    public int logout(String companyName, String loginId) {
-        return LoginCookieDao.deleteCookie(companyName, loginId);
+    public int logout(String database, String loginId) {
+        return LoginCookieDao.deleteCookie(database, loginId);
     }
 
     @Override
-    public int getTypeByLoginId(String companyName, String loginId) {
-        if (loginId.substring(0, 6).equals("weixin")) {
+    public int getTypeByLoginId(String database, String loginId, int loginType) {
+        if (loginType == SysConstants.WECHAT_LOGIN_TYPE) {
             return SysConstants.WECHAT_LOGIN_TYPE;
         }
-        if (loginId.substring(0, 2).equals("qq")) {
+        if (loginType == SysConstants.QQ_LOGIN_TYPE) {
             return SysConstants.QQ_LOGIN_TYPE;
         }
         return getTypeByLoginId(loginId);
     }
 
     @Override
-    public int getLoginType(String companyName, String loginId) {
-        LoginCookie loginCookie = LoginCookieDao.getLoginType(companyName, loginId);
+    public int getLoginType(String database, String loginId) {
+        LoginCookie loginCookie = LoginCookieDao.getLoginType(database, loginId);
         if (loginCookie == null) {
             return -1;
         }

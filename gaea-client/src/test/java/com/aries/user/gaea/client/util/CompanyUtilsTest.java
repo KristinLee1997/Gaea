@@ -2,7 +2,7 @@ package com.aries.user.gaea.client.util;
 
 import com.aries.user.gaea.client.model.GaeaResponse;
 import com.aries.user.gaea.client.utils.CompanyUtils;
-import com.aries.user.gaea.contact.model.CompanyRegisterDTO;
+import com.aries.user.gaea.contact.model.CompanyDTO;
 import org.apache.thrift.TException;
 import org.junit.Test;
 
@@ -15,10 +15,10 @@ public class CompanyUtilsTest {
      */
     @Test
     public void registerTest() throws TException {
-        CompanyRegisterDTO companyRegisterDTO = new CompanyRegisterDTO();
-        companyRegisterDTO.setName("eagle");
-        companyRegisterDTO.setPassword("abcabc");
-        GaeaResponse response = CompanyUtils.register(companyRegisterDTO);
+        CompanyDTO companyDTO = new CompanyDTO();
+        companyDTO.setName("orion");
+        companyDTO.setPassword("abcabc");
+        GaeaResponse response = CompanyUtils.register(companyDTO);
         if (response != null) {
             System.out.println(response.getCode());
             System.out.println(response.getMessage());
@@ -33,10 +33,10 @@ public class CompanyUtilsTest {
      */
     @Test
     public void getRegisterNO() throws TException {
-        CompanyRegisterDTO companyRegisterDTO = new CompanyRegisterDTO();
-        companyRegisterDTO.setName("eagle");
-        companyRegisterDTO.setPassword("abcabc");
-        GaeaResponse response = CompanyUtils.getRegisterNO(companyRegisterDTO);
+        CompanyDTO companyDTO = new CompanyDTO();
+        companyDTO.setName("eagle");
+        companyDTO.setPassword("abcabc");
+        GaeaResponse response = CompanyUtils.getRegisterNO(companyDTO);
         if (response != null) {
             System.out.println(response.getCode());
             System.out.println(response.getMessage());

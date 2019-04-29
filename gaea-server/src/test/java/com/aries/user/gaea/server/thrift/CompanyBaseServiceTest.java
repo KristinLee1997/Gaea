@@ -1,12 +1,7 @@
 package com.aries.user.gaea.server.thrift;
 
-import com.aries.user.gaea.server.factory.MySqlSessionFactory;
-import com.aries.user.gaea.contact.model.CompanyRegisterDTO;
-import com.aries.user.gaea.contact.model.CompanyResponse;
-import com.aries.user.gaea.server.mapper.CompanyMapper;
-import com.aries.user.gaea.server.model.po.Company;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
+import com.aries.user.gaea.contact.model.CompanyDTO;
+import com.aries.user.gaea.contact.model.ThriftResponse;
 import org.apache.thrift.TException;
 import org.junit.Test;
 
@@ -17,12 +12,12 @@ public class CompanyBaseServiceTest {
      */
     @Test
     public void companyRegisterTest() {
-        CompanyRegisterDTO companyRegisterDTO = new CompanyRegisterDTO();
-        companyRegisterDTO.setName("hw");
-        companyRegisterDTO.setPassword("123123");
+        CompanyDTO companyDTO = new CompanyDTO();
+        companyDTO.setName("orion");
+        companyDTO.setPassword("123123");
         CompanyBaseServiceImpl companyBaseService = new CompanyBaseServiceImpl();
         try {
-            CompanyResponse response = companyBaseService.companyRegister(companyRegisterDTO);
+            ThriftResponse response = companyBaseService.companyRegister(companyDTO);
             if (response != null) {
                 System.out.println(response.getData());
             }
@@ -37,12 +32,12 @@ public class CompanyBaseServiceTest {
      */
     @Test
     public void getRegisterNOTest() {
-        CompanyRegisterDTO companyRegisterDTO = new CompanyRegisterDTO();
-        companyRegisterDTO.setName("aries");
-        companyRegisterDTO.setPassword("123123");
+        CompanyDTO companyDTO = new CompanyDTO();
+        companyDTO.setName("aries");
+        companyDTO.setPassword("123123");
         CompanyBaseServiceImpl companyBaseService = new CompanyBaseServiceImpl();
         try {
-            CompanyResponse response = companyBaseService.getRegisterNO(companyRegisterDTO);
+            ThriftResponse response = companyBaseService.getRegisterNO(companyDTO);
             if (response != null) {
                 System.out.println(response);
                 System.out.println(response.getData());

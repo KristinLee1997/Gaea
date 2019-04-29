@@ -1,36 +1,29 @@
 namespace java com.aries.user.gaea.contact.model
 
-struct CompanyRegisterDTO{
+struct CompanyDTO{
     1:required string name,
     2:required string password
 }
 
-struct CompanyResponse{
+struct ThriftResponse{
     1:required i32 code,
     2:required string message,
-    3:required string data
+    3:optional string data
 }
 
 struct UserRegisterDTO{
-    1:required string companyName
-    2:optional string account,
-    3:optional string phoneNumber,
-    4:optional string email,
-    5:optional string password,
-    6:optional string wechat,
-    7:optional string qq,
-    8:required i32 bizType,
-    9:required i64 bizId
+    1:optional string account,
+    2:optional string phoneNumber,
+    3:optional string email,
+    4:optional string password,
+    5:optional string wechat,
+    6:optional string qq,
+    7:required i32 bizType,
+    8:required i64 bizId
 }
 
 struct UserLoginDTO{
-    1:required string companyName
-    2:required string loginId,
-    3:optional string password,
-    4:required i32 loginType,
-}
-
-struct UserResponse{
-    1:required i32 code,
-    2:optional string message
+    1:required string loginId,
+    2:optional string password,
+    3:required i32 loginType,
 }

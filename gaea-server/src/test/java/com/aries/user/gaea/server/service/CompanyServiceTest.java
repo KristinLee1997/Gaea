@@ -1,5 +1,6 @@
 package com.aries.user.gaea.server.service;
 
+import com.aries.user.gaea.server.model.po.Company;
 import com.aries.user.gaea.server.service.impl.CompanyServiceImpl;
 import com.aries.user.gaea.server.utils.UUIDUtils;
 import org.apache.commons.codec.binary.Base64;
@@ -9,7 +10,11 @@ import org.junit.Test;
 public class CompanyServiceTest {
     @Test
     public void registerTest() {
-        final String registerno = new CompanyServiceImpl().register("aries", "123123");
+        Company company = new Company() {{
+            setName("aries");
+            setPassword("123123");
+        }};
+        final String registerno = new CompanyServiceImpl().register(company);
         System.out.println(registerno);
     }
 

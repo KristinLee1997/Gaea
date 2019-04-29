@@ -13,6 +13,8 @@ public class Company {
 
     private String registerno;
 
+    private String dbName;
+
     public Long getId() {
         return id;
     }
@@ -51,5 +53,13 @@ public class Company {
 
     public void setRegisterno(String registerno) {
         this.registerno = registerno == null ? null : registerno.trim();
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName == null ? null : dbName.trim();
     }
 }

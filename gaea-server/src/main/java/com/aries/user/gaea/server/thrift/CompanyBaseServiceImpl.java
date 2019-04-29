@@ -1,10 +1,11 @@
 package com.aries.user.gaea.server.thrift;
 
+import com.aries.user.gaea.contact.model.CompanyDTO;
+import com.aries.user.gaea.contact.model.ThriftResponse;
 import com.aries.user.gaea.contact.service.CompanyBaseService;
+import com.aries.user.gaea.server.model.po.Company;
 import com.aries.user.gaea.server.service.CompanyService;
 import com.aries.user.gaea.server.service.impl.CompanyServiceImpl;
-import com.aries.user.gaea.contact.model.CompanyRegisterDTO;
-import com.aries.user.gaea.contact.model.CompanyResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
 
@@ -19,14 +20,14 @@ public class CompanyBaseServiceImpl implements CompanyBaseService.Iface {
     }
 
     @Override
-    public CompanyResponse companyRegister(CompanyRegisterDTO companyRegisterDTO) throws TException {
-        CompanyResponse response = new CompanyResponse();
-        if (companyRegisterDTO.getName() == null || companyRegisterDTO.getPassword() == null) {
+    public ThriftResponse companyRegister(CompanyDTO companyDTO) throws TException {
+        ThriftResponse response = new ThriftResponse();
+        if (companyDTO.getName() == null || companyDTO.getPassword() == null) {
             response.setCode(400);
             response.setMessage("注册信息不完整，公司名称和密码为必填项，请检查信息后重新注册！");
             return response;
         }
-        String registerNO = companyService.register(companyRegisterDTO.getName(), companyRegisterDTO.getPassword());
+        String registerNO = companyService.register(convert2CompanyPO(companyDTO));
         if (registerNO == null || registerNO.equals("") || registerNO.equals(" ")) {
             response.setCode(500);
             response.setMessage("注册码获取失败，请联系RD查询原因");
@@ -39,14 +40,14 @@ public class CompanyBaseServiceImpl implements CompanyBaseService.Iface {
     }
 
     @Override
-    public CompanyResponse getRegisterNO(CompanyRegisterDTO companyRegisterDTO) throws TException {
-        CompanyResponse response = new CompanyResponse();
-        if (companyRegisterDTO.getName() == null || companyRegisterDTO.getPassword() == null) {
+    public ThriftResponse getRegisterNO(CompanyDTO companyDTO) throws TException {
+        ThriftResponse response = new ThriftResponse();
+        if (companyDTO.getName() == null || companyDTO.getPassword() == null) {
             response.setCode(400);
             response.setMessage("查询信息不完整，公司名称和密码为必填项，请检查信息后重新查询！");
             return response;
         }
-        String registerNO = companyService.getRegisterNo(companyRegisterDTO.getName(), companyRegisterDTO.getPassword());
+        String registerNO = companyService.getRegisterNo(convert2CompanyPO(companyDTO));
         if (registerNO == null || registerNO.equals("") || registerNO.equals(" ")) {
             response.setCode(500);
             response.setMessage("注册码获取失败，请联系RD查询原因");
@@ -56,5 +57,13 @@ public class CompanyBaseServiceImpl implements CompanyBaseService.Iface {
         response.setMessage("查询成功，请及时将公司名称、注册码填写到配置文件中~");
         response.setData(registerNO);
         return response;
+    }
+
+    private static Company convert2CompanyPO(CompanyDTO companyDTO) {
+        Company company = new Company();
+        company.setName(companyDTO.getName());
+        company.setPassword(companyDTO.getPassword());
+        company.setRegisterno(company.getRegisterno());
+        return company;
     }
 }

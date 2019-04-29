@@ -1,7 +1,9 @@
 package com.aries.user.gaea.server.service;
 
-public interface CompanyService {
-    String register(String companyName, String password);
+import com.aries.user.gaea.server.model.po.Company;
 
-    String getRegisterNo(String companyName, String password);
+public interface CompanyService {
+    String register(Company company);
+
+    String getRegisterNo(Company company);
 }

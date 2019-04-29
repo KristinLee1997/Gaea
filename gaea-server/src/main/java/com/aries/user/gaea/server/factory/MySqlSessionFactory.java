@@ -9,61 +9,52 @@ import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 @Slf4j
 public class MySqlSessionFactory {
+    private static Map<String, SqlSessionFactory> sqlSessionFactoryMap = new ConcurrentHashMap<>();
+
     private MySqlSessionFactory() {
     }
 
-    private volatile static SqlSessionFactory sqlSessionFactory;
+    public static SqlSession openSession(String database) {
+        SqlSessionFactory sqlSessionFactory = MySqlSessionFactory.getSQLSessionFactory(database);
+        return sqlSessionFactory.openSession(true);
+    }
 
-    public static SqlSessionFactory getSQLSessionFactory(String companyName) {
-        if (sqlSessionFactory == null) {
-            synchronized (MySqlSessionFactory.class) {
-                if (sqlSessionFactory == null) {
-                    try {
-                        sqlSessionFactory = getAllDatabaseSQLSessionFactory(companyName);
-                    } catch (IOException e) {
-                        log.warn("获取" + companyName + "-sqlSessionFactory异常");
-                        e.printStackTrace();
-                    }
-                }
-            }
+    public static SqlSessionFactory getSQLSessionFactory(String databaseName) {
+        if (!sqlSessionFactoryMap.containsKey(databaseName)) {
+            Configuration configuration = getConfiguration(databaseName);
+            SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+            SqlSessionFactory sessionFactory = builder.build(configuration);
+            sqlSessionFactoryMap.putIfAbsent(databaseName, sessionFactory);
+            //新建的sessionFactory建议不要直接return出去。要统一使用sqlSessionFactoryMap.get(databaseName)
         }
-        return sqlSessionFactory;
+        return sqlSessionFactoryMap.get(databaseName);
     }
-
-    private static SqlSessionFactory getAllDatabaseSQLSessionFactory(String companyName) throws IOException {
-        String databaseName = companyName.equals(SysConstants.DATABASE_USERCENTER) ? SysConstants.DATABASE_USERCENTER
-                : SysConstants.DATABASE_USERCENTER + "_" + companyName;
-
-        SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
-
-        Configuration configuration = getConfiguration(databaseName);
-
-        return sqlSessionFactoryBuilder.build(configuration);
-    }
-
     /**
      * 获取mybatis配置，相当于mybatis-config.xml
      *
-     * @param databaseName
+     * @param database
      * @return
      */
-    private static Configuration getConfiguration(String databaseName) {
+    private static Configuration getConfiguration(String database) {
         Configuration configuration = new Configuration();
 
-        DataSource mysqlDataSource = getHikariCpDatasource(databaseName);
+        DataSource mysqlDataSource = getHikariCpDatasource(database);
 
-        Environment environment = new Environment(databaseName, new JdbcTransactionFactory(), mysqlDataSource);
+        Environment environment = new Environment(database, new JdbcTransactionFactory(), mysqlDataSource);
 
         configuration.setEnvironment(environment);
 
@@ -75,13 +66,13 @@ public class MySqlSessionFactory {
     /**
      * 获取 HikariCp 数据源
      *
-     * @param databaseName:数据库名
+     * @param database:数据库名
      * @return 数据源
      */
-    private static DataSource getHikariCpDatasource(String databaseName) {
+    private static DataSource getHikariCpDatasource(String database) {
         Properties confProperties = new PropertiesUtils(SysConstants.CONF_PROPERTIES).getProperties();
         String url = DateSourceUrlUtil.getDataSourceUrl((String) confProperties.get("datasource.ip"),
-                (String) confProperties.get("datasource.port"), databaseName);
+                (String) confProperties.get("datasource.port"), database);
         String user = (String) confProperties.get("datasource.username");
         String password = (String) confProperties.get("datasource.password");
 
@@ -108,13 +99,13 @@ public class MySqlSessionFactory {
     /**
      * 获取 MySQL 数据源
      *
-     * @param databaseName：数据库名
+     * @param database：数据库名
      * @return 数据源
      */
-    private static DataSource getMysqlDataSource(String databaseName) {
+    private static DataSource getMysqlDataSource(String database) {
         Properties confProperties = new PropertiesUtils(SysConstants.CONF_PROPERTIES).getProperties();
         String url = DateSourceUrlUtil.getDataSourceUrl((String) confProperties.get("datasource.ip"),
-                (String) confProperties.get("datasource.port"), databaseName);
+                (String) confProperties.get("datasource.port"), database);
         String user = (String) confProperties.get("datasource.username");
         String password = (String) confProperties.get("datasource.password");
 
