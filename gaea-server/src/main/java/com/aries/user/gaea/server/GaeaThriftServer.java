@@ -56,7 +56,7 @@ public class GaeaThriftServer {
             PropertiesProxy heraProperties = new PropertiesProxy("hera-reg-service.properties");
             String apphost = heraProperties.readProperty("apphost");
             ServiceInfo serviceInfo = new ServiceInfo("Gaea", apphost, port);
-            ThriftHelper.call("hera", DiscoverService.Client.class, discoverClient -> discoverClient.registe(serviceInfo));
+            ThriftHelper.call("Hera", DiscoverService.Client.class, discoverClient -> discoverClient.registe(serviceInfo));
 
         } catch (Exception x) {
             log.error("创建服务失败,error:{}", x.getMessage(), x);
