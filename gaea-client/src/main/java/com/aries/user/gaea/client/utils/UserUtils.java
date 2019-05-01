@@ -1,6 +1,7 @@
 package com.aries.user.gaea.client.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.aries.hera.core.utils.PropertiesProxy;
 import com.aries.user.gaea.client.factory.GaeaClientFactory;
 import com.aries.user.gaea.client.model.GaeaResponse;
 import com.aries.user.gaea.client.model.User;
@@ -13,7 +14,16 @@ import org.apache.thrift.TException;
 
 
 public class UserUtils {
-    public static GaeaResponse register(CompanyDTO companyDTO, UserRegisterDTO userRegisterDTO) throws TException {
+    private static final CompanyDTO companyDTO;
+
+    static {
+        PropertiesProxy propertiesProxy = new PropertiesProxy("gaea-pass.properties");
+        String company = propertiesProxy.readProperty("company");
+        String password = propertiesProxy.readProperty("password");
+        companyDTO = new CompanyDTO(company, password);
+    }
+
+    public static GaeaResponse register(UserRegisterDTO userRegisterDTO) throws TException {
         UserBaseService.Client client = GaeaClientFactory.getUserUtilsSingleClient();
         ThriftResponse userResponse = client.userRegister(companyDTO, userRegisterDTO);
         GaeaResponse response = new GaeaResponse();
@@ -22,7 +32,7 @@ public class UserUtils {
         return response;
     }
 
-    public static GaeaResponse login(CompanyDTO companyDTO, UserLoginDTO loginDTO) throws TException {
+    public static GaeaResponse login(UserLoginDTO loginDTO) throws TException {
         UserBaseService.Client client = GaeaClientFactory.getUserUtilsSingleClient();
         ThriftResponse userResponse = client.userLogin(companyDTO, loginDTO);
         GaeaResponse response = new GaeaResponse();
