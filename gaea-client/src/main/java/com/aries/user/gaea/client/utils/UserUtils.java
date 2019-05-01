@@ -45,6 +45,8 @@ public class UserUtils {
         GaeaResponse response = new GaeaResponse();
         response.setCode(thriftResponse.getCode());
         response.setMessage(thriftResponse.getMessage());
+        response.setData(thriftResponse.getData());
+        log.info("用户id:{},注册成功！", thriftResponse.getData());
         return response;
     }
 
@@ -60,6 +62,7 @@ public class UserUtils {
         response.setCode(userResponse.getCode());
         response.setMessage(userResponse.getMessage());
         response.setData(JSON.parseObject(userResponse.getData(), User.class));
+        log.info("用户:{}登录成功", JSON.parseObject(userResponse.getData(), User.class));
         return response;
     }
 
