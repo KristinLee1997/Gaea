@@ -106,6 +106,8 @@ public class ThriftResponse implements org.apache.thrift.TBase<ThriftResponse, T
   }
 
   public ThriftResponse() {
+    this.message = "";
+
   }
 
   public ThriftResponse(
@@ -140,7 +142,8 @@ public class ThriftResponse implements org.apache.thrift.TBase<ThriftResponse, T
   public void clear() {
     setCodeIsSet(false);
     this.code = 0;
-    this.message = null;
+    this.message = "";
+
     this.data = null;
   }
 

@@ -20,7 +20,8 @@ public class UserDao {
                 user.setSalt(UUIDUtils.getUUID());
                 user.setPassword(DigestUtils.md5Hex(user.getPassword() + user.getSalt()));
             }
-            return (long) userMapper.insert(user);
+            userMapper.insertSelective(user);
+            return user.getId();
         }
     }
 

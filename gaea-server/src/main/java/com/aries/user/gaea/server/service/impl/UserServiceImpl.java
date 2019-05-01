@@ -12,6 +12,7 @@ import com.aries.user.gaea.server.utils.UUIDUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,15 +27,21 @@ public class UserServiceImpl implements UserService {
         if (userRegisterDTO.getAccount() != null || userRegisterDTO.getPhoneNumber() != null
                 || userRegisterDTO.getEmail() != null) {
             UserExample example = new UserExample();
-            UserExample.Criteria criteria1 = example.createCriteria();
-            criteria1.andAccountEqualTo(userRegisterDTO.getAccount());
-            UserExample.Criteria criteria2 = example.createCriteria();
-            criteria2.andPhoneNumberEqualTo(userRegisterDTO.getPhoneNumber());
-            UserExample.Criteria criteria3 = example.createCriteria();
-            criteria3.andEmailEqualTo(userRegisterDTO.getEmail());
-            example.or(criteria1);
-            example.or(criteria2);
-            example.or(criteria3);
+            if(userRegisterDTO.getAccount()!=null){
+                UserExample.Criteria criteria1 = example.createCriteria();
+                criteria1.andAccountEqualTo(userRegisterDTO.getAccount());
+                example.or(criteria1);
+            }
+            if(userRegisterDTO.getPhoneNumber()!=null){
+                UserExample.Criteria criteria2 = example.createCriteria();
+                criteria2.andPhoneNumberEqualTo(userRegisterDTO.getPhoneNumber());
+                example.or(criteria2);
+            }
+            if(userRegisterDTO.getEmail()!=null){
+                UserExample.Criteria criteria3 = example.createCriteria();
+                criteria3.andEmailEqualTo(userRegisterDTO.getEmail());
+                example.or(criteria3);
+            }
             List<User> userList = UserDao.getUserListByExample(database, example);
             if (userList != null && userList.size() > 0) {
                 return null;
@@ -53,7 +60,17 @@ public class UserServiceImpl implements UserService {
         }
         user.setBizType(userRegisterDTO.getBizType());
         user.setNickname(userRegisterDTO.getNickname() == null ? "用户_" + UUIDUtils.getUUID() : userRegisterDTO.getNickname());
-        user.setImage(userRegisterDTO.getImage() == null ? getDefaultImage() : userRegisterDTO.getImage());
+        if (userRegisterDTO.getImage() == null || userRegisterDTO.getImage().length <= 0) {
+            try {
+                byte[] imageByte = getDefaultImage();
+                user.setImage(imageByte);
+            } catch (IOException e) {
+                log.error("用户注册时获取默认图片失败");
+                return 0L;
+            }
+        } else {
+            user.setImage(userRegisterDTO.getImage());
+        }
         return UserDao.register(database, user);
     }
 
@@ -130,11 +147,12 @@ public class UserServiceImpl implements UserService {
         return 0;
     }
 
-    public byte[] getDefaultImage() {
+    public byte[] getDefaultImage2() {
         StringBuilder sb = new StringBuilder();
         InputStream is = null;
         try {
-            String path = System.getProperty("user.dir") + "/src/main/resources/images/default_image.jpeg";
+//            String path = System.getProperty("user.dir") + "/gaea-server/src/main/resources/images/default_image.jpeg";
+            String path = UserServiceImpl.class.getClassLoader().getResource("").getPath() + "images/default_image.jpeg";
             is = new FileInputStream(path);
             byte[] buffer = new byte[1024];
             while (is.read(buffer, 0, 1024) != -1) {//-1表示读取结束
@@ -155,5 +173,20 @@ public class UserServiceImpl implements UserService {
         } else {
             return str.getBytes();
         }
+    }
+
+    public byte[] getDefaultImage() throws IOException {
+        String path = UserServiceImpl.class.getClassLoader().getResource("").getPath() + "images/default_image.jpeg";
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        InputStream inputStream = new FileInputStream(path);
+        byte[] buffer = new byte[1024];
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, len);
+        }
+
+
+        inputStream.close();
+        return outStream.toByteArray();
     }
 }

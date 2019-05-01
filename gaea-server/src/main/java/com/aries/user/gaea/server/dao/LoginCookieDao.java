@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 public class LoginCookieDao {
-    public static int insertCookie(String companyName, String loginId, int loginType) {
+    public static long insertCookie(String companyName, String loginId, int loginType) {
         SqlSessionFactory sqlSessionFactory = MySqlSessionFactory.getSQLSessionFactory(companyName);
         try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
             LoginCookieMapper loginCookieMapper = sqlSession.getMapper(LoginCookieMapper.class);
@@ -22,7 +22,8 @@ public class LoginCookieDao {
             loginCookie.setLoginType(loginType);
             loginCookie.setAddTime(new Date());
             loginCookie.setCookie(UUIDUtils.getCookie());
-            return loginCookieMapper.insert(loginCookie);
+            loginCookieMapper.insertSelective(loginCookie);
+            return loginCookie.getId();
         }
     }
 

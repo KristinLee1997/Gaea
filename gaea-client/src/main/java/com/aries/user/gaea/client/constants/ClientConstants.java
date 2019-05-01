@@ -1,6 +1,7 @@
 package com.aries.user.gaea.client.constants;
 
 public class ClientConstants {
+    public static final String PROJECT_NAME = "Gaea";
     // 登录名前缀
     public static final String WEIXIN_PREFIX = "weixin_";
     public static final String QQ_PREFIX = "qq_";

@@ -1,10 +1,13 @@
 package com.aries.user.gaea.client.util;
 
+import com.aries.hera.client.thrift.ThriftHelper;
 import com.aries.user.gaea.client.model.GaeaResponse;
 import com.aries.user.gaea.client.model.UserRegisterVo;
 import com.aries.user.gaea.client.utils.UserUtils;
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
+import com.aries.user.gaea.contact.model.UserRegisterDTO;
+import com.aries.user.gaea.contact.service.UserBaseService;
 import org.apache.thrift.TException;
 import org.junit.Test;
 
@@ -19,14 +22,22 @@ public class UserUtilsTest {
      */
     @Test
     public void registerTest() throws TException {
-        CompanyDTO companyDTO = new CompanyDTO() {{
-            setName("aries");
-            setPassword("123123");
-        }};
         UserRegisterVo userRegisterVo = UserRegisterVo.UserRegisterVoBuilder.anUserRegisterVo().
-                account("kris").password("123123").bizType(1).build();
-        GaeaResponse response = UserUtils.register(userRegisterVo);
-        System.out.println(response);
+                account("tu5").password("sdsfaaa").bizType(1).build();
+//        GaeaResponse response = UserUtils.register(userRegisterVo);
+//        System.out.println(response);
+        CompanyDTO companyDTO = new CompanyDTO();
+        companyDTO.setName("aries");
+        companyDTO.setPassword("123123");
+        UserRegisterDTO registerDTO = UserRegisterVo.convert2DTO(userRegisterVo);
+
+        ThriftHelper.call(UserBaseService.Client.class, client -> {
+            try {
+                return client.userRegister(companyDTO, registerDTO);
+            } catch (TException e) {
+                throw new RuntimeException("-=-", e);
+            }
+        }, UserBaseService.class.getSimpleName(), "localhost", 6010);
     }
 
     public byte[] getDefaultImage() {

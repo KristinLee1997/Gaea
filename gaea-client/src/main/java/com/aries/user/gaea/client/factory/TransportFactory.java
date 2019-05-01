@@ -5,6 +5,7 @@ import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 
+@Deprecated
 public class TransportFactory {
     private static volatile TTransport transport;
 

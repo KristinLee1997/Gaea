@@ -5,3 +5,4 @@
 **/conf.properties
 **/hikariPool.properties
 **/mybatis/generatorConfig.xml
+**/gaea-pass.properties

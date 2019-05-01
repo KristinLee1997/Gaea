@@ -9,6 +9,8 @@ import com.aries.user.gaea.server.service.impl.UserServiceImpl;
 import org.apache.thrift.TException;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class UserBaseServiceTest {
     private static UserServiceImpl userService = new UserServiceImpl();
 
@@ -45,7 +47,11 @@ public class UserBaseServiceTest {
         userRegisterDTO.setPassword("111111");
         userRegisterDTO.setPhoneNumber("1821010101");
         userRegisterDTO.setEmail("18212342334@163.com");
-        userRegisterDTO.setImage(userService.getDefaultImage());
+        try {
+            userRegisterDTO.setImage(userService.getDefaultImage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         userRegisterDTO.setBizType(1);
         try {
             ThriftResponse response = new UserBaseServiceImpl().userRegister(companyDTO, userRegisterDTO);
