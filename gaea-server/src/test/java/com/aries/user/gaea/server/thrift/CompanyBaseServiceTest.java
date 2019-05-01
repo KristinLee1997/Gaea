@@ -13,7 +13,7 @@ public class CompanyBaseServiceTest {
     @Test
     public void companyRegisterTest() {
         CompanyDTO companyDTO = new CompanyDTO();
-        companyDTO.setName("aries");
+        companyDTO.setName("orion");
         companyDTO.setPassword("123123");
         CompanyBaseServiceImpl companyBaseService = new CompanyBaseServiceImpl();
         try {

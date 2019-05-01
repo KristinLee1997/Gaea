@@ -21,6 +21,7 @@ public class UserBaseServiceImpl implements UserBaseService.Iface {
 
     @Override
     public ThriftResponse userRegister(CompanyDTO companyDTO, UserRegisterDTO userRegisterDTO) throws TException {
+        ThriftResponse response = new ThriftResponse();
         CompanyHelper companyHelper = new CompanyHelper(companyDTO).check();
         if (companyHelper.isError()) {
             companyHelper.getResponse();
@@ -35,7 +36,10 @@ public class UserBaseServiceImpl implements UserBaseService.Iface {
         if (id == null) {
             return DATABASE_ERROR.of();
         }
-        return SUCCESS.of();
+        response.setCode(SUCCESS.of().getCode());
+        response.setMessage(SUCCESS.of().getMessage());
+        response.setData(String.valueOf(id));
+        return response;
     }
 
     @Override
@@ -70,12 +74,24 @@ public class UserBaseServiceImpl implements UserBaseService.Iface {
     }
 
     @Override
-    public int checkLoginType(CompanyDTO companyDTO, String loginId) throws TException {
-        return 0;
+    public ThriftResponse checkLoginType(CompanyDTO companyDTO, String loginId) throws TException {
+        CompanyHelper companyHelper = new CompanyHelper(companyDTO).check();
+        ThriftResponse response = new ThriftResponse();
+        if (companyHelper.isError()) {
+            companyHelper.getResponse();
+        }
+        int typeByLoginId = userService.getTypeByLoginId(loginId);
+        if (typeByLoginId == 0) {
+            return SYSTEM_ERROR.of();
+        }
+        response.setCode(SUCCESS.of().getCode());
+        response.setMessage(SUCCESS.of().getMessage());
+        response.setData(String.valueOf(typeByLoginId));
+        return response;
     }
 
     @Override
-    public int checkOnline(CompanyDTO companyDTO, String loginId) throws TException {
-        return 0;
+    public ThriftResponse checkOnline(CompanyDTO companyDTO, String loginId) throws TException {
+        return SUCCESS.of();
     }
 }

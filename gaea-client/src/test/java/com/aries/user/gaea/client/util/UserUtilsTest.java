@@ -1,10 +1,10 @@
 package com.aries.user.gaea.client.util;
 
 import com.aries.user.gaea.client.model.GaeaResponse;
+import com.aries.user.gaea.client.model.UserRegisterVo;
 import com.aries.user.gaea.client.utils.UserUtils;
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
-import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import org.apache.thrift.TException;
 import org.junit.Test;
 
@@ -23,12 +23,9 @@ public class UserUtilsTest {
             setName("aries");
             setPassword("123123");
         }};
-        UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
-        userRegisterDTO.setAccount("kris");
-        userRegisterDTO.setPassword("123123");
-        userRegisterDTO.setImage(getDefaultImage());
-        userRegisterDTO.setBizType(1);
-        GaeaResponse response = UserUtils.register(companyDTO, userRegisterDTO);
+        UserRegisterVo userRegisterVo = UserRegisterVo.UserRegisterVoBuilder.anUserRegisterVo().
+                account("kris").password("123123").bizType(1).build();
+        GaeaResponse response = UserUtils.register(userRegisterVo);
         System.out.println(response);
     }
 
@@ -72,7 +69,7 @@ public class UserUtilsTest {
         UserLoginDTO userLoginDTO = new UserLoginDTO();
         userLoginDTO.setLoginId("weixin-kris");
         userLoginDTO.setLoginType(4);
-        GaeaResponse response = UserUtils.login(companyDTO, userLoginDTO);
+        GaeaResponse response = UserUtils.login(userLoginDTO);
         System.out.println(response.getMessage());
     }
 

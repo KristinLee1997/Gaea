@@ -5,10 +5,10 @@ import com.aries.hera.core.utils.PropertiesProxy;
 import com.aries.user.gaea.client.factory.GaeaClientFactory;
 import com.aries.user.gaea.client.model.GaeaResponse;
 import com.aries.user.gaea.client.model.User;
+import com.aries.user.gaea.client.model.UserRegisterVo;
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.ThriftResponse;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
-import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import com.aries.user.gaea.contact.service.UserBaseService;
 import org.apache.thrift.TException;
 
@@ -23,9 +23,9 @@ public class UserUtils {
         companyDTO = new CompanyDTO(company, password);
     }
 
-    public static GaeaResponse register(UserRegisterDTO userRegisterDTO) throws TException {
+    public static GaeaResponse register(UserRegisterVo userRegisterVo) throws TException {
         UserBaseService.Client client = GaeaClientFactory.getUserUtilsSingleClient();
-        ThriftResponse userResponse = client.userRegister(companyDTO, userRegisterDTO);
+        ThriftResponse userResponse = client.userRegister(companyDTO, UserRegisterVo.convert2DTO(userRegisterVo));
         GaeaResponse response = new GaeaResponse();
         response.setCode(userResponse.getCode());
         response.setMessage(userResponse.getMessage());
@@ -54,11 +54,11 @@ public class UserUtils {
 
     public static GaeaResponse checkLoginType(CompanyDTO companyDTO, String loginId) throws TException {
         UserBaseService.Client client = GaeaClientFactory.getUserUtilsSingleClient();
-        int type = client.checkLoginType(companyDTO, loginId);
+         ThriftResponse response1 = client.checkLoginType(companyDTO, loginId);
         GaeaResponse response = new GaeaResponse();
         response.setCode(200);
         response.setMessage("查询登录方式成功");
-        response.setData(type);
+        response.setData(response1.getData());
         return response;
 
     }

@@ -5,8 +5,8 @@ service UserBaseService{
     model.ThriftResponse userRegister(1:model.CompanyDTO companyDTO, 2:model.UserRegisterDTO userRegisterDTO);
     model.ThriftResponse userLogin(1:model.CompanyDTO companyDTO, 2:model.UserLoginDTO userLoginDTO);
     model.ThriftResponse userLogout(1:model.CompanyDTO companyDTO, 2:string loginId);
-    i32 checkLoginType(1:model.CompanyDTO companyDTO, 2:string loginId);
-    i32 checkOnline(1:model.CompanyDTO companyDTO, 2:string loginId);
+    model.ThriftResponse checkLoginType(1:model.CompanyDTO companyDTO, 2:string loginId);
+    model.ThriftResponse checkOnline(1:model.CompanyDTO companyDTO, 2:string loginId);
 }
 
 service CompanyBaseService{

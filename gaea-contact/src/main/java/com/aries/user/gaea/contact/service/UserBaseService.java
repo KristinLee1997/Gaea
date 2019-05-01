@@ -18,9 +18,9 @@ public class UserBaseService {
 
     public com.aries.user.gaea.contact.model.ThriftResponse userLogout(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId) throws org.apache.thrift.TException;
 
-    public int checkLoginType(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId) throws org.apache.thrift.TException;
+    public com.aries.user.gaea.contact.model.ThriftResponse checkLoginType(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId) throws org.apache.thrift.TException;
 
-    public int checkOnline(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId) throws org.apache.thrift.TException;
+    public com.aries.user.gaea.contact.model.ThriftResponse checkOnline(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId) throws org.apache.thrift.TException;
 
   }
 
@@ -32,9 +32,9 @@ public class UserBaseService {
 
     public void userLogout(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse> resultHandler) throws org.apache.thrift.TException;
 
-    public void checkLoginType(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer> resultHandler) throws org.apache.thrift.TException;
+    public void checkLoginType(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse> resultHandler) throws org.apache.thrift.TException;
 
-    public void checkOnline(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer> resultHandler) throws org.apache.thrift.TException;
+    public void checkOnline(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse> resultHandler) throws org.apache.thrift.TException;
 
   }
 
@@ -130,7 +130,7 @@ public class UserBaseService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "userLogout failed: unknown result");
     }
 
-    public int checkLoginType(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId) throws org.apache.thrift.TException
+    public com.aries.user.gaea.contact.model.ThriftResponse checkLoginType(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId) throws org.apache.thrift.TException
     {
       send_checkLoginType(companyDTO, loginId);
       return recv_checkLoginType();
@@ -144,7 +144,7 @@ public class UserBaseService {
       sendBase("checkLoginType", args);
     }
 
-    public int recv_checkLoginType() throws org.apache.thrift.TException
+    public com.aries.user.gaea.contact.model.ThriftResponse recv_checkLoginType() throws org.apache.thrift.TException
     {
       checkLoginType_result result = new checkLoginType_result();
       receiveBase(result, "checkLoginType");
@@ -154,7 +154,7 @@ public class UserBaseService {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "checkLoginType failed: unknown result");
     }
 
-    public int checkOnline(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId) throws org.apache.thrift.TException
+    public com.aries.user.gaea.contact.model.ThriftResponse checkOnline(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId) throws org.apache.thrift.TException
     {
       send_checkOnline(companyDTO, loginId);
       return recv_checkOnline();
@@ -168,7 +168,7 @@ public class UserBaseService {
       sendBase("checkOnline", args);
     }
 
-    public int recv_checkOnline() throws org.apache.thrift.TException
+    public com.aries.user.gaea.contact.model.ThriftResponse recv_checkOnline() throws org.apache.thrift.TException
     {
       checkOnline_result result = new checkOnline_result();
       receiveBase(result, "checkOnline");
@@ -301,17 +301,17 @@ public class UserBaseService {
       }
     }
 
-    public void checkLoginType(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer> resultHandler) throws org.apache.thrift.TException {
+    public void checkLoginType(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse> resultHandler) throws org.apache.thrift.TException {
       checkReady();
       checkLoginType_call method_call = new checkLoginType_call(companyDTO, loginId, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
-    public static class checkLoginType_call extends org.apache.thrift.async.TAsyncMethodCall<java.lang.Integer> {
+    public static class checkLoginType_call extends org.apache.thrift.async.TAsyncMethodCall<com.aries.user.gaea.contact.model.ThriftResponse> {
       private com.aries.user.gaea.contact.model.CompanyDTO companyDTO;
       private java.lang.String loginId;
-      public checkLoginType_call(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      public checkLoginType_call(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.companyDTO = companyDTO;
         this.loginId = loginId;
@@ -326,7 +326,7 @@ public class UserBaseService {
         prot.writeMessageEnd();
       }
 
-      public java.lang.Integer getResult() throws org.apache.thrift.TException {
+      public com.aries.user.gaea.contact.model.ThriftResponse getResult() throws org.apache.thrift.TException {
         if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
           throw new java.lang.IllegalStateException("Method call not finished!");
         }
@@ -336,17 +336,17 @@ public class UserBaseService {
       }
     }
 
-    public void checkOnline(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer> resultHandler) throws org.apache.thrift.TException {
+    public void checkOnline(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse> resultHandler) throws org.apache.thrift.TException {
       checkReady();
       checkOnline_call method_call = new checkOnline_call(companyDTO, loginId, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
-    public static class checkOnline_call extends org.apache.thrift.async.TAsyncMethodCall<java.lang.Integer> {
+    public static class checkOnline_call extends org.apache.thrift.async.TAsyncMethodCall<com.aries.user.gaea.contact.model.ThriftResponse> {
       private com.aries.user.gaea.contact.model.CompanyDTO companyDTO;
       private java.lang.String loginId;
-      public checkOnline_call(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      public checkOnline_call(com.aries.user.gaea.contact.model.CompanyDTO companyDTO, java.lang.String loginId, org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse> resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.companyDTO = companyDTO;
         this.loginId = loginId;
@@ -361,7 +361,7 @@ public class UserBaseService {
         prot.writeMessageEnd();
       }
 
-      public java.lang.Integer getResult() throws org.apache.thrift.TException {
+      public com.aries.user.gaea.contact.model.ThriftResponse getResult() throws org.apache.thrift.TException {
         if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
           throw new java.lang.IllegalStateException("Method call not finished!");
         }
@@ -488,7 +488,6 @@ public class UserBaseService {
       public checkLoginType_result getResult(I iface, checkLoginType_args args) throws org.apache.thrift.TException {
         checkLoginType_result result = new checkLoginType_result();
         result.success = iface.checkLoginType(args.companyDTO, args.loginId);
-        result.setSuccessIsSet(true);
         return result;
       }
     }
@@ -514,7 +513,6 @@ public class UserBaseService {
       public checkOnline_result getResult(I iface, checkOnline_args args) throws org.apache.thrift.TException {
         checkOnline_result result = new checkOnline_result();
         result.success = iface.checkOnline(args.companyDTO, args.loginId);
-        result.setSuccessIsSet(true);
         return result;
       }
     }
@@ -723,7 +721,7 @@ public class UserBaseService {
       }
     }
 
-    public static class checkLoginType<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, checkLoginType_args, java.lang.Integer> {
+    public static class checkLoginType<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, checkLoginType_args, com.aries.user.gaea.contact.model.ThriftResponse> {
       public checkLoginType() {
         super("checkLoginType");
       }
@@ -732,13 +730,12 @@ public class UserBaseService {
         return new checkLoginType_args();
       }
 
-      public org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
+      public org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
         final org.apache.thrift.AsyncProcessFunction fcall = this;
-        return new org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer>() { 
-          public void onComplete(java.lang.Integer o) {
+        return new org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse>() { 
+          public void onComplete(com.aries.user.gaea.contact.model.ThriftResponse o) {
             checkLoginType_result result = new checkLoginType_result();
             result.success = o;
-            result.setSuccessIsSet(true);
             try {
               fcall.sendResponse(fb, result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
             } catch (org.apache.thrift.transport.TTransportException e) {
@@ -780,12 +777,12 @@ public class UserBaseService {
         return false;
       }
 
-      public void start(I iface, checkLoginType_args args, org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer> resultHandler) throws org.apache.thrift.TException {
+      public void start(I iface, checkLoginType_args args, org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse> resultHandler) throws org.apache.thrift.TException {
         iface.checkLoginType(args.companyDTO, args.loginId,resultHandler);
       }
     }
 
-    public static class checkOnline<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, checkOnline_args, java.lang.Integer> {
+    public static class checkOnline<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, checkOnline_args, com.aries.user.gaea.contact.model.ThriftResponse> {
       public checkOnline() {
         super("checkOnline");
       }
@@ -794,13 +791,12 @@ public class UserBaseService {
         return new checkOnline_args();
       }
 
-      public org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
+      public org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse> getResultHandler(final org.apache.thrift.server.AbstractNonblockingServer.AsyncFrameBuffer fb, final int seqid) {
         final org.apache.thrift.AsyncProcessFunction fcall = this;
-        return new org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer>() { 
-          public void onComplete(java.lang.Integer o) {
+        return new org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse>() { 
+          public void onComplete(com.aries.user.gaea.contact.model.ThriftResponse o) {
             checkOnline_result result = new checkOnline_result();
             result.success = o;
-            result.setSuccessIsSet(true);
             try {
               fcall.sendResponse(fb, result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
             } catch (org.apache.thrift.transport.TTransportException e) {
@@ -842,7 +838,7 @@ public class UserBaseService {
         return false;
       }
 
-      public void start(I iface, checkOnline_args args, org.apache.thrift.async.AsyncMethodCallback<java.lang.Integer> resultHandler) throws org.apache.thrift.TException {
+      public void start(I iface, checkOnline_args args, org.apache.thrift.async.AsyncMethodCallback<com.aries.user.gaea.contact.model.ThriftResponse> resultHandler) throws org.apache.thrift.TException {
         iface.checkOnline(args.companyDTO, args.loginId,resultHandler);
       }
     }
@@ -3886,12 +3882,12 @@ public class UserBaseService {
   public static class checkLoginType_result implements org.apache.thrift.TBase<checkLoginType_result, checkLoginType_result._Fields>, java.io.Serializable, Cloneable, Comparable<checkLoginType_result>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("checkLoginType_result");
 
-    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.I32, (short)0);
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
 
     private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new checkLoginType_resultStandardSchemeFactory();
     private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new checkLoginType_resultTupleSchemeFactory();
 
-    public int success; // required
+    public @org.apache.thrift.annotation.Nullable com.aries.user.gaea.contact.model.ThriftResponse success; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
@@ -3954,13 +3950,11 @@ public class UserBaseService {
     }
 
     // isset id assignments
-    private static final int __SUCCESS_ISSET_ID = 0;
-    private byte __isset_bitfield = 0;
     public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
       tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, com.aries.user.gaea.contact.model.ThriftResponse.class)));
       metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(checkLoginType_result.class, metaDataMap);
     }
@@ -3969,19 +3963,19 @@ public class UserBaseService {
     }
 
     public checkLoginType_result(
-      int success)
+      com.aries.user.gaea.contact.model.ThriftResponse success)
     {
       this();
       this.success = success;
-      setSuccessIsSet(true);
     }
 
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public checkLoginType_result(checkLoginType_result other) {
-      __isset_bitfield = other.__isset_bitfield;
-      this.success = other.success;
+      if (other.isSetSuccess()) {
+        this.success = new com.aries.user.gaea.contact.model.ThriftResponse(other.success);
+      }
     }
 
     public checkLoginType_result deepCopy() {
@@ -3990,31 +3984,32 @@ public class UserBaseService {
 
     @Override
     public void clear() {
-      setSuccessIsSet(false);
-      this.success = 0;
+      this.success = null;
     }
 
-    public int getSuccess() {
+    @org.apache.thrift.annotation.Nullable
+    public com.aries.user.gaea.contact.model.ThriftResponse getSuccess() {
       return this.success;
     }
 
-    public checkLoginType_result setSuccess(int success) {
+    public checkLoginType_result setSuccess(@org.apache.thrift.annotation.Nullable com.aries.user.gaea.contact.model.ThriftResponse success) {
       this.success = success;
-      setSuccessIsSet(true);
       return this;
     }
 
     public void unsetSuccess() {
-      __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __SUCCESS_ISSET_ID);
+      this.success = null;
     }
 
     /** Returns true if field success is set (has been assigned a value) and false otherwise */
     public boolean isSetSuccess() {
-      return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __SUCCESS_ISSET_ID);
+      return this.success != null;
     }
 
     public void setSuccessIsSet(boolean value) {
-      __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __SUCCESS_ISSET_ID, value);
+      if (!value) {
+        this.success = null;
+      }
     }
 
     public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
@@ -4023,7 +4018,7 @@ public class UserBaseService {
         if (value == null) {
           unsetSuccess();
         } else {
-          setSuccess((java.lang.Integer)value);
+          setSuccess((com.aries.user.gaea.contact.model.ThriftResponse)value);
         }
         break;
 
@@ -4068,12 +4063,12 @@ public class UserBaseService {
       if (this == that)
         return true;
 
-      boolean this_present_success = true;
-      boolean that_present_success = true;
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
       if (this_present_success || that_present_success) {
         if (!(this_present_success && that_present_success))
           return false;
-        if (this.success != that.success)
+        if (!this.success.equals(that.success))
           return false;
       }
 
@@ -4084,7 +4079,9 @@ public class UserBaseService {
     public int hashCode() {
       int hashCode = 1;
 
-      hashCode = hashCode * 8191 + success;
+      hashCode = hashCode * 8191 + ((isSetSuccess()) ? 131071 : 524287);
+      if (isSetSuccess())
+        hashCode = hashCode * 8191 + success.hashCode();
 
       return hashCode;
     }
@@ -4129,7 +4126,11 @@ public class UserBaseService {
       boolean first = true;
 
       sb.append("success:");
-      sb.append(this.success);
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
       first = false;
       sb.append(")");
       return sb.toString();
@@ -4138,6 +4139,9 @@ public class UserBaseService {
     public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
+      if (success != null) {
+        success.validate();
+      }
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
@@ -4150,8 +4154,6 @@ public class UserBaseService {
 
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
       try {
-        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-        __isset_bitfield = 0;
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
       } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
@@ -4177,8 +4179,9 @@ public class UserBaseService {
           }
           switch (schemeField.id) {
             case 0: // SUCCESS
-              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-                struct.success = iprot.readI32();
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.success = new com.aries.user.gaea.contact.model.ThriftResponse();
+                struct.success.read(iprot);
                 struct.setSuccessIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -4199,9 +4202,9 @@ public class UserBaseService {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.isSetSuccess()) {
+        if (struct.success != null) {
           oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
-          oprot.writeI32(struct.success);
+          struct.success.write(oprot);
           oprot.writeFieldEnd();
         }
         oprot.writeFieldStop();
@@ -4227,7 +4230,7 @@ public class UserBaseService {
         }
         oprot.writeBitSet(optionals, 1);
         if (struct.isSetSuccess()) {
-          oprot.writeI32(struct.success);
+          struct.success.write(oprot);
         }
       }
 
@@ -4236,7 +4239,8 @@ public class UserBaseService {
         org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
         java.util.BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
-          struct.success = iprot.readI32();
+          struct.success = new com.aries.user.gaea.contact.model.ThriftResponse();
+          struct.success.read(iprot);
           struct.setSuccessIsSet(true);
         }
       }
@@ -4727,12 +4731,12 @@ public class UserBaseService {
   public static class checkOnline_result implements org.apache.thrift.TBase<checkOnline_result, checkOnline_result._Fields>, java.io.Serializable, Cloneable, Comparable<checkOnline_result>   {
     private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("checkOnline_result");
 
-    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.I32, (short)0);
+    private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.STRUCT, (short)0);
 
     private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new checkOnline_resultStandardSchemeFactory();
     private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new checkOnline_resultTupleSchemeFactory();
 
-    public int success; // required
+    public @org.apache.thrift.annotation.Nullable com.aries.user.gaea.contact.model.ThriftResponse success; // required
 
     /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
     public enum _Fields implements org.apache.thrift.TFieldIdEnum {
@@ -4795,13 +4799,11 @@ public class UserBaseService {
     }
 
     // isset id assignments
-    private static final int __SUCCESS_ISSET_ID = 0;
-    private byte __isset_bitfield = 0;
     public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
     static {
       java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
       tmpMap.put(_Fields.SUCCESS, new org.apache.thrift.meta_data.FieldMetaData("success", org.apache.thrift.TFieldRequirementType.DEFAULT, 
-          new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
+          new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, com.aries.user.gaea.contact.model.ThriftResponse.class)));
       metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
       org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(checkOnline_result.class, metaDataMap);
     }
@@ -4810,19 +4812,19 @@ public class UserBaseService {
     }
 
     public checkOnline_result(
-      int success)
+      com.aries.user.gaea.contact.model.ThriftResponse success)
     {
       this();
       this.success = success;
-      setSuccessIsSet(true);
     }
 
     /**
      * Performs a deep copy on <i>other</i>.
      */
     public checkOnline_result(checkOnline_result other) {
-      __isset_bitfield = other.__isset_bitfield;
-      this.success = other.success;
+      if (other.isSetSuccess()) {
+        this.success = new com.aries.user.gaea.contact.model.ThriftResponse(other.success);
+      }
     }
 
     public checkOnline_result deepCopy() {
@@ -4831,31 +4833,32 @@ public class UserBaseService {
 
     @Override
     public void clear() {
-      setSuccessIsSet(false);
-      this.success = 0;
+      this.success = null;
     }
 
-    public int getSuccess() {
+    @org.apache.thrift.annotation.Nullable
+    public com.aries.user.gaea.contact.model.ThriftResponse getSuccess() {
       return this.success;
     }
 
-    public checkOnline_result setSuccess(int success) {
+    public checkOnline_result setSuccess(@org.apache.thrift.annotation.Nullable com.aries.user.gaea.contact.model.ThriftResponse success) {
       this.success = success;
-      setSuccessIsSet(true);
       return this;
     }
 
     public void unsetSuccess() {
-      __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __SUCCESS_ISSET_ID);
+      this.success = null;
     }
 
     /** Returns true if field success is set (has been assigned a value) and false otherwise */
     public boolean isSetSuccess() {
-      return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __SUCCESS_ISSET_ID);
+      return this.success != null;
     }
 
     public void setSuccessIsSet(boolean value) {
-      __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __SUCCESS_ISSET_ID, value);
+      if (!value) {
+        this.success = null;
+      }
     }
 
     public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
@@ -4864,7 +4867,7 @@ public class UserBaseService {
         if (value == null) {
           unsetSuccess();
         } else {
-          setSuccess((java.lang.Integer)value);
+          setSuccess((com.aries.user.gaea.contact.model.ThriftResponse)value);
         }
         break;
 
@@ -4909,12 +4912,12 @@ public class UserBaseService {
       if (this == that)
         return true;
 
-      boolean this_present_success = true;
-      boolean that_present_success = true;
+      boolean this_present_success = true && this.isSetSuccess();
+      boolean that_present_success = true && that.isSetSuccess();
       if (this_present_success || that_present_success) {
         if (!(this_present_success && that_present_success))
           return false;
-        if (this.success != that.success)
+        if (!this.success.equals(that.success))
           return false;
       }
 
@@ -4925,7 +4928,9 @@ public class UserBaseService {
     public int hashCode() {
       int hashCode = 1;
 
-      hashCode = hashCode * 8191 + success;
+      hashCode = hashCode * 8191 + ((isSetSuccess()) ? 131071 : 524287);
+      if (isSetSuccess())
+        hashCode = hashCode * 8191 + success.hashCode();
 
       return hashCode;
     }
@@ -4970,7 +4975,11 @@ public class UserBaseService {
       boolean first = true;
 
       sb.append("success:");
-      sb.append(this.success);
+      if (this.success == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.success);
+      }
       first = false;
       sb.append(")");
       return sb.toString();
@@ -4979,6 +4988,9 @@ public class UserBaseService {
     public void validate() throws org.apache.thrift.TException {
       // check for required fields
       // check for sub-struct validity
+      if (success != null) {
+        success.validate();
+      }
     }
 
     private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
@@ -4991,8 +5003,6 @@ public class UserBaseService {
 
     private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
       try {
-        // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
-        __isset_bitfield = 0;
         read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
       } catch (org.apache.thrift.TException te) {
         throw new java.io.IOException(te);
@@ -5018,8 +5028,9 @@ public class UserBaseService {
           }
           switch (schemeField.id) {
             case 0: // SUCCESS
-              if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
-                struct.success = iprot.readI32();
+              if (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) {
+                struct.success = new com.aries.user.gaea.contact.model.ThriftResponse();
+                struct.success.read(iprot);
                 struct.setSuccessIsSet(true);
               } else { 
                 org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -5040,9 +5051,9 @@ public class UserBaseService {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
-        if (struct.isSetSuccess()) {
+        if (struct.success != null) {
           oprot.writeFieldBegin(SUCCESS_FIELD_DESC);
-          oprot.writeI32(struct.success);
+          struct.success.write(oprot);
           oprot.writeFieldEnd();
         }
         oprot.writeFieldStop();
@@ -5068,7 +5079,7 @@ public class UserBaseService {
         }
         oprot.writeBitSet(optionals, 1);
         if (struct.isSetSuccess()) {
-          oprot.writeI32(struct.success);
+          struct.success.write(oprot);
         }
       }
 
@@ -5077,7 +5088,8 @@ public class UserBaseService {
         org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
         java.util.BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
-          struct.success = iprot.readI32();
+          struct.success = new com.aries.user.gaea.contact.model.ThriftResponse();
+          struct.success.read(iprot);
           struct.setSuccessIsSet(true);
         }
       }

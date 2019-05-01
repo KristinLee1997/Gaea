@@ -120,7 +120,7 @@ public class UserBaseServiceTest {
             setName("aries");
             setPassword("123123");
         }};
-        int type = new UserBaseServiceImpl().checkLoginType(companyDTO, "baibai");
-        System.out.println(type);
+        ThriftResponse response = new UserBaseServiceImpl().checkLoginType(companyDTO, "baibai");
+        System.out.println(response.getCode());
     }
 }
