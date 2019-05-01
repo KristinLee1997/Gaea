@@ -147,34 +147,6 @@ public class UserServiceImpl implements UserService {
         return 0;
     }
 
-    public byte[] getDefaultImage2() {
-        StringBuilder sb = new StringBuilder();
-        InputStream is = null;
-        try {
-//            String path = System.getProperty("user.dir") + "/gaea-server/src/main/resources/images/default_image.jpeg";
-            String path = UserServiceImpl.class.getClassLoader().getResource("").getPath() + "images/default_image.jpeg";
-            is = new FileInputStream(path);
-            byte[] buffer = new byte[1024];
-            while (is.read(buffer, 0, 1024) != -1) {//-1表示读取结束
-                sb.append(new String(buffer));
-            }
-        } catch (Exception e) {
-            log.error("读取头像图片失败");
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        String str = sb.toString();
-        if (StringUtils.isBlank(sb)) {
-            return null;
-        } else {
-            return str.getBytes();
-        }
-    }
-
     public byte[] getDefaultImage() throws IOException {
         String path = UserServiceImpl.class.getClassLoader().getResource("").getPath() + "images/default_image.jpeg";
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
