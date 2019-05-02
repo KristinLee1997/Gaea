@@ -13,7 +13,6 @@ import com.aries.user.gaea.contact.model.ThriftResponse;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
 import com.aries.user.gaea.contact.service.UserBaseService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.thrift.TException;
 import org.apache.thrift.transport.TTransportException;
 
 import static com.aries.user.gaea.client.constants.GaeaResponseEnum.SYSTEM_ERROR;
@@ -50,10 +49,13 @@ public class UserUtils {
         return response;
     }
 
-    public static GaeaResponse login(UserLoginDTO loginDTO) throws TException {
+    public static GaeaResponse login(UserLoginDTO loginDTO) {
         ThriftResponse userResponse = null;
         try {
             userResponse = ThriftHelper.call(ClientConstants.PROJECT_NAME, UserBaseService.Client.class, client -> client.userLogin(companyDTO, loginDTO));
+        } catch (TTransportException e) {
+            log.error("用户登录异常！");
+            return SYSTEM_ERROR.of();
         } catch (ServiceNotFoundException e) {
             log.error("Hera系统服务找不到，服务异常！");
             return SYSTEM_ERROR.of();
@@ -66,10 +68,13 @@ public class UserUtils {
         return response;
     }
 
-    public static GaeaResponse logout(CompanyDTO companyDTO, String loginId) throws TException {
+    public static GaeaResponse logout(CompanyDTO companyDTO, String loginId) {
         ThriftResponse userResponse = null;
         try {
             userResponse = ThriftHelper.call(ClientConstants.PROJECT_NAME, UserBaseService.Client.class, client -> client.userLogout(companyDTO, loginId));
+        } catch (TTransportException e) {
+            log.error("用户登出异常！");
+            return SYSTEM_ERROR.of();
         } catch (ServiceNotFoundException e) {
             log.error("Hera系统服务找不到，服务异常！");
             return SYSTEM_ERROR.of();
@@ -81,10 +86,13 @@ public class UserUtils {
 
     }
 
-    public static GaeaResponse checkLoginType(CompanyDTO companyDTO, String loginId) throws TException {
+    public static GaeaResponse checkLoginType(CompanyDTO companyDTO, String loginId) {
         ThriftResponse thriftResponse = null;
         try {
             thriftResponse = ThriftHelper.call(ClientConstants.PROJECT_NAME, UserBaseService.Client.class, client -> client.checkLoginType(companyDTO, loginId));
+        } catch (TTransportException e) {
+            log.error("用户获取登录类型异常！");
+            return SYSTEM_ERROR.of();
         } catch (ServiceNotFoundException e) {
             log.error("Hera系统服务找不到，服务异常！");
             return SYSTEM_ERROR.of();
