@@ -30,7 +30,7 @@ public class UserDao {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             UserExample userExample = new UserExample();
             userExample.createCriteria().andWechatEqualTo(loginId);
-            List<User> userList = userMapper.selectByExample(userExample);
+            List<User> userList = userMapper.selectByExampleWithBLOBs(userExample);
             if (!CollectionUtils.isEmpty(userList)) {
                 return userList.get(0);
             } else {
@@ -44,7 +44,7 @@ public class UserDao {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             UserExample userExample = new UserExample();
             userExample.createCriteria().andQqEqualTo(loginId);
-            List<User> userList = userMapper.selectByExample(userExample);
+            List<User> userList = userMapper.selectByExampleWithBLOBs(userExample);
             if (!CollectionUtils.isEmpty(userList)) {
                 return userList.get(0);
             } else {
@@ -67,7 +67,7 @@ public class UserDao {
             if (loginType == SysConstants.EMAIL_LOGIN_TYPE) {
                 criteria.andEmailEqualTo(loginId);
             }
-            List<User> userList = userMapper.selectByExample(userExample);
+            List<User> userList = userMapper.selectByExampleWithBLOBs(userExample);
             if (CollectionUtils.isEmpty(userList)) {
                 return null;
             } else {
@@ -84,8 +84,7 @@ public class UserDao {
     public static List<User> getUserListByExample(String database, UserExample example) {
         try (SqlSession sqlSession = MySqlSessionFactory.openSession(database)) {
             UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-            mapper.selectByExample(example);
-            return mapper.selectByExample(example);
+            return mapper.selectByExampleWithBLOBs(example);
         }
     }
 }

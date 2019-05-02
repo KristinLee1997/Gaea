@@ -107,7 +107,7 @@
             distinct
         </if>
         'true' as QUERYID,
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_ListBase_Column_List"/>
         from user
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
