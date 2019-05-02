@@ -2,6 +2,7 @@ package com.aries.user.gaea.server.thrift;
 
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.ThriftResponse;
+import com.aries.user.gaea.server.dao.CompanyDao;
 import org.apache.thrift.TException;
 import org.junit.Test;
 
@@ -45,5 +46,11 @@ public class CompanyBaseServiceTest {
         } catch (TException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void queryCompanyTest() {
+        String orion = CompanyDao.queryDatabaseByPassword("orion", "123123");
+        System.out.println("数据库名：" + orion);
     }
 }

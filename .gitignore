@@ -2,7 +2,7 @@
 **/target
 **/*.iml
 **/.DS_Store
-**/conf.properties
+**/gaea-conf.properties
 **/hikariPool.properties
 **/mybatis/generatorConfig.xml
 **/gaea-pass.properties
