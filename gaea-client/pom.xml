@@ -43,9 +43,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.aries.hera</groupId>
-            <artifactId>hera-client-thrift</artifactId>
-        </dependency>
+
     </dependencies>
 </project>

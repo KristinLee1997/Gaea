@@ -1,6 +1,5 @@
 package com.aries.user.gaea.client.factory;
 
-import com.aries.hera.client.thrift.ThriftHelper;
 import com.aries.user.gaea.contact.service.CompanyBaseService;
 import com.aries.user.gaea.contact.service.UserBaseService;
 import org.apache.thrift.protocol.TBinaryProtocol;

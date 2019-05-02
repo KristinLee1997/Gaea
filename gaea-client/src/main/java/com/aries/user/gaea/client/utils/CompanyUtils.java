@@ -3,7 +3,6 @@ package com.aries.user.gaea.client.utils;
 import com.aries.hera.client.thrift.ThriftHelper;
 import com.aries.hera.client.thrift.exception.ServiceNotFoundException;
 import com.aries.user.gaea.client.constants.ClientConstants;
-import com.aries.user.gaea.client.factory.GaeaClientFactory;
 import com.aries.user.gaea.client.model.GaeaResponse;
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.ThriftResponse;

@@ -1,8 +1,8 @@
 package com.aries.user.gaea.server.factory;
 
+import com.aries.user.gaea.core.utils.PropertiesUtils;
 import com.aries.user.gaea.server.constants.SysConstants;
 import com.aries.user.gaea.server.utils.DateSourceUrlUtil;
-import com.aries.user.gaea.core.utils.PropertiesUtils;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -15,7 +15,6 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
@@ -43,6 +42,7 @@ public class MySqlSessionFactory {
         }
         return sqlSessionFactoryMap.get(databaseName);
     }
+
     /**
      * 获取mybatis配置，相当于mybatis-config.xml
      *

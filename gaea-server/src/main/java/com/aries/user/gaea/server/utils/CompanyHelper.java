@@ -8,7 +8,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import static com.aries.user.gaea.server.constants.GaeaResponseEnum.*;
+import static com.aries.user.gaea.server.constants.GaeaResponseEnum.PARAM_NULL;
+import static com.aries.user.gaea.server.constants.GaeaResponseEnum.PERMISSION_FAIL;
 
 @Getter
 @Slf4j

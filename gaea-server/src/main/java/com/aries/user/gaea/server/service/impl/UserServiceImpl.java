@@ -1,5 +1,6 @@
 package com.aries.user.gaea.server.service.impl;
 
+import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import com.aries.user.gaea.server.constants.SysConstants;
 import com.aries.user.gaea.server.dao.LoginCookieDao;
 import com.aries.user.gaea.server.dao.UserDao;
@@ -7,10 +8,8 @@ import com.aries.user.gaea.server.model.po.LoginCookie;
 import com.aries.user.gaea.server.model.po.User;
 import com.aries.user.gaea.server.model.po.UserExample;
 import com.aries.user.gaea.server.service.UserService;
-import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import com.aries.user.gaea.server.utils.UUIDUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -27,17 +26,17 @@ public class UserServiceImpl implements UserService {
         if (userRegisterDTO.getAccount() != null || userRegisterDTO.getPhoneNumber() != null
                 || userRegisterDTO.getEmail() != null) {
             UserExample example = new UserExample();
-            if(userRegisterDTO.getAccount()!=null){
+            if (userRegisterDTO.getAccount() != null) {
                 UserExample.Criteria criteria1 = example.createCriteria();
                 criteria1.andAccountEqualTo(userRegisterDTO.getAccount());
                 example.or(criteria1);
             }
-            if(userRegisterDTO.getPhoneNumber()!=null){
+            if (userRegisterDTO.getPhoneNumber() != null) {
                 UserExample.Criteria criteria2 = example.createCriteria();
                 criteria2.andPhoneNumberEqualTo(userRegisterDTO.getPhoneNumber());
                 example.or(criteria2);
             }
-            if(userRegisterDTO.getEmail()!=null){
+            if (userRegisterDTO.getEmail() != null) {
                 UserExample.Criteria criteria3 = example.createCriteria();
                 criteria3.andEmailEqualTo(userRegisterDTO.getEmail());
                 example.or(criteria3);

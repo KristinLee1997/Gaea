@@ -40,6 +40,10 @@
             <groupId>javax.annotation</groupId>
             <artifactId>jsr250-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.aries.hera</groupId>
+            <artifactId>hera-client-thrift</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

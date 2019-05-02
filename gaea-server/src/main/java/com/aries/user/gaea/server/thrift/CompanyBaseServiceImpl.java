@@ -4,15 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.ThriftResponse;
 import com.aries.user.gaea.contact.service.CompanyBaseService;
-import com.aries.user.gaea.server.constants.GaeaResponseEnum;
-import com.aries.user.gaea.server.constants.SysConstants;
 import com.aries.user.gaea.server.model.po.Company;
 import com.aries.user.gaea.server.service.CompanyService;
 import com.aries.user.gaea.server.service.impl.CompanyServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
 
-import static com.aries.user.gaea.server.constants.GaeaResponseEnum.*;
+import static com.aries.user.gaea.server.constants.GaeaResponseEnum.PARAM_NULL;
+import static com.aries.user.gaea.server.constants.GaeaResponseEnum.SYSTEM_ERROR;
 
 @Slf4j
 public class CompanyBaseServiceImpl implements CompanyBaseService.Iface {
