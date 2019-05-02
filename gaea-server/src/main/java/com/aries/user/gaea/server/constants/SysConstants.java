@@ -7,6 +7,8 @@ public class SysConstants {
     // 数据库名称
     public static final String DATABASE_USERCENTER = "usercenter";
 
+    public static final String DEFAULT_USER_PROFILE_PHOTO_PATH = "/home/user01/kristin/pictures/default_user_profile_photo.jpeg";
+
     // 正则匹配
     public static final String ACCOUNT_REGEX = "^[A-Za-z][A-Za-z1-9_-]+$";
     public static final String PHONENUMBER_REGEX = "^[1-9]\\d{4,11}$";

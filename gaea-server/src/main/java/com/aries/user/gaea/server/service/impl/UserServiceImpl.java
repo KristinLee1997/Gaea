@@ -147,9 +147,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public byte[] getDefaultImage() throws IOException {
-        String path = UserServiceImpl.class.getClassLoader().getResource("").getPath() + "images/default_image.jpeg";
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        InputStream inputStream = new FileInputStream(path);
+        InputStream inputStream = new FileInputStream(SysConstants.DEFAULT_USER_PROFILE_PHOTO_PATH);
         byte[] buffer = new byte[1024];
         int len = 0;
         while ((len = inputStream.read(buffer)) != -1) {
