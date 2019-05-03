@@ -1,5 +1,6 @@
 package com.aries.user.gaea.server.service.impl;
 
+import com.aries.user.gaea.contact.model.UserInfo;
 import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import com.aries.user.gaea.server.constants.SysConstants;
 import com.aries.user.gaea.server.dao.LoginCookieDao;
@@ -15,7 +16,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -107,6 +110,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserInfoById(String database, Long id) {
         return UserDao.getUserInfoById(database, id);
+    }
+
+    @Override
+    public Map<Long, UserInfo> getUserInfoByIdList(String database, List idList) {
+        List<User> userList = UserDao.getUserInfoByIdList(database, idList);
+        Map<Long, UserInfo> userMap = new HashMap<>();
+        for (User user : userList) {
+            userMap.put(user.getId(), convertUser2UesrInfo(user));
+        }
+        return userMap;
+    }
+
+    private UserInfo convertUser2UesrInfo(User user) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(user.getId());
+        userInfo.setNickname(user.getNickname());
+        userInfo.setPhoneNumber(user.getPhoneNumber());
+        userInfo.setAccount(user.getAccount());
+        userInfo.setEmail(user.getEmail());
+        userInfo.setPassword(user.getPassword());
+        userInfo.setSalt(user.getSalt());
+        userInfo.setWechat(user.getWechat());
+        userInfo.setQq(user.getQq());
+        userInfo.setBizType(user.getBizType());
+        userInfo.setImage(user.getImage());
+        return userInfo;
     }
 
     @Override

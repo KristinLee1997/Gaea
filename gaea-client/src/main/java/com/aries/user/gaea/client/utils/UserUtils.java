@@ -10,10 +10,13 @@ import com.aries.user.gaea.client.model.User;
 import com.aries.user.gaea.client.model.UserRegisterVo;
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.ThriftResponse;
+import com.aries.user.gaea.contact.model.UserInfoResponse;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
 import com.aries.user.gaea.contact.service.UserBaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.transport.TTransportException;
+
+import java.util.List;
 
 import static com.aries.user.gaea.client.constants.GaeaResponseEnum.SYSTEM_ERROR;
 
@@ -119,6 +122,24 @@ public class UserUtils {
         response.setCode(thriftResponse.getCode());
         response.setMessage(thriftResponse.getMessage());
         response.setData(JSON.parseObject(thriftResponse.getData(), User.class));
+        return response;
+    }
+
+    public static GaeaResponse getUserInfoByIdList(List<Long> idList) {
+        UserInfoResponse userInfoResponse = null;
+        try {
+            userInfoResponse = ThriftHelper.call(ClientConstants.PROJECT_NAME, UserBaseService.Client.class, client -> client.getUserInfoByIdList(companyDTO, idList));
+        } catch (TTransportException e) {
+            log.error("通过用户id查询用户信息失败");
+            return SYSTEM_ERROR.of();
+        } catch (ServiceNotFoundException e) {
+            log.error("Hera系统服务找不到，服务异常！");
+            return SYSTEM_ERROR.of();
+        }
+        GaeaResponse response = new GaeaResponse();
+        response.setCode(userInfoResponse.getCode());
+        response.setMessage(userInfoResponse.getMessage());
+        response.setData(userInfoResponse.getData());
         return response;
     }
 }

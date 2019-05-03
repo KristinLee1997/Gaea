@@ -94,4 +94,14 @@ public class UserDao {
             return mapper.selectByPrimaryKey(id);
         }
     }
+
+    public static List<User> getUserInfoByIdList(String database, List idList) {
+        try (SqlSession sqlSession = MySqlSessionFactory.openSession(database)) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            UserExample userExample = new UserExample();
+            UserExample.Criteria criteria = userExample.createCriteria();
+            criteria.andIdIn(idList);
+            return mapper.selectByExampleWithBLOBs(userExample);
+        }
+    }
 }

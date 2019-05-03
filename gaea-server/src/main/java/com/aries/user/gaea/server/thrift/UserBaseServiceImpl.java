@@ -3,6 +3,8 @@ package com.aries.user.gaea.server.thrift;
 import com.alibaba.fastjson.JSON;
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.ThriftResponse;
+import com.aries.user.gaea.contact.model.UserInfo;
+import com.aries.user.gaea.contact.model.UserInfoResponse;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
 import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import com.aries.user.gaea.contact.service.UserBaseService;
@@ -12,6 +14,9 @@ import com.aries.user.gaea.server.service.impl.UserServiceImpl;
 import com.aries.user.gaea.server.utils.CompanyHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
+
+import java.util.List;
+import java.util.Map;
 
 import static com.aries.user.gaea.server.constants.GaeaResponseEnum.DATABASE_ERROR;
 import static com.aries.user.gaea.server.constants.GaeaResponseEnum.PARAM_ILLEGAL;
@@ -127,6 +132,31 @@ public class UserBaseServiceImpl implements UserBaseService.Iface {
         response.setCode(SUCCESS.of().getCode());
         response.setMessage(SUCCESS.of().getMessage());
         response.setData(JSON.toJSONString(user));
+        log.info("id：{}查询用户信息成功！", id);
+        return response;
+    }
+
+    @Override
+    public UserInfoResponse getUserInfoByIdList(CompanyDTO companyDTO, List<Long> idList) throws TException {
+        CompanyHelper companyHelper = new CompanyHelper(companyDTO).check();
+        UserInfoResponse response = new UserInfoResponse();
+        if (companyHelper.isError()) {
+            log.error("调用方无权限，公司信息{}", JSON.toJSONString(companyDTO));
+            response.setCode(companyHelper.getResponse().getCode());
+            response.setMessage(companyHelper.getResponse().getMessage());
+            return response;
+        }
+        Map<Long, UserInfo> userInfoMap = userService.getUserInfoByIdList(companyHelper.getDatabaseName(), idList);
+        if (userInfoMap == null || userInfoMap.size() == 0) {
+            log.warn("查询id:{}的用户信息失败", idList);
+            response.setCode(SYSTEM_ERROR.of().getCode());
+            response.setMessage(SYSTEM_ERROR.of().getMessage());
+            return response;
+        }
+        response.setCode(SUCCESS.of().getCode());
+        response.setMessage(SUCCESS.of().getMessage());
+        response.setData(userInfoMap);
+        log.info("通过用户id查询用户信息成功，idList:{}", idList);
         return response;
     }
 }
