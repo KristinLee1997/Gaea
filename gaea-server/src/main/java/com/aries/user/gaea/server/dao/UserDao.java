@@ -87,4 +87,11 @@ public class UserDao {
             return mapper.selectByExampleWithBLOBs(example);
         }
     }
+
+    public static User getUserInfoById(String database, Long id) {
+        try (SqlSession sqlSession = MySqlSessionFactory.openSession(database)) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            return mapper.selectByPrimaryKey(id);
+        }
+    }
 }

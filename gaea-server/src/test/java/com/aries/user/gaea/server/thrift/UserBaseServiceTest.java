@@ -126,7 +126,20 @@ public class UserBaseServiceTest {
             setName("aries");
             setPassword("123123");
         }};
-        ThriftResponse response = new UserBaseServiceImpl().checkLoginType(companyDTO, "baibai");
+        ThriftResponse response = new UserBaseServiceImpl().checkLoginType(companyDTO, "test123");
         System.out.println(response.getCode());
+    }
+
+
+    @Test
+    public void getUserInfoTest() throws TException {
+        CompanyDTO companyDTO = new CompanyDTO() {{
+            setName("aries");
+            setPassword("123123");
+        }};
+        ThriftResponse response = new UserBaseServiceImpl().getUserInfoById(companyDTO, 6L);
+        System.out.println(response.getCode());
+        System.out.println(response.getMessage());
+        System.out.println(response.getData());
     }
 }

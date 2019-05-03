@@ -110,4 +110,23 @@ public class UserBaseServiceImpl implements UserBaseService.Iface {
     public ThriftResponse checkOnline(CompanyDTO companyDTO, String loginId) throws TException {
         return SUCCESS.of();
     }
+
+    @Override
+    public ThriftResponse getUserInfoById(CompanyDTO companyDTO, long id) throws TException {
+        CompanyHelper companyHelper = new CompanyHelper(companyDTO).check();
+        ThriftResponse response = new ThriftResponse();
+        if (companyHelper.isError()) {
+            log.error("调用方无权限，公司信息{}", JSON.toJSONString(companyDTO));
+            return companyHelper.getResponse();
+        }
+        User user = userService.getUserInfoById(companyHelper.getDatabaseName(), Long.valueOf(id));
+        if (user == null) {
+            log.warn("查询id:{}的用户信息失败", id);
+            return SYSTEM_ERROR.of();
+        }
+        response.setCode(SUCCESS.of().getCode());
+        response.setMessage(SUCCESS.of().getMessage());
+        response.setData(JSON.toJSONString(user));
+        return response;
+    }
 }

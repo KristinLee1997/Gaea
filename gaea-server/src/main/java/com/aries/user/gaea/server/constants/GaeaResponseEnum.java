@@ -24,9 +24,6 @@ public enum GaeaResponseEnum {
     }
 
     public ThriftResponse of() {
-        return new ThriftResponse() {{
-            setCode(code);
-            setMessage(message);
-        }};
+        return new ThriftResponse(code, message);
     }
 }

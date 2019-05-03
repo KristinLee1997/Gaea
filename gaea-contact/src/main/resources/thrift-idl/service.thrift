@@ -7,6 +7,7 @@ service UserBaseService{
     model.ThriftResponse userLogout(1:model.CompanyDTO companyDTO, 2:string loginId);
     model.ThriftResponse checkLoginType(1:model.CompanyDTO companyDTO, 2:string loginId);
     model.ThriftResponse checkOnline(1:model.CompanyDTO companyDTO, 2:string loginId);
+    model.ThriftResponse getUserInfoById(1:model.CompanyDTO companyDTO, 2:i64 id);
 }
 
 service CompanyBaseService{

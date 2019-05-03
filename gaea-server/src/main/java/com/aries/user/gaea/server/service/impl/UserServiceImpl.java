@@ -105,6 +105,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserInfoById(String database, Long id) {
+        return UserDao.getUserInfoById(database, id);
+    }
+
+    @Override
     public int getTypeByLoginId(String database, String loginId, int loginType) {
         if (loginType == SysConstants.WECHAT_LOGIN_TYPE) {
             return SysConstants.WECHAT_LOGIN_TYPE;

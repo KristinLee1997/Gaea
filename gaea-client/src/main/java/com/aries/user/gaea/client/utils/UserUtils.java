@@ -64,11 +64,11 @@ public class UserUtils {
         response.setCode(userResponse.getCode());
         response.setMessage(userResponse.getMessage());
         response.setData(JSON.parseObject(userResponse.getData(), User.class));
-        log.info("用户:{}登录成功", JSON.parseObject(userResponse.getData(), User.class));
+        log.info("用户:{}登录成功", userResponse.getData());
         return response;
     }
 
-    public static GaeaResponse logout(CompanyDTO companyDTO, String loginId) {
+    public static GaeaResponse logout(String loginId) {
         ThriftResponse userResponse = null;
         try {
             userResponse = ThriftHelper.call(ClientConstants.PROJECT_NAME, UserBaseService.Client.class, client -> client.userLogout(companyDTO, loginId));
@@ -86,7 +86,7 @@ public class UserUtils {
 
     }
 
-    public static GaeaResponse checkLoginType(CompanyDTO companyDTO, String loginId) {
+    public static GaeaResponse checkLoginType(String loginId) {
         ThriftResponse thriftResponse = null;
         try {
             thriftResponse = ThriftHelper.call(ClientConstants.PROJECT_NAME, UserBaseService.Client.class, client -> client.checkLoginType(companyDTO, loginId));
@@ -98,11 +98,28 @@ public class UserUtils {
             return SYSTEM_ERROR.of();
         }
         GaeaResponse response = new GaeaResponse();
-        response.setCode(200);
-        response.setMessage("查询登录方式成功");
+        response.setCode(thriftResponse.getCode());
+        response.setMessage(thriftResponse.getMessage());
         response.setData(thriftResponse.getData());
         return response;
+    }
 
+    public static GaeaResponse getUserInfoById(Long id) {
+        ThriftResponse thriftResponse = null;
+        try {
+            thriftResponse = ThriftHelper.call(ClientConstants.PROJECT_NAME, UserBaseService.Client.class, client -> client.getUserInfoById(companyDTO, id));
+        } catch (TTransportException e) {
+            log.error("通过用户id查询用户信息失败");
+            return SYSTEM_ERROR.of();
+        } catch (ServiceNotFoundException e) {
+            log.error("Hera系统服务找不到，服务异常！");
+            return SYSTEM_ERROR.of();
+        }
+        GaeaResponse response = new GaeaResponse();
+        response.setCode(thriftResponse.getCode());
+        response.setMessage(thriftResponse.getMessage());
+        response.setData(JSON.parseObject(thriftResponse.getData(), User.class));
+        return response;
     }
 }
 

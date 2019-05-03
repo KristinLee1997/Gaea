@@ -95,7 +95,7 @@ public class UserUtilsTest {
             setName("aries");
             setPassword("123123");
         }};
-        GaeaResponse logout = UserUtils.logout(companyDTO, "weixin-kris");
+        GaeaResponse logout = UserUtils.logout("weixin-kris");
         System.out.println(logout.getCode());
         System.out.println(logout.getMessage());
     }
@@ -111,7 +111,7 @@ public class UserUtilsTest {
             setName("aries");
             setPassword("123123");
         }};
-        GaeaResponse response = UserUtils.checkLoginType(companyDTO, "weixin-kris");
+        GaeaResponse response = UserUtils.checkLoginType("weixin-kris");
         System.out.println(response.getMessage());
         System.out.println(response.getData());
     }

@@ -24,9 +24,6 @@ public enum GaeaResponseEnum {
     }
 
     public GaeaResponse of() {
-        return new GaeaResponse() {{
-            setCode(code);
-            setMessage(message);
-        }};
+        return new GaeaResponse(code, message);
     }
 }

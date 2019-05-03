@@ -10,6 +10,8 @@ public interface UserService {
 
     int logout(String database, String loginId);
 
+    User getUserInfoById(String database, Long id);
+
     int getTypeByLoginId(String database, String loginId, int loginType);
 
     int getLoginType(String database, String loginId);
