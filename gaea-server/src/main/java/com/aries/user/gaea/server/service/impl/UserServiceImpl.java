@@ -2,6 +2,7 @@ package com.aries.user.gaea.server.service.impl;
 
 import com.aries.user.gaea.contact.model.UserInfo;
 import com.aries.user.gaea.contact.model.UserRegisterDTO;
+import com.aries.user.gaea.core.utils.DateUtils;
 import com.aries.user.gaea.server.constants.SysConstants;
 import com.aries.user.gaea.server.dao.LoginCookieDao;
 import com.aries.user.gaea.server.dao.UserDao;
@@ -135,6 +136,7 @@ public class UserServiceImpl implements UserService {
         userInfo.setQq(user.getQq());
         userInfo.setBizType(user.getBizType());
         userInfo.setImage(user.getImage());
+        userInfo.setAddTime(DateUtils.converDate2String(user.getAddTime()));
         return userInfo;
     }
 

@@ -22,6 +22,7 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
   private static final org.apache.thrift.protocol.TField QQ_FIELD_DESC = new org.apache.thrift.protocol.TField("qq", org.apache.thrift.protocol.TType.STRING, (short)9);
   private static final org.apache.thrift.protocol.TField BIZ_TYPE_FIELD_DESC = new org.apache.thrift.protocol.TField("bizType", org.apache.thrift.protocol.TType.I32, (short)10);
   private static final org.apache.thrift.protocol.TField IMAGE_FIELD_DESC = new org.apache.thrift.protocol.TField("image", org.apache.thrift.protocol.TType.STRING, (short)11);
+  private static final org.apache.thrift.protocol.TField ADD_TIME_FIELD_DESC = new org.apache.thrift.protocol.TField("addTime", org.apache.thrift.protocol.TType.STRING, (short)12);
 
   private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new UserInfoStandardSchemeFactory();
   private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new UserInfoTupleSchemeFactory();
@@ -37,6 +38,7 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
   public @org.apache.thrift.annotation.Nullable java.lang.String qq; // optional
   public int bizType; // optional
   public @org.apache.thrift.annotation.Nullable java.nio.ByteBuffer image; // optional
+  public @org.apache.thrift.annotation.Nullable java.lang.String addTime; // optional
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
@@ -50,7 +52,8 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
     WECHAT((short)8, "wechat"),
     QQ((short)9, "qq"),
     BIZ_TYPE((short)10, "bizType"),
-    IMAGE((short)11, "image");
+    IMAGE((short)11, "image"),
+    ADD_TIME((short)12, "addTime");
 
     private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
 
@@ -88,6 +91,8 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
           return BIZ_TYPE;
         case 11: // IMAGE
           return IMAGE;
+        case 12: // ADD_TIME
+          return ADD_TIME;
         default:
           return null;
       }
@@ -132,7 +137,7 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
   private static final int __ID_ISSET_ID = 0;
   private static final int __BIZTYPE_ISSET_ID = 1;
   private byte __isset_bitfield = 0;
-  private static final _Fields optionals[] = {_Fields.ID,_Fields.NICKNAME,_Fields.ACCOUNT,_Fields.PHONE_NUMBER,_Fields.EMAIL,_Fields.PASSWORD,_Fields.SALT,_Fields.WECHAT,_Fields.QQ,_Fields.BIZ_TYPE,_Fields.IMAGE};
+  private static final _Fields optionals[] = {_Fields.ID,_Fields.NICKNAME,_Fields.ACCOUNT,_Fields.PHONE_NUMBER,_Fields.EMAIL,_Fields.PASSWORD,_Fields.SALT,_Fields.WECHAT,_Fields.QQ,_Fields.BIZ_TYPE,_Fields.IMAGE,_Fields.ADD_TIME};
   public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -158,6 +163,8 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.IMAGE, new org.apache.thrift.meta_data.FieldMetaData("image", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING        , true)));
+    tmpMap.put(_Fields.ADD_TIME, new org.apache.thrift.meta_data.FieldMetaData("addTime", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(UserInfo.class, metaDataMap);
   }
@@ -199,6 +206,9 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
     if (other.isSetImage()) {
       this.image = org.apache.thrift.TBaseHelper.copyBinary(other.image);
     }
+    if (other.isSetAddTime()) {
+      this.addTime = other.addTime;
+    }
   }
 
   public UserInfo deepCopy() {
@@ -220,6 +230,7 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
     setBizTypeIsSet(false);
     this.bizType = 0;
     this.image = null;
+    this.addTime = null;
   }
 
   public long getId() {
@@ -502,6 +513,31 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
     }
   }
 
+  @org.apache.thrift.annotation.Nullable
+  public java.lang.String getAddTime() {
+    return this.addTime;
+  }
+
+  public UserInfo setAddTime(@org.apache.thrift.annotation.Nullable java.lang.String addTime) {
+    this.addTime = addTime;
+    return this;
+  }
+
+  public void unsetAddTime() {
+    this.addTime = null;
+  }
+
+  /** Returns true if field addTime is set (has been assigned a value) and false otherwise */
+  public boolean isSetAddTime() {
+    return this.addTime != null;
+  }
+
+  public void setAddTimeIsSet(boolean value) {
+    if (!value) {
+      this.addTime = null;
+    }
+  }
+
   public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
     switch (field) {
     case ID:
@@ -596,6 +632,14 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
       }
       break;
 
+    case ADD_TIME:
+      if (value == null) {
+        unsetAddTime();
+      } else {
+        setAddTime((java.lang.String)value);
+      }
+      break;
+
     }
   }
 
@@ -635,6 +679,9 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
     case IMAGE:
       return getImage();
 
+    case ADD_TIME:
+      return getAddTime();
+
     }
     throw new java.lang.IllegalStateException();
   }
@@ -668,6 +715,8 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
       return isSetBizType();
     case IMAGE:
       return isSetImage();
+    case ADD_TIME:
+      return isSetAddTime();
     }
     throw new java.lang.IllegalStateException();
   }
@@ -786,6 +835,15 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
         return false;
     }
 
+    boolean this_present_addTime = true && this.isSetAddTime();
+    boolean that_present_addTime = true && that.isSetAddTime();
+    if (this_present_addTime || that_present_addTime) {
+      if (!(this_present_addTime && that_present_addTime))
+        return false;
+      if (!this.addTime.equals(that.addTime))
+        return false;
+    }
+
     return true;
   }
 
@@ -836,6 +894,10 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
     hashCode = hashCode * 8191 + ((isSetImage()) ? 131071 : 524287);
     if (isSetImage())
       hashCode = hashCode * 8191 + image.hashCode();
+
+    hashCode = hashCode * 8191 + ((isSetAddTime()) ? 131071 : 524287);
+    if (isSetAddTime())
+      hashCode = hashCode * 8191 + addTime.hashCode();
 
     return hashCode;
   }
@@ -954,6 +1016,16 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
     }
     if (isSetImage()) {
       lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.image, other.image);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.valueOf(isSetAddTime()).compareTo(other.isSetAddTime());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetAddTime()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.addTime, other.addTime);
       if (lastComparison != 0) {
         return lastComparison;
       }
@@ -1077,6 +1149,16 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
         sb.append("null");
       } else {
         org.apache.thrift.TBaseHelper.toString(this.image, sb);
+      }
+      first = false;
+    }
+    if (isSetAddTime()) {
+      if (!first) sb.append(", ");
+      sb.append("addTime:");
+      if (this.addTime == null) {
+        sb.append("null");
+      } else {
+        sb.append(this.addTime);
       }
       first = false;
     }
@@ -1213,6 +1295,14 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
+          case 12: // ADD_TIME
+            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
+              struct.addTime = iprot.readString();
+              struct.setAddTimeIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
           default:
             org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
         }
@@ -1301,6 +1391,13 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
           oprot.writeFieldEnd();
         }
       }
+      if (struct.addTime != null) {
+        if (struct.isSetAddTime()) {
+          oprot.writeFieldBegin(ADD_TIME_FIELD_DESC);
+          oprot.writeString(struct.addTime);
+          oprot.writeFieldEnd();
+        }
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -1352,7 +1449,10 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
       if (struct.isSetImage()) {
         optionals.set(10);
       }
-      oprot.writeBitSet(optionals, 11);
+      if (struct.isSetAddTime()) {
+        optionals.set(11);
+      }
+      oprot.writeBitSet(optionals, 12);
       if (struct.isSetId()) {
         oprot.writeI64(struct.id);
       }
@@ -1386,12 +1486,15 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
       if (struct.isSetImage()) {
         oprot.writeBinary(struct.image);
       }
+      if (struct.isSetAddTime()) {
+        oprot.writeString(struct.addTime);
+      }
     }
 
     @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, UserInfo struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
-      java.util.BitSet incoming = iprot.readBitSet(11);
+      java.util.BitSet incoming = iprot.readBitSet(12);
       if (incoming.get(0)) {
         struct.id = iprot.readI64();
         struct.setIdIsSet(true);
@@ -1435,6 +1538,10 @@ public class UserInfo implements org.apache.thrift.TBase<UserInfo, UserInfo._Fie
       if (incoming.get(10)) {
         struct.image = iprot.readBinary();
         struct.setImageIsSet(true);
+      }
+      if (incoming.get(11)) {
+        struct.addTime = iprot.readString();
+        struct.setAddTimeIsSet(true);
       }
     }
   }

@@ -23,7 +23,7 @@ struct UserInfo{
     9:optional string qq;
     10:optional i32 bizType;
     11:optional binary image;
-
+    12:optional string addTime;
 }
 
 struct UserInfoResponse{
