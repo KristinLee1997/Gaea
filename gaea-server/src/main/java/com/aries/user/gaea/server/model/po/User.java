@@ -1,5 +1,7 @@
 package com.aries.user.gaea.server.model.po;
 
+import java.util.Date;
+
 public class User {
     private Long id;
 
@@ -20,6 +22,8 @@ public class User {
     private String qq;
 
     private Integer bizType;
+
+    private Date addTime;
 
     private byte[] image;
 
@@ -101,6 +105,14 @@ public class User {
 
     public void setBizType(Integer bizType) {
         this.bizType = bizType;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
     }
 
     public byte[] getImage() {
