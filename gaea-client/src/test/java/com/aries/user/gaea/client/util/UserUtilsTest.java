@@ -23,7 +23,7 @@ public class UserUtilsTest {
     @Test
     public void registerTest() throws TException {
         UserRegisterVo userRegisterVo = UserRegisterVo.UserRegisterVoBuilder.anUserRegisterVo().
-                account("tu5").password("sdsfaaa").bizType(1).build();
+                account("jin123").password("sdsfaaa").bizType(1).imageId(1L).build();
 //        GaeaResponse response = UserUtils.register(userRegisterVo);
 //        System.out.println(response);
         CompanyDTO companyDTO = new CompanyDTO();

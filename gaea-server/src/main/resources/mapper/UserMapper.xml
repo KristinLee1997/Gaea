@@ -11,8 +11,9 @@
     <result column="salt" property="salt" jdbcType="VARCHAR" />
     <result column="wechat" property="wechat" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
-    <result column="biz_type" property="bizType" jdbcType="INTEGER" />
+    <result column="image_id" property="imageId" jdbcType="BIGINT" />
     <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="biz_type" property="bizType" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.aries.user.gaea.server.model.po.User" extends="BaseResultMap" >
     <result column="image" property="image" jdbcType="LONGVARBINARY" />
@@ -76,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, nickname, account, phone_number, email, password, salt, wechat, qq, biz_type, 
-    add_time
+    id, nickname, account, phone_number, email, password, salt, wechat, qq, image_id, 
+    add_time, biz_type
   </sql>
   <sql id="Blob_Column_List" >
     image
@@ -138,12 +139,14 @@
     </selectKey>
     insert into user (nickname, account, phone_number, 
       email, password, salt, 
-      wechat, qq, biz_type, 
-      add_time, image)
+      wechat, qq, image_id, 
+      add_time, biz_type, image
+      )
     values (#{nickname,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
-      #{wechat,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{bizType,jdbcType=INTEGER}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{image,jdbcType=LONGVARBINARY})
+      #{wechat,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{imageId,jdbcType=BIGINT}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{bizType,jdbcType=INTEGER}, #{image,jdbcType=LONGVARBINARY}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.aries.user.gaea.server.model.po.User" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -175,11 +178,14 @@
       <if test="qq != null" >
         qq,
       </if>
-      <if test="bizType != null" >
-        biz_type,
+      <if test="imageId != null" >
+        image_id,
       </if>
       <if test="addTime != null" >
         add_time,
+      </if>
+      <if test="bizType != null" >
+        biz_type,
       </if>
       <if test="image != null" >
         image,
@@ -210,11 +216,14 @@
       <if test="qq != null" >
         #{qq,jdbcType=VARCHAR},
       </if>
-      <if test="bizType != null" >
-        #{bizType,jdbcType=INTEGER},
+      <if test="imageId != null" >
+        #{imageId,jdbcType=BIGINT},
       </if>
       <if test="addTime != null" >
         #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bizType != null" >
+        #{bizType,jdbcType=INTEGER},
       </if>
       <if test="image != null" >
         #{image,jdbcType=LONGVARBINARY},
@@ -257,11 +266,14 @@
       <if test="record.qq != null" >
         qq = #{record.qq,jdbcType=VARCHAR},
       </if>
-      <if test="record.bizType != null" >
-        biz_type = #{record.bizType,jdbcType=INTEGER},
+      <if test="record.imageId != null" >
+        image_id = #{record.imageId,jdbcType=BIGINT},
       </if>
       <if test="record.addTime != null" >
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bizType != null" >
+        biz_type = #{record.bizType,jdbcType=INTEGER},
       </if>
       <if test="record.image != null" >
         image = #{record.image,jdbcType=LONGVARBINARY},
@@ -282,8 +294,9 @@
       salt = #{record.salt,jdbcType=VARCHAR},
       wechat = #{record.wechat,jdbcType=VARCHAR},
       qq = #{record.qq,jdbcType=VARCHAR},
-      biz_type = #{record.bizType,jdbcType=INTEGER},
+      image_id = #{record.imageId,jdbcType=BIGINT},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      biz_type = #{record.bizType,jdbcType=INTEGER},
       image = #{record.image,jdbcType=LONGVARBINARY}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -300,8 +313,9 @@
       salt = #{record.salt,jdbcType=VARCHAR},
       wechat = #{record.wechat,jdbcType=VARCHAR},
       qq = #{record.qq,jdbcType=VARCHAR},
-      biz_type = #{record.bizType,jdbcType=INTEGER},
-      add_time = #{record.addTime,jdbcType=TIMESTAMP}
+      image_id = #{record.imageId,jdbcType=BIGINT},
+      add_time = #{record.addTime,jdbcType=TIMESTAMP},
+      biz_type = #{record.bizType,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -333,11 +347,14 @@
       <if test="qq != null" >
         qq = #{qq,jdbcType=VARCHAR},
       </if>
-      <if test="bizType != null" >
-        biz_type = #{bizType,jdbcType=INTEGER},
+      <if test="imageId != null" >
+        image_id = #{imageId,jdbcType=BIGINT},
       </if>
       <if test="addTime != null" >
         add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bizType != null" >
+        biz_type = #{bizType,jdbcType=INTEGER},
       </if>
       <if test="image != null" >
         image = #{image,jdbcType=LONGVARBINARY},
@@ -355,8 +372,9 @@
       salt = #{salt,jdbcType=VARCHAR},
       wechat = #{wechat,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
-      biz_type = #{bizType,jdbcType=INTEGER},
+      image_id = #{imageId,jdbcType=BIGINT},
       add_time = #{addTime,jdbcType=TIMESTAMP},
+      biz_type = #{bizType,jdbcType=INTEGER},
       image = #{image,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -370,8 +388,9 @@
       salt = #{salt,jdbcType=VARCHAR},
       wechat = #{wechat,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
-      biz_type = #{bizType,jdbcType=INTEGER},
-      add_time = #{addTime,jdbcType=TIMESTAMP}
+      image_id = #{imageId,jdbcType=BIGINT},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      biz_type = #{bizType,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

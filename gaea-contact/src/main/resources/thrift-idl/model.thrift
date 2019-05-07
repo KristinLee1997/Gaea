@@ -23,7 +23,8 @@ struct UserInfo{
     9:optional string qq;
     10:optional i32 bizType;
     11:optional binary image;
-    12:optional string addTime;
+    12:optional i64 imageId;
+    13:optional string addTime;
 }
 
 struct UserInfoResponse{
@@ -41,7 +42,8 @@ struct UserRegisterDTO{
     6:optional string qq,
     7:required i32 bizType,
     8:optional binary image,
-    9:optional string nickname,
+    9:optional i64 imageId,
+    10:optional string nickname,
 }
 
 struct UserLoginDTO{

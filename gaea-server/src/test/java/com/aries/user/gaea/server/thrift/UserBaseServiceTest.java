@@ -43,15 +43,16 @@ public class UserBaseServiceTest {
             setPassword("123123");
         }};
         UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
-        userRegisterDTO.setAccount("kris");
+        userRegisterDTO.setAccount("coca");
         userRegisterDTO.setPassword("111111");
-        userRegisterDTO.setPhoneNumber("1821010101");
-        userRegisterDTO.setEmail("18212342334@163.com");
-        try {
-            userRegisterDTO.setImage(userService.getDefaultImage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        userRegisterDTO.setPhoneNumber("1831010101");
+        userRegisterDTO.setEmail("18312342334@163.com");
+        userRegisterDTO.setImageId(1L);
+//        try {
+//            userRegisterDTO.setImage(userService.getDefaultImage());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         userRegisterDTO.setBizType(1);
         try {
             ThriftResponse response = new UserBaseServiceImpl().userRegister(companyDTO, userRegisterDTO);

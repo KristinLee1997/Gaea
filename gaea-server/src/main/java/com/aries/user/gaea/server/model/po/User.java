@@ -21,9 +21,11 @@ public class User {
 
     private String qq;
 
-    private Integer bizType;
+    private Long imageId;
 
     private Date addTime;
+
+    private Integer bizType;
 
     private byte[] image;
 
@@ -99,12 +101,12 @@ public class User {
         this.qq = qq == null ? null : qq.trim();
     }
 
-    public Integer getBizType() {
-        return bizType;
+    public Long getImageId() {
+        return imageId;
     }
 
-    public void setBizType(Integer bizType) {
-        this.bizType = bizType;
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
     }
 
     public Date getAddTime() {
@@ -113,6 +115,14 @@ public class User {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
+    }
+
+    public Integer getBizType() {
+        return bizType;
+    }
+
+    public void setBizType(Integer bizType) {
+        this.bizType = bizType;
     }
 
     public byte[] getImage() {

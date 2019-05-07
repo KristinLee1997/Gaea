@@ -1,6 +1,5 @@
 package com.aries.user.gaea.client.model;
 
-import lombok.Data;
 
 public class User {
     private Long id;
@@ -22,6 +21,8 @@ public class User {
     private String qq;
 
     private Integer bizType;
+
+    private Long imageId;
 
     private byte[] image;
 
@@ -103,6 +104,14 @@ public class User {
 
     public void setBizType(Integer bizType) {
         this.bizType = bizType;
+    }
+
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
     }
 
     public byte[] getImage() {

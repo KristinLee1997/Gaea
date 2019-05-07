@@ -5,15 +5,16 @@ import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import java.nio.ByteBuffer;
 
 public class UserRegisterVo {
-    public String account;
-    public String phoneNumber;
-    public String email;
-    public String password;
-    public String wechat;
-    public String qq;
-    public int bizType;
-    public ByteBuffer image;
-    public String nickname;
+    private String account;
+    private String phoneNumber;
+    private String email;
+    private String password;
+    private String wechat;
+    private String qq;
+    private int bizType;
+    private ByteBuffer image;
+    private Long imageId;
+    private String nickname;
 
     public String getAccount() {
         return account;
@@ -71,6 +72,14 @@ public class UserRegisterVo {
         this.bizType = bizType;
     }
 
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
+    }
+
     public ByteBuffer getImage() {
         return image;
     }
@@ -97,20 +106,22 @@ public class UserRegisterVo {
         userRegisterDTO.setQq(userRegisterVo.getQq());
         userRegisterDTO.setBizType(userRegisterVo.getBizType());
         userRegisterDTO.setImage(userRegisterVo.getImage());
+        userRegisterDTO.setImageId(userRegisterVo.getImageId());
         userRegisterDTO.setNickname(userRegisterVo.getNickname());
         return userRegisterDTO;
     }
 
     public static final class UserRegisterVoBuilder {
-        public String account;
-        public String phoneNumber;
-        public String email;
-        public String password;
-        public String wechat;
-        public String qq;
-        public int bizType;
-        public ByteBuffer image;
-        public String nickname;
+        private String account;
+        private String phoneNumber;
+        private String email;
+        private String password;
+        private String wechat;
+        private String qq;
+        private int bizType;
+        private ByteBuffer image;
+        private Long imageId;
+        private String nickname;
 
         private UserRegisterVoBuilder() {
         }
@@ -159,6 +170,11 @@ public class UserRegisterVo {
             return this;
         }
 
+        public UserRegisterVoBuilder imageId(Long imageId) {
+            this.imageId = imageId;
+            return this;
+        }
+
         public UserRegisterVoBuilder nickname(String nickname) {
             this.nickname = nickname;
             return this;
@@ -174,17 +190,19 @@ public class UserRegisterVo {
             userRegisterVo.setQq(qq);
             userRegisterVo.setBizType(bizType);
             userRegisterVo.setImage(image);
+            userRegisterVo.setImageId(imageId);
             userRegisterVo.setNickname(nickname);
             return userRegisterVo;
         }
     }
 
     public static final class AccountBuilder {
-        public String account;
-        public String password;
-        public int bizType;
-        public ByteBuffer image;
-        public String nickname;
+        private String account;
+        private String password;
+        private int bizType;
+        private ByteBuffer image;
+        private Long imageId;
+        private String nickname;
 
         private AccountBuilder() {
         }
@@ -213,6 +231,11 @@ public class UserRegisterVo {
             return this;
         }
 
+        public AccountBuilder imageId(Long imageId) {
+            this.imageId = imageId;
+            return this;
+        }
+
         public AccountBuilder nickname(String nickname) {
             this.nickname = nickname;
             return this;
@@ -224,17 +247,19 @@ public class UserRegisterVo {
             userRegisterVo.setPassword(password);
             userRegisterVo.setBizType(bizType);
             userRegisterVo.setImage(image);
+            userRegisterVo.setImageId(imageId);
             userRegisterVo.setNickname(nickname);
             return userRegisterVo;
         }
     }
 
     public static final class PhoneNumberBuilder {
-        public String phoneNumber;
-        public String password;
-        public int bizType;
-        public ByteBuffer image;
-        public String nickname;
+        private String phoneNumber;
+        private String password;
+        private int bizType;
+        private ByteBuffer image;
+        private Long imageId;
+        private String nickname;
 
         private PhoneNumberBuilder() {
         }
@@ -263,6 +288,11 @@ public class UserRegisterVo {
             return this;
         }
 
+        public PhoneNumberBuilder imageId(Long imageId) {
+            this.imageId = imageId;
+            return this;
+        }
+
         public PhoneNumberBuilder nickname(String nickname) {
             this.nickname = nickname;
             return this;
@@ -274,17 +304,19 @@ public class UserRegisterVo {
             userRegisterVo.setPassword(password);
             userRegisterVo.setBizType(bizType);
             userRegisterVo.setImage(image);
+            userRegisterVo.setImageId(imageId);
             userRegisterVo.setNickname(nickname);
             return userRegisterVo;
         }
     }
 
     public static final class EmailBuilder {
-        public String email;
-        public String password;
-        public int bizType;
-        public ByteBuffer image;
-        public String nickname;
+        private String email;
+        private String password;
+        private int bizType;
+        private ByteBuffer image;
+        private Long imageId;
+        private String nickname;
 
         private EmailBuilder() {
         }
@@ -313,6 +345,11 @@ public class UserRegisterVo {
             return this;
         }
 
+        public EmailBuilder imageId(Long imageId) {
+            this.imageId = imageId;
+            return this;
+        }
+
         public EmailBuilder nickname(String nickname) {
             this.nickname = nickname;
             return this;
@@ -324,16 +361,18 @@ public class UserRegisterVo {
             userRegisterVo.setPassword(password);
             userRegisterVo.setBizType(bizType);
             userRegisterVo.setImage(image);
+            userRegisterVo.setImageId(imageId);
             userRegisterVo.setNickname(nickname);
             return userRegisterVo;
         }
     }
 
     public static final class WechatBuilder {
-        public String wechat;
-        public int bizType;
-        public ByteBuffer image;
-        public String nickname;
+        private String wechat;
+        private int bizType;
+        private ByteBuffer image;
+        private Long imageId;
+        private String nickname;
 
         private WechatBuilder() {
         }
@@ -357,6 +396,11 @@ public class UserRegisterVo {
             return this;
         }
 
+        public WechatBuilder imageId(Long imageId) {
+            this.imageId = imageId;
+            return this;
+        }
+
         public WechatBuilder nickname(String nickname) {
             this.nickname = nickname;
             return this;
@@ -367,16 +411,18 @@ public class UserRegisterVo {
             userRegisterVo.setWechat(wechat);
             userRegisterVo.setBizType(bizType);
             userRegisterVo.setImage(image);
+            userRegisterVo.setImageId(imageId);
             userRegisterVo.setNickname(nickname);
             return userRegisterVo;
         }
     }
 
     public static final class QQBuilder {
-        public String qq;
-        public int bizType;
-        public ByteBuffer image;
-        public String nickname;
+        private String qq;
+        private int bizType;
+        private ByteBuffer image;
+        private Long imageId;
+        private String nickname;
 
         private QQBuilder() {
         }
@@ -400,6 +446,11 @@ public class UserRegisterVo {
             return this;
         }
 
+        public QQBuilder imageId(Long imageId) {
+            this.imageId = imageId;
+            return this;
+        }
+
         public QQBuilder nickname(String nickname) {
             this.nickname = nickname;
             return this;
@@ -410,6 +461,7 @@ public class UserRegisterVo {
             userRegisterVo.setQq(qq);
             userRegisterVo.setBizType(bizType);
             userRegisterVo.setImage(image);
+            userRegisterVo.setImageId(imageId);
             userRegisterVo.setNickname(nickname);
             return userRegisterVo;
         }

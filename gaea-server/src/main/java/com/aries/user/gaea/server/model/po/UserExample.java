@@ -725,63 +725,63 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeIsNull() {
-            addCriterion("biz_type is null");
+        public Criteria andImageIdIsNull() {
+            addCriterion("image_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeIsNotNull() {
-            addCriterion("biz_type is not null");
+        public Criteria andImageIdIsNotNull() {
+            addCriterion("image_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeEqualTo(Integer value) {
-            addCriterion("biz_type =", value, "bizType");
+        public Criteria andImageIdEqualTo(Long value) {
+            addCriterion("image_id =", value, "imageId");
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeNotEqualTo(Integer value) {
-            addCriterion("biz_type <>", value, "bizType");
+        public Criteria andImageIdNotEqualTo(Long value) {
+            addCriterion("image_id <>", value, "imageId");
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeGreaterThan(Integer value) {
-            addCriterion("biz_type >", value, "bizType");
+        public Criteria andImageIdGreaterThan(Long value) {
+            addCriterion("image_id >", value, "imageId");
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("biz_type >=", value, "bizType");
+        public Criteria andImageIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("image_id >=", value, "imageId");
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeLessThan(Integer value) {
-            addCriterion("biz_type <", value, "bizType");
+        public Criteria andImageIdLessThan(Long value) {
+            addCriterion("image_id <", value, "imageId");
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("biz_type <=", value, "bizType");
+        public Criteria andImageIdLessThanOrEqualTo(Long value) {
+            addCriterion("image_id <=", value, "imageId");
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeIn(List<Integer> values) {
-            addCriterion("biz_type in", values, "bizType");
+        public Criteria andImageIdIn(List<Long> values) {
+            addCriterion("image_id in", values, "imageId");
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeNotIn(List<Integer> values) {
-            addCriterion("biz_type not in", values, "bizType");
+        public Criteria andImageIdNotIn(List<Long> values) {
+            addCriterion("image_id not in", values, "imageId");
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeBetween(Integer value1, Integer value2) {
-            addCriterion("biz_type between", value1, value2, "bizType");
+        public Criteria andImageIdBetween(Long value1, Long value2) {
+            addCriterion("image_id between", value1, value2, "imageId");
             return (Criteria) this;
         }
 
-        public Criteria andBizTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("biz_type not between", value1, value2, "bizType");
+        public Criteria andImageIdNotBetween(Long value1, Long value2) {
+            addCriterion("image_id not between", value1, value2, "imageId");
             return (Criteria) this;
         }
 
@@ -842,6 +842,66 @@ public class UserExample {
 
         public Criteria andAddTimeNotBetween(Date value1, Date value2) {
             addCriterion("add_time not between", value1, value2, "addTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeIsNull() {
+            addCriterion("biz_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeIsNotNull() {
+            addCriterion("biz_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeEqualTo(Integer value) {
+            addCriterion("biz_type =", value, "bizType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeNotEqualTo(Integer value) {
+            addCriterion("biz_type <>", value, "bizType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeGreaterThan(Integer value) {
+            addCriterion("biz_type >", value, "bizType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("biz_type >=", value, "bizType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeLessThan(Integer value) {
+            addCriterion("biz_type <", value, "bizType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("biz_type <=", value, "bizType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeIn(List<Integer> values) {
+            addCriterion("biz_type in", values, "bizType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeNotIn(List<Integer> values) {
+            addCriterion("biz_type not in", values, "bizType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeBetween(Integer value1, Integer value2) {
+            addCriterion("biz_type between", value1, value2, "bizType");
+            return (Criteria) this;
+        }
+
+        public Criteria andBizTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("biz_type not between", value1, value2, "bizType");
             return (Criteria) this;
         }
     }

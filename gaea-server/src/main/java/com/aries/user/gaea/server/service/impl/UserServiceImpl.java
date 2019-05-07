@@ -63,17 +63,18 @@ public class UserServiceImpl implements UserService {
         }
         user.setBizType(userRegisterDTO.getBizType());
         user.setNickname(userRegisterDTO.getNickname() == null ? "用户_" + UUIDUtils.getUUID() : userRegisterDTO.getNickname());
-        if (userRegisterDTO.getImage() == null || userRegisterDTO.getImage().length <= 0) {
-            try {
-                byte[] imageByte = getDefaultImage();
-                user.setImage(imageByte);
-            } catch (IOException e) {
-                log.error("用户注册时获取默认图片失败");
-                return 0L;
-            }
-        } else {
-            user.setImage(userRegisterDTO.getImage());
-        }
+        user.setImageId(userRegisterDTO.getImageId());
+//        if (userRegisterDTO.getImage() == null || userRegisterDTO.getImage().length <= 0) {
+//            try {
+//                byte[] imageByte = getDefaultImage();
+//                user.setImage(imageByte);
+//            } catch (IOException e) {
+//                log.error("用户注册时获取默认图片失败");
+//                return 0L;
+//            }
+//        } else {
+//            user.setImage(userRegisterDTO.getImage());
+//        }
         return UserDao.register(database, user);
     }
 
@@ -136,6 +137,7 @@ public class UserServiceImpl implements UserService {
         userInfo.setQq(user.getQq());
         userInfo.setBizType(user.getBizType());
         userInfo.setImage(user.getImage());
+        userInfo.setImageId(user.getImageId());
         userInfo.setAddTime(DateUtils.converDate2String(user.getAddTime()));
         return userInfo;
     }
