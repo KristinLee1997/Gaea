@@ -2,6 +2,7 @@ package com.aries.user.gaea.server.thrift;
 
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.ThriftResponse;
+import com.aries.user.gaea.contact.model.UserInfoResponse;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
 import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import com.aries.user.gaea.server.constants.SysConstants;
@@ -9,7 +10,8 @@ import com.aries.user.gaea.server.service.impl.UserServiceImpl;
 import org.apache.thrift.TException;
 import org.junit.Test;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserBaseServiceTest {
     private static UserServiceImpl userService = new UserServiceImpl();
@@ -139,6 +141,21 @@ public class UserBaseServiceTest {
             setPassword("123123");
         }};
         ThriftResponse response = new UserBaseServiceImpl().getUserInfoById(companyDTO, 6L);
+        System.out.println(response.getCode());
+        System.out.println(response.getMessage());
+        System.out.println(response.getData());
+    }
+
+    @Test
+    public void getUserInfoByIdListTest() throws TException {
+        CompanyDTO companyDTO = new CompanyDTO() {{
+            setName("aries");
+            setPassword("123123");
+        }};
+        List<Long> list = new ArrayList<>();
+        list.add(5L);
+        list.add(6L);
+        UserInfoResponse response = new UserBaseServiceImpl().getUserInfoByIdList(companyDTO, list);
         System.out.println(response.getCode());
         System.out.println(response.getMessage());
         System.out.println(response.getData());

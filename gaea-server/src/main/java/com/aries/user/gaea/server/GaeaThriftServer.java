@@ -1,5 +1,6 @@
 package com.aries.user.gaea.server;
 
+import com.aries.hera.client.thrift.DiscoverClient;
 import com.aries.hera.client.thrift.ThriftHelper;
 import com.aries.hera.contract.thrift.dto.ServiceInfo;
 import com.aries.hera.contract.thrift.service.DiscoverService;
@@ -55,9 +56,7 @@ public class GaeaThriftServer {
             // 注册服务
             PropertiesProxy heraProperties = new PropertiesProxy("hera-reg-service.properties");
             String apphost = heraProperties.readProperty("apphost");
-            ServiceInfo serviceInfo = new ServiceInfo("Gaea", apphost, port);
-            ThriftHelper.call("Hera", DiscoverService.Client.class, discoverClient -> discoverClient.registe(serviceInfo));
-
+            DiscoverClient.registe(new ServiceInfo("Gaea", apphost, port));
         } catch (Exception x) {
             log.error("创建服务失败,error:{}", x.getMessage(), x);
         }
