@@ -3,6 +3,7 @@ package com.aries.user.gaea.client.model;
 import com.aries.user.gaea.contact.model.UserRegisterDTO;
 
 import java.nio.ByteBuffer;
+import java.util.Optional;
 
 public class UserRegisterVo {
     private String account;
@@ -106,7 +107,7 @@ public class UserRegisterVo {
         userRegisterDTO.setQq(userRegisterVo.getQq());
         userRegisterDTO.setBizType(userRegisterVo.getBizType());
         userRegisterDTO.setImage(userRegisterVo.getImage());
-        userRegisterDTO.setImageId(userRegisterVo.getImageId());
+        userRegisterDTO.setImageId(Optional.ofNullable(userRegisterVo.getImageId()).orElse(-1L));
         userRegisterDTO.setNickname(userRegisterVo.getNickname());
         return userRegisterDTO;
     }
