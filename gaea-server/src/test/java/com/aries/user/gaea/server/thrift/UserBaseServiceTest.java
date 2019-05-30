@@ -1,10 +1,6 @@
 package com.aries.user.gaea.server.thrift;
 
-import com.aries.user.gaea.contact.model.CompanyDTO;
-import com.aries.user.gaea.contact.model.ThriftResponse;
-import com.aries.user.gaea.contact.model.UserInfoResponse;
-import com.aries.user.gaea.contact.model.UserLoginDTO;
-import com.aries.user.gaea.contact.model.UserRegisterDTO;
+import com.aries.user.gaea.contact.model.*;
 import com.aries.user.gaea.server.constants.SysConstants;
 import com.aries.user.gaea.server.service.impl.UserServiceImpl;
 import org.apache.thrift.TException;

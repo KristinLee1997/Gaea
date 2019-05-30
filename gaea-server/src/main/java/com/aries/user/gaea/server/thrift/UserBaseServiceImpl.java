@@ -1,12 +1,7 @@
 package com.aries.user.gaea.server.thrift;
 
 import com.alibaba.fastjson.JSON;
-import com.aries.user.gaea.contact.model.CompanyDTO;
-import com.aries.user.gaea.contact.model.ThriftResponse;
-import com.aries.user.gaea.contact.model.UserInfo;
-import com.aries.user.gaea.contact.model.UserInfoResponse;
-import com.aries.user.gaea.contact.model.UserLoginDTO;
-import com.aries.user.gaea.contact.model.UserRegisterDTO;
+import com.aries.user.gaea.contact.model.*;
 import com.aries.user.gaea.contact.service.UserBaseService;
 import com.aries.user.gaea.server.model.po.User;
 import com.aries.user.gaea.server.service.UserService;
@@ -18,10 +13,7 @@ import org.apache.thrift.TException;
 import java.util.List;
 import java.util.Map;
 
-import static com.aries.user.gaea.server.constants.GaeaResponseEnum.DATABASE_ERROR;
-import static com.aries.user.gaea.server.constants.GaeaResponseEnum.PARAM_ILLEGAL;
-import static com.aries.user.gaea.server.constants.GaeaResponseEnum.SUCCESS;
-import static com.aries.user.gaea.server.constants.GaeaResponseEnum.SYSTEM_ERROR;
+import static com.aries.user.gaea.server.constants.GaeaResponseEnum.*;
 
 @Slf4j
 public class UserBaseServiceImpl implements UserBaseService.Iface {

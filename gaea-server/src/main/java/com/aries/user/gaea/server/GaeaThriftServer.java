@@ -1,9 +1,7 @@
 package com.aries.user.gaea.server;
 
 import com.aries.hera.client.thrift.DiscoverClient;
-import com.aries.hera.client.thrift.ThriftHelper;
 import com.aries.hera.contract.thrift.dto.ServiceInfo;
-import com.aries.hera.contract.thrift.service.DiscoverService;
 import com.aries.hera.core.utils.PropertiesProxy;
 import com.aries.user.gaea.contact.service.CompanyBaseService;
 import com.aries.user.gaea.contact.service.UserBaseService;
@@ -55,7 +53,7 @@ public class GaeaThriftServer {
 
             // 注册服务
             PropertiesProxy heraProperties = new PropertiesProxy("/opt/config/local.properties");
-            String apphost = heraProperties.readProperty("apphost");
+            String apphost = heraProperties.readProperty("host");
             DiscoverClient.registe(new ServiceInfo("Gaea", apphost, port));
         } catch (Exception x) {
             log.error("创建服务失败,error:{}", x.getMessage(), x);
