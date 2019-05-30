@@ -54,7 +54,7 @@ public class GaeaThriftServer {
             }, "thrift-service-starter-thread").start();
 
             // 注册服务
-            PropertiesProxy heraProperties = new PropertiesProxy("hera-reg-service.properties");
+            PropertiesProxy heraProperties = new PropertiesProxy("/opt/config/local.properties");
             String apphost = heraProperties.readProperty("apphost");
             DiscoverClient.registe(new ServiceInfo("Gaea", apphost, port));
         } catch (Exception x) {
