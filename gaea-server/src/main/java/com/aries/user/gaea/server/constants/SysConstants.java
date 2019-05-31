@@ -10,7 +10,7 @@ public class SysConstants {
     public static final String DEFAULT_USER_PROFILE_PHOTO_PATH = "/home/user01/kristin/pictures/default_user_profile_photo.jpeg";
 
     // 正则匹配
-    public static final String ACCOUNT_REGEX = "^[A-Za-z][A-Za-z1-9_-]+$";
+    public static final String ACCOUNT_REGEX = "^[A-Za-z][A-Za-z0-9_-]+$";
     public static final String PHONENUMBER_REGEX = "^[1-9]\\d{4,11}$";
     public static final String EMAIL_REGEX = "^[a-zA-Z_]{1,}[0-9]{0,}@(([a-zA-z0-9]-*){1,}\\.){1,3}[a-zA-z\\-]{1,}$ ";
 
