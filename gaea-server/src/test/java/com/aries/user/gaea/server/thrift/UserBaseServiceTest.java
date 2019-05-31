@@ -1,6 +1,10 @@
 package com.aries.user.gaea.server.thrift;
 
-import com.aries.user.gaea.contact.model.*;
+import com.aries.user.gaea.contact.model.CompanyDTO;
+import com.aries.user.gaea.contact.model.ThriftResponse;
+import com.aries.user.gaea.contact.model.UserInfoResponse;
+import com.aries.user.gaea.contact.model.UserLoginDTO;
+import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import com.aries.user.gaea.server.constants.SysConstants;
 import com.aries.user.gaea.server.service.impl.UserServiceImpl;
 import org.apache.thrift.TException;
@@ -41,10 +45,8 @@ public class UserBaseServiceTest {
             setPassword("123123");
         }};
         UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
-        userRegisterDTO.setAccount("coca");
-        userRegisterDTO.setPassword("111111");
-        userRegisterDTO.setPhoneNumber("1831010101");
-        userRegisterDTO.setEmail("18312342334@163.com");
+        userRegisterDTO.setAccount("test");
+        userRegisterDTO.setPassword("123123");
         userRegisterDTO.setImageId(1L);
 //        try {
 //            userRegisterDTO.setImage(userService.getDefaultImage());
@@ -89,11 +91,11 @@ public class UserBaseServiceTest {
             setPassword("123123");
         }};
         UserLoginDTO userLoginDTO = new UserLoginDTO();
-        userLoginDTO.setLoginId("peiqi");
-        userLoginDTO.setPassword("12341234");
+        userLoginDTO.setLoginId("test");
+        userLoginDTO.setPassword("123123");
         userLoginDTO.setLoginType(SysConstants.LOGINID_LOGIN_TYPE);
         ThriftResponse response = new UserBaseServiceImpl().userLogin(companyDTO, userLoginDTO);
-        System.out.println(response.getCode());
+        System.out.println(response);
     }
 
     /**
@@ -155,5 +157,15 @@ public class UserBaseServiceTest {
         System.out.println(response.getCode());
         System.out.println(response.getMessage());
         System.out.println(response.getData());
+    }
+
+    @Test
+    public void getUserInfoByCookieTest() throws TException {
+        CompanyDTO companyDTO = new CompanyDTO() {{
+            setName("aries");
+            setPassword("123123");
+        }};
+        ThriftResponse response = new UserBaseServiceImpl().getUserInfoByCookie(companyDTO, "e050acbf-95ee-4fea-b80a-1f7b637cba50");
+        System.out.println(response);
     }
 }

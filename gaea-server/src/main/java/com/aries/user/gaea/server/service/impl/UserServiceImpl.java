@@ -9,6 +9,7 @@ import com.aries.user.gaea.server.dao.UserDao;
 import com.aries.user.gaea.server.model.po.LoginCookie;
 import com.aries.user.gaea.server.model.po.User;
 import com.aries.user.gaea.server.model.po.UserExample;
+import com.aries.user.gaea.server.model.vo.UserVo;
 import com.aries.user.gaea.server.service.UserService;
 import com.aries.user.gaea.server.utils.UUIDUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(String database, String loginId, String password, int loginType) {
+    public UserVo login(String database, String loginId, String password, int loginType) {
         User user = null;
         switch (loginType) {
             case SysConstants.WECHAT_LOGIN_TYPE: {
@@ -99,10 +100,30 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return null;
         }
-        LoginCookieDao.insertCookie(database, loginId, getTypeByLoginId(database, loginId, loginType));
-        return user;
+        LoginCookie loginCookie = LoginCookieDao.getLoginInfoByLoginId(database, loginId);
+        if (loginCookie == null) {
+            loginCookie = LoginCookieDao.insertCookie(database, loginId, getTypeByLoginId(database, loginId, loginType));
+        }
+        return convertUser2UserVO(user, loginCookie);
     }
 
+    private UserVo convertUser2UserVO(User user, LoginCookie loginCookie) {
+        return UserVo.UserVoBuilder.anUserVo()
+                .nickname(user.getNickname())
+                .account(user.getAccount())
+                .phoneNumber(user.getPhoneNumber())
+                .email(user.getEmail())
+                .wechat(user.getWechat())
+                .qq(user.getQq())
+                .imageId(user.getImageId())
+                .bizType(user.getBizType())
+                .addTime(user.getAddTime())
+                .loginId(loginCookie.getLoginId())
+                .cookie(loginCookie.getCookie())
+                .loginType(loginCookie.getLoginType())
+                .loginTime(loginCookie.getAddTime())
+                .build();
+    }
 
     @Override
     public int logout(String database, String loginId) {
@@ -112,6 +133,42 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserInfoById(String database, Long id) {
         return UserDao.getUserInfoById(database, id);
+    }
+
+    @Override
+    public UserVo getUserInfoByCookie(String database, String cookie) {
+        LoginCookie loginCookie = UserDao.getLoginInfoByCookie(database, cookie);
+        if (loginCookie == null) {
+            log.warn("不存在cookie:{}的用户", cookie);
+            return null;
+        }
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        int loginType = getTypeByLoginId(database, loginCookie.getLoginId(), loginCookie.getLoginType());
+        switch (loginType) {
+            case SysConstants.ACCOUNT_LOGIN_TYPE: {
+                criteria.andAccountEqualTo(loginCookie.getLoginId());
+                break;
+            }
+            case SysConstants.PHONENUMBER_LOGIN_TYPE: {
+                criteria.andPhoneNumberEqualTo(loginCookie.getLoginId());
+                break;
+            }
+            case SysConstants.EMAIL_LOGIN_TYPE: {
+                criteria.andEmailEqualTo(loginCookie.getLoginId());
+                break;
+            }
+            case SysConstants.WECHAT_LOGIN_TYPE: {
+                criteria.andWechatEqualTo(loginCookie.getLoginId());
+                break;
+            }
+            case SysConstants.QQ_LOGIN_TYPE: {
+                criteria.andQqEqualTo(loginCookie.getLoginId());
+                break;
+            }
+        }
+        User user = UserDao.getUserInfoByLoginId(database, userExample);
+        return convertUser2UserVO(user, loginCookie);
     }
 
     @Override

@@ -1,9 +1,15 @@
 package com.aries.user.gaea.server.thrift;
 
 import com.alibaba.fastjson.JSON;
-import com.aries.user.gaea.contact.model.*;
+import com.aries.user.gaea.contact.model.CompanyDTO;
+import com.aries.user.gaea.contact.model.ThriftResponse;
+import com.aries.user.gaea.contact.model.UserInfo;
+import com.aries.user.gaea.contact.model.UserInfoResponse;
+import com.aries.user.gaea.contact.model.UserLoginDTO;
+import com.aries.user.gaea.contact.model.UserRegisterDTO;
 import com.aries.user.gaea.contact.service.UserBaseService;
 import com.aries.user.gaea.server.model.po.User;
+import com.aries.user.gaea.server.model.vo.UserVo;
 import com.aries.user.gaea.server.service.UserService;
 import com.aries.user.gaea.server.service.impl.UserServiceImpl;
 import com.aries.user.gaea.server.utils.CompanyHelper;
@@ -13,7 +19,11 @@ import org.apache.thrift.TException;
 import java.util.List;
 import java.util.Map;
 
-import static com.aries.user.gaea.server.constants.GaeaResponseEnum.*;
+import static com.aries.user.gaea.server.constants.GaeaResponseEnum.DATABASE_ERROR;
+import static com.aries.user.gaea.server.constants.GaeaResponseEnum.DATA_NULL;
+import static com.aries.user.gaea.server.constants.GaeaResponseEnum.PARAM_ILLEGAL;
+import static com.aries.user.gaea.server.constants.GaeaResponseEnum.SUCCESS;
+import static com.aries.user.gaea.server.constants.GaeaResponseEnum.SYSTEM_ERROR;
 
 @Slf4j
 public class UserBaseServiceImpl implements UserBaseService.Iface {
@@ -54,15 +64,15 @@ public class UserBaseServiceImpl implements UserBaseService.Iface {
             log.error("调用用户登录接口无权限，公司信息{}", JSON.toJSONString(companyDTO));
             return companyHelper.getResponse();
         }
-        User user = userService.login(companyHelper.getDatabaseName(), userLoginDTO.getLoginId(),
+        UserVo userVo = userService.login(companyHelper.getDatabaseName(), userLoginDTO.getLoginId(),
                 userLoginDTO.getPassword(), userLoginDTO.getLoginType());
-        if (user == null) {
+        if (userVo == null) {
             log.warn("用户登录时数据异常，参数{}", JSON.toJSONString(userLoginDTO));
             return DATABASE_ERROR.of();
         }
         response.setCode(SUCCESS.of().getCode());
         response.setMessage(SUCCESS.of().getMessage());
-        response.setData(JSON.toJSONString(user));
+        response.setData(JSON.toJSONString(userVo));
         log.info("用户登录成功！，参数{}", JSON.toJSONString(userLoginDTO));
         return response;
     }
@@ -119,12 +129,32 @@ public class UserBaseServiceImpl implements UserBaseService.Iface {
         User user = userService.getUserInfoById(companyHelper.getDatabaseName(), Long.valueOf(id));
         if (user == null) {
             log.warn("查询id:{}的用户信息失败", id);
-            return SYSTEM_ERROR.of();
+            return DATA_NULL.of();
         }
         response.setCode(SUCCESS.of().getCode());
         response.setMessage(SUCCESS.of().getMessage());
         response.setData(JSON.toJSONString(user));
         log.info("id：{}查询用户信息成功！", id);
+        return response;
+    }
+
+    @Override
+    public ThriftResponse getUserInfoByCookie(CompanyDTO companyDTO, String cookie) throws TException {
+        CompanyHelper companyHelper = new CompanyHelper(companyDTO).check();
+        ThriftResponse response = new ThriftResponse();
+        if (companyHelper.isError()) {
+            log.error("调用方无权限，公司信息{}", JSON.toJSONString(companyDTO));
+            return companyHelper.getResponse();
+        }
+        UserVo user = userService.getUserInfoByCookie(companyHelper.getDatabaseName(), cookie);
+        if (user == null) {
+            log.warn("查询cookie:{}的用户信息失败", cookie);
+            return DATA_NULL.of();
+        }
+        response.setCode(SUCCESS.of().getCode());
+        response.setMessage(SUCCESS.of().getMessage());
+        response.setData(JSON.toJSONString(user));
+        log.info("cookie：{}查询用户信息成功！", cookie);
         return response;
     }
 

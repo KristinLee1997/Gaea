@@ -12,6 +12,7 @@ public enum GaeaResponseEnum {
     OTHERS_SYSTEM_ERROR(3001, "调用其他系统异常"),
     PERMISSION_FAIL(3002, "权限异常"),
     DATABASE_ERROR(3003, "数据库错误"),
+    DATA_NULL(3004, "查询数据不存在"),
     HOPE_RETRY(4001, "希望调用方重试");
 
 

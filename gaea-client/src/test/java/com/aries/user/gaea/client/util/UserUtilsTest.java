@@ -78,10 +78,11 @@ public class UserUtilsTest {
             setPassword("123123");
         }};
         UserLoginDTO userLoginDTO = new UserLoginDTO();
-        userLoginDTO.setLoginId("weixin-kris");
-        userLoginDTO.setLoginType(4);
+        userLoginDTO.setLoginId("test");
+        userLoginDTO.setPassword("123123");
+        userLoginDTO.setLoginType(0);
         GaeaResponse response = UserUtils.login(userLoginDTO);
-        System.out.println(response.getMessage());
+        System.out.println(response.getData());
     }
 
     /**

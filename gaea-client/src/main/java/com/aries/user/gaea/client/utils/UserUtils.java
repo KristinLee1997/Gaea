@@ -8,6 +8,7 @@ import com.aries.user.gaea.client.constants.ClientConstants;
 import com.aries.user.gaea.client.model.GaeaResponse;
 import com.aries.user.gaea.client.model.User;
 import com.aries.user.gaea.client.model.UserRegisterVo;
+import com.aries.user.gaea.client.model.UserVo;
 import com.aries.user.gaea.contact.model.CompanyDTO;
 import com.aries.user.gaea.contact.model.ThriftResponse;
 import com.aries.user.gaea.contact.model.UserInfoResponse;
@@ -66,7 +67,7 @@ public class UserUtils {
         GaeaResponse response = new GaeaResponse();
         response.setCode(userResponse.getCode());
         response.setMessage(userResponse.getMessage());
-        response.setData(JSON.parseObject(userResponse.getData(), User.class));
+        response.setData(JSON.parseObject(userResponse.getData(), UserVo.class));
         log.info("用户:{}登录成功", userResponse.getData());
         return response;
     }
@@ -112,7 +113,7 @@ public class UserUtils {
         try {
             thriftResponse = ThriftHelper.call(ClientConstants.PROJECT_NAME, UserBaseService.Client.class, client -> client.getUserInfoById(companyDTO, id));
         } catch (TTransportException e) {
-            log.error("通过用户id查询用户信息失败");
+            log.error("通过用户id:{}查询用户信息失败", id);
             return SYSTEM_ERROR.of();
         } catch (ServiceNotFoundException e) {
             log.error("Hera系统服务找不到，服务异常！");
@@ -122,6 +123,24 @@ public class UserUtils {
         response.setCode(thriftResponse.getCode());
         response.setMessage(thriftResponse.getMessage());
         response.setData(JSON.parseObject(thriftResponse.getData(), User.class));
+        return response;
+    }
+
+    public static GaeaResponse getUserInfoByCookie(String cookie) {
+        ThriftResponse thriftResponse = null;
+        try {
+            thriftResponse = ThriftHelper.call(ClientConstants.PROJECT_NAME, UserBaseService.Client.class, client -> client.getUserInfoByCookie(companyDTO, cookie));
+        } catch (TTransportException e) {
+            log.error("通过用户cookie:{}查询用户信息失败", cookie);
+            return SYSTEM_ERROR.of();
+        } catch (ServiceNotFoundException e) {
+            log.error("Hera系统服务找不到，服务异常！");
+            return SYSTEM_ERROR.of();
+        }
+        GaeaResponse response = new GaeaResponse();
+        response.setCode(thriftResponse.getCode());
+        response.setMessage(thriftResponse.getMessage());
+        response.setData(JSON.parseObject(thriftResponse.getData(), UserVo.class));
         return response;
     }
 

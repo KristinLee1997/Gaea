@@ -6,6 +6,7 @@ import com.aries.user.gaea.server.mapper.LoginCookieMapper;
 import com.aries.user.gaea.server.model.po.LoginCookie;
 import com.aries.user.gaea.server.model.po.LoginCookieExample;
 import com.aries.user.gaea.server.utils.UUIDUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -13,7 +14,21 @@ import java.util.Date;
 import java.util.List;
 
 public class LoginCookieDao {
-    public static long insertCookie(String companyName, String loginId, int loginType) {
+    public static LoginCookie getLoginInfoByLoginId(String companyName, String loginId) {
+        SqlSessionFactory sqlSessionFactory = MySqlSessionFactory.getSQLSessionFactory(companyName);
+        try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
+            LoginCookieMapper loginCookieMapper = sqlSession.getMapper(LoginCookieMapper.class);
+            LoginCookieExample example = new LoginCookieExample();
+            example.createCriteria().andLoginIdEqualTo(loginId);
+            List<LoginCookie> loginCookieList = loginCookieMapper.selectByExample(example);
+            if (CollectionUtils.isEmpty(loginCookieList)) {
+                return null;
+            }
+            return loginCookieList.get(0);
+        }
+    }
+
+    public static LoginCookie insertCookie(String companyName, String loginId, int loginType) {
         SqlSessionFactory sqlSessionFactory = MySqlSessionFactory.getSQLSessionFactory(companyName);
         try (SqlSession sqlSession = sqlSessionFactory.openSession(true)) {
             LoginCookieMapper loginCookieMapper = sqlSession.getMapper(LoginCookieMapper.class);
@@ -23,7 +38,7 @@ public class LoginCookieDao {
             loginCookie.setAddTime(new Date());
             loginCookie.setCookie(UUIDUtils.getCookie());
             loginCookieMapper.insertSelective(loginCookie);
-            return loginCookie.getId();
+            return loginCookie;
         }
     }
 
