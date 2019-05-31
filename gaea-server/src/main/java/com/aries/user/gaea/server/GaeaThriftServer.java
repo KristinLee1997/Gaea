@@ -23,7 +23,7 @@ public class GaeaThriftServer {
 
             {
                 UserBaseService.Iface userBaseService = new UserBaseServiceImpl();
-                UserBaseService.Processor userBaseProcessor = new UserBaseService.Processor(userBaseService);
+                UserBaseService.Processor userBaseProcessor = new UserBaseService.Processor<>(userBaseService);
                 String simpleName = UserBaseService.class.getSimpleName();
                 tMultiplexedProcessor.registerProcessor(simpleName, userBaseProcessor);
                 log.info("simpleName:{}", simpleName);
@@ -31,7 +31,7 @@ public class GaeaThriftServer {
 
             {
                 CompanyBaseService.Iface companyBaseService = new CompanyBaseServiceImpl();
-                CompanyBaseService.Processor companyBaseProcessor = new CompanyBaseService.Processor(companyBaseService);
+                CompanyBaseService.Processor companyBaseProcessor = new CompanyBaseService.Processor<>(companyBaseService);
                 String simpleName = CompanyBaseService.class.getSimpleName();
                 tMultiplexedProcessor.registerProcessor(simpleName, companyBaseProcessor);
                 log.info("simpleName:{}", simpleName);
