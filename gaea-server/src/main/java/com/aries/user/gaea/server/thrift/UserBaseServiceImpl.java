@@ -2,6 +2,7 @@ package com.aries.user.gaea.server.thrift;
 
 import com.alibaba.fastjson.JSON;
 import com.aries.user.gaea.contact.model.CompanyDTO;
+import com.aries.user.gaea.contact.model.ThriftListResponse;
 import com.aries.user.gaea.contact.model.ThriftResponse;
 import com.aries.user.gaea.contact.model.UserInfo;
 import com.aries.user.gaea.contact.model.UserInfoResponse;
@@ -14,6 +15,7 @@ import com.aries.user.gaea.server.service.UserService;
 import com.aries.user.gaea.server.service.impl.UserServiceImpl;
 import com.aries.user.gaea.server.utils.CompanyHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.thrift.TException;
 
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.Map;
 import static com.aries.user.gaea.server.constants.GaeaResponseEnum.DATABASE_ERROR;
 import static com.aries.user.gaea.server.constants.GaeaResponseEnum.DATA_NULL;
 import static com.aries.user.gaea.server.constants.GaeaResponseEnum.PARAM_ILLEGAL;
+import static com.aries.user.gaea.server.constants.GaeaResponseEnum.PARAM_NULL;
 import static com.aries.user.gaea.server.constants.GaeaResponseEnum.SUCCESS;
 import static com.aries.user.gaea.server.constants.GaeaResponseEnum.SYSTEM_ERROR;
 
@@ -135,6 +138,57 @@ public class UserBaseServiceImpl implements UserBaseService.Iface {
         response.setMessage(SUCCESS.of().getMessage());
         response.setData(JSON.toJSONString(user));
         log.info("id：{}查询用户信息成功！", id);
+        return response;
+    }
+
+    @Override
+    public ThriftListResponse getUserInfoByBizType(CompanyDTO companyDTO, int bizType) throws TException {
+        CompanyHelper companyHelper = new CompanyHelper(companyDTO).check();
+        ThriftListResponse response = new ThriftListResponse();
+        if (companyHelper.isError()) {
+            log.error("调用方无权限，公司信息{}", JSON.toJSONString(companyDTO));
+            ThriftResponse thriftResponse = companyHelper.getResponse();
+            ThriftListResponse thriftListResponse = new ThriftListResponse();
+            thriftListResponse.setCode(thriftResponse.getCode());
+            thriftListResponse.setMessage(thriftResponse.getMessage());
+            return thriftListResponse;
+        }
+        if (bizType < 0) {
+            log.warn("查询bizType:{}的用户信息失败", bizType);
+            return PARAM_NULL.ofResponse();
+        }
+        List<UserInfo> userInfoList = userService.getUserListByBizType(companyHelper.getDatabaseName(), bizType);
+        if (CollectionUtils.isEmpty(userInfoList)) {
+            log.warn("查询bizType:{}的用户信息失败", bizType);
+            return DATA_NULL.ofResponse();
+        }
+        response.setCode(SUCCESS.of().getCode());
+        response.setMessage(SUCCESS.of().getMessage());
+        response.setData(userInfoList);
+        log.info("bizType：{}查询用户信息成功！", bizType);
+        return response;
+    }
+
+    @Override
+    public ThriftResponse updateUserInfoById(CompanyDTO companyDTO, UserInfo userInfo) throws TException {
+        CompanyHelper companyHelper = new CompanyHelper(companyDTO).check();
+        ThriftResponse response = new ThriftResponse();
+        if (companyHelper.isError()) {
+            log.error("调用方无权限，公司信息{}", JSON.toJSONString(companyDTO));
+            return companyHelper.getResponse();
+        }
+        if (userInfo.getId() <= 0) {
+            log.warn("更新id:{}的用户信息失败", userInfo.getId());
+            return PARAM_NULL.of();
+        }
+        int res = userService.updateUserInfoById(companyHelper.getDatabaseName(), userInfo);
+        if (res <= 0) {
+            log.warn("更新id:{}的用户信息失败", userInfo.getId());
+            return DATA_NULL.of();
+        }
+        response.setCode(SUCCESS.of().getCode());
+        response.setMessage(SUCCESS.of().getMessage());
+        log.info("id：{}查询用户信息成功！", userInfo.getId());
         return response;
     }
 

@@ -10,7 +10,9 @@ import com.aries.user.gaea.client.model.User;
 import com.aries.user.gaea.client.model.UserRegisterVo;
 import com.aries.user.gaea.client.model.UserVo;
 import com.aries.user.gaea.contact.model.CompanyDTO;
+import com.aries.user.gaea.contact.model.ThriftListResponse;
 import com.aries.user.gaea.contact.model.ThriftResponse;
+import com.aries.user.gaea.contact.model.UserInfo;
 import com.aries.user.gaea.contact.model.UserInfoResponse;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
 import com.aries.user.gaea.contact.service.UserBaseService;
@@ -123,6 +125,49 @@ public class UserUtils {
         response.setCode(thriftResponse.getCode());
         response.setMessage(thriftResponse.getMessage());
         response.setData(JSON.parseObject(thriftResponse.getData(), User.class));
+        return response;
+    }
+
+    public static GaeaResponse getUserListByBizType(Integer bizType) {
+        ThriftListResponse thriftResponse = null;
+        try {
+            thriftResponse = ThriftHelper.call(ClientConstants.PROJECT_NAME, UserBaseService.Client.class, client -> client.getUserInfoByBizType(companyDTO, bizType));
+        } catch (TTransportException e) {
+            log.error("通过用户bizType:{}查询用户信息失败", bizType);
+            return SYSTEM_ERROR.of();
+        } catch (ServiceNotFoundException e) {
+            log.error("Hera系统服务找不到，服务异常！");
+            return SYSTEM_ERROR.of();
+        }
+        GaeaResponse response = new GaeaResponse();
+        response.setCode(thriftResponse.getCode());
+        response.setMessage(thriftResponse.getMessage());
+        response.setData(thriftResponse.getData());
+        return response;
+    }
+
+    public static GaeaResponse updateUserInfoByBizType(Long id, Integer bizType) {
+        GaeaResponse response = new GaeaResponse();
+        if (id == null || bizType == null || id <= 0 || bizType <= 0) {
+            response.setCode(400);
+            response.setMessage("请求参数不合法");
+            return response;
+        }
+        ThriftResponse thriftResponse = null;
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(id);
+        userInfo.setBizType(bizType);
+        try {
+            thriftResponse = ThriftHelper.call(ClientConstants.PROJECT_NAME, UserBaseService.Client.class, client -> client.updateUserInfoById(companyDTO, userInfo));
+        } catch (TTransportException e) {
+            log.error("通过用户bizType:{}查询用户信息失败", bizType);
+            return SYSTEM_ERROR.of();
+        } catch (ServiceNotFoundException e) {
+            log.error("Hera系统服务找不到，服务异常！");
+            return SYSTEM_ERROR.of();
+        }
+        response.setCode(thriftResponse.getCode());
+        response.setMessage(thriftResponse.getMessage());
         return response;
     }
 

@@ -10,6 +10,11 @@ struct ThriftResponse{
     2:required string message='',
     3:optional string data
 }
+struct ThriftListResponse{
+    1:required i32 code,
+    2:required string message='',
+    3:optional list<UserInfo> data
+}
 
 struct UserInfo{
     1:optional i64 id;

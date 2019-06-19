@@ -101,6 +101,22 @@ public class UserDao {
         }
     }
 
+    public static List<User> getUserInfoListByBizType(String database, Integer bizType) {
+        try (SqlSession sqlSession = MySqlSessionFactory.openSession(database)) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            UserExample example = new UserExample();
+            example.createCriteria().andBizTypeEqualTo(bizType);
+            return mapper.selectByExample(example);
+        }
+    }
+
+    public static int updateUserInfoById(String database, User user) {
+        try (SqlSession sqlSession = MySqlSessionFactory.openSession(database)) {
+            UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+            return mapper.updateByPrimaryKeySelective(user);
+        }
+    }
+
     public static LoginCookie getLoginInfoByCookie(String database, String cookie) {
         try (SqlSession sqlSession = MySqlSessionFactory.openSession(database)) {
             LoginCookieMapper loginCookieMapper = sqlSession.getMapper(LoginCookieMapper.class);

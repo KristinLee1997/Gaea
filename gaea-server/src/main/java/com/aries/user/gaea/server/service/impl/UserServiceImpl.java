@@ -18,6 +18,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -133,6 +134,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserInfoById(String database, Long id) {
         return UserDao.getUserInfoById(database, id);
+    }
+
+    @Override
+    public List<UserInfo> getUserListByBizType(String database, Integer bizType) {
+        List<User> userList = UserDao.getUserInfoListByBizType(database, bizType);
+        List<UserInfo> userInfoList = new ArrayList<>();
+        for (User user : userList) {
+            UserInfo userInfo = convertUser2UesrInfo(user);
+            userInfoList.add(userInfo);
+        }
+        return userInfoList;
+    }
+
+    @Override
+    public int updateUserInfoById(String database, UserInfo userInfo) {
+        User user = new User();
+        user.setId(userInfo.getId());
+        user.setNickname(userInfo.getNickname());
+        user.setBizType(userInfo.getBizType());
+        return UserDao.updateUserInfoById(database, user);
     }
 
     @Override

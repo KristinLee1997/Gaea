@@ -1,6 +1,7 @@
 package com.aries.user.gaea.server.thrift;
 
 import com.aries.user.gaea.contact.model.CompanyDTO;
+import com.aries.user.gaea.contact.model.ThriftListResponse;
 import com.aries.user.gaea.contact.model.ThriftResponse;
 import com.aries.user.gaea.contact.model.UserInfoResponse;
 import com.aries.user.gaea.contact.model.UserLoginDTO;
@@ -167,5 +168,15 @@ public class UserBaseServiceTest {
         }};
         ThriftResponse response = new UserBaseServiceImpl().getUserInfoByCookie(companyDTO, "e050acbf-95ee-4fea-b80a-1f7b637cba50");
         System.out.println(response);
+    }
+
+    @Test
+    public void getUserListbyBiztype() throws TException {
+        CompanyDTO companyDTO = new CompanyDTO() {{
+            setName("aries");
+            setPassword("123123");
+        }};
+        ThriftListResponse response = new UserBaseServiceImpl().getUserInfoByBizType(companyDTO, 0);
+        System.out.println(response.getData());
     }
 }

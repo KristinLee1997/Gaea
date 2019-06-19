@@ -8,6 +8,8 @@ service UserBaseService{
     model.ThriftResponse checkLoginType(1:model.CompanyDTO companyDTO, 2:string loginId);
     model.ThriftResponse checkOnline(1:model.CompanyDTO companyDTO, 2:string loginId);
     model.ThriftResponse getUserInfoById(1:model.CompanyDTO companyDTO, 2:i64 id);
+    model.ThriftListResponse getUserInfoByBizType(1:model.CompanyDTO companyDTO, 2:i32 bizType);
+    model.ThriftResponse updateUserInfoById(1:model.CompanyDTO companyDTO, 2:model.UserInfo userInfo);
     model.ThriftResponse getUserInfoByCookie(1:model.CompanyDTO companyDTO, 2:string cookie);
     model.UserInfoResponse getUserInfoByIdList(1:model.CompanyDTO companyDTO, 2:list<i64> idList);
 }

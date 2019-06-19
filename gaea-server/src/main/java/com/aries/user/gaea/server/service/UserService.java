@@ -17,6 +17,10 @@ public interface UserService {
 
     User getUserInfoById(String database, Long id);
 
+    List<UserInfo> getUserListByBizType(String database, Integer bizType);
+
+    int updateUserInfoById(String database, UserInfo userInfo);
+
     UserVo getUserInfoByCookie(String database, String cookie);
 
     Map<Long, UserInfo> getUserInfoByIdList(String database, List idList);

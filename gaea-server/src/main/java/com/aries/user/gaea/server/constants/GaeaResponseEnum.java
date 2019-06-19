@@ -1,5 +1,6 @@
 package com.aries.user.gaea.server.constants;
 
+import com.aries.user.gaea.contact.model.ThriftListResponse;
 import com.aries.user.gaea.contact.model.ThriftResponse;
 
 public enum GaeaResponseEnum {
@@ -26,5 +27,9 @@ public enum GaeaResponseEnum {
 
     public ThriftResponse of() {
         return new ThriftResponse(code, message);
+    }
+
+    public ThriftListResponse ofResponse() {
+        return new ThriftListResponse(code, message);
     }
 }
