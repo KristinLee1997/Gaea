@@ -110,6 +110,7 @@ public class UserServiceImpl implements UserService {
 
     private UserVo convertUser2UserVO(User user, LoginCookie loginCookie) {
         return UserVo.UserVoBuilder.anUserVo()
+                .id(user.getId())
                 .nickname(user.getNickname())
                 .account(user.getAccount())
                 .phoneNumber(user.getPhoneNumber())
